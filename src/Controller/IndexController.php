@@ -8,9 +8,23 @@
 namespace AcePedigree\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
+use Doctrine\ORM\EntityManager;
 
 class IndexController extends AbstractActionController
 {
+    /**
+     * @var EntityManager
+     */
+    private $entityManager;
+
+    /**
+     * @param EntityManager $entityManager
+     */
+    public function __construct(EntityManager $entityManager)
+    {
+        $this->entityManager = $entityManager;
+    }
+
     public function indexAction()
     {
         return [];

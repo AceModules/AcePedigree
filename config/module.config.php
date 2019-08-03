@@ -2,12 +2,18 @@
 
 namespace AcePedigree;
 
-use Zend\ServiceManager\Factory\InvokableFactory;
+use AceTools\Factory\DoctrineControllerFactory;
+use Doctrine\ORM\Mapping\Driver\AnnotationDriver;
 
 return [
+    'ace_tools' => [
+        'table_prefixes' => [
+            __NAMESPACE__ . '\Entity' => 'pedigree_',
+        ],
+    ],
     'controllers' => [
         'factories' => [
-            Controller\IndexController::class => InvokableFactory::class,
+            Controller\IndexController::class => DoctrineControllerFactory::class,
         ],
     ],
     'router' => [
@@ -33,6 +39,20 @@ return [
     'view_manager' => [
         'template_path_stack' => [
             'AcePedigree' => __DIR__ . '/../view',
+        ],
+    ],
+    'doctrine' => [
+        'driver' => [
+            __NAMESPACE__ . '_driver' => [
+                'class' => AnnotationDriver::class,
+                'cache' => 'array',
+                'paths' => [__DIR__ . '/../src/Entity'],
+            ],
+            'orm_default' => [
+                'drivers' => [
+                    __NAMESPACE__ . '\Entity' => __NAMESPACE__ . '_driver',
+                ],
+            ],
         ],
     ],
 ];

@@ -14,12 +14,6 @@ return [
         ],
     ],
     'controllers' => [
-        'aliases' => [
-            'index'   => Controller\IndexController::class,
-            'dogs'    => Controller\DogController::class,
-            'images'  => Controller\ImageController::class,
-            'persons' => Controller\PersonController::class,
-        ],
         'factories' => [
             Controller\IndexController::class  => DoctrineAwareFactory::class,
             Controller\DogController::class    => DoctrineAwareFactory::class,
@@ -30,16 +24,106 @@ return [
     'router' => [
         'routes' => [
             'ace-pedigree' => [
-                'type'    => Segment::class,
+                'type'    => Literal::class,
                 'options' => [
-                    'route'    => '/pedigree[/:controller[/:action]]',
+                    'route'    => '/pedigree',
                     'defaults' => [
                         'controller'    => Controller\IndexController::class,
                         'action'        => 'index',
                     ],
                 ],
                 'may_terminate' => true,
-                'child_routes' => [],
+                'child_routes' => [
+                    'data' => [
+                        'type'    => Segment::class,
+                        'options' => [
+                            'route'    => '/:action',
+                            'constraints' => [
+                                'action'        => '(recent|statistics|test-mating)',
+                            ],
+                        ],
+                    ],
+                    'dogs' => [
+                        'type'    => Segment::class,
+                        'options' => [
+                            'route'    => '/dogs[/:action]',
+                            'defaults' => [
+                                'controller'    => Controller\DogController::class,
+                                'action'        => 'index',
+                            ],
+                            'constraints' => [
+                                'action'        => '(search|check)',
+                            ],
+                        ],
+                        'may_terminate' => true,
+                        'child_routes' => [
+                            'view' => [
+                                'type'    => Segment::class,
+                                'options' => [
+                                    'route'    => '[/:action]/:id',
+                                    'defaults' => [
+                                        'action'        => 'view',
+                                    ],
+                                    'constraints' => [
+                                        'action'        => 'print',
+                                        'id'            => '[0-9]+',
+                                    ],
+                                ],
+                            ],
+                        ],
+                    ],
+                    'images' => [
+                        'type'    => Segment::class,
+                        'options' => [
+                            'route'    => '/images/:id',
+                            'defaults' => [
+                                'controller'    => Controller\ImageController::class,
+                                'action'        => 'view',
+                            ],
+                            'constraints' => [
+                                'id'            => '[0-9]+',
+                            ],
+                        ],
+                    ],
+                    'upload' => [
+                        'type'    => Literal::class,
+                        'options' => [
+                            'route'    => '/images/upload',
+                            'defaults' => [
+                                'controller'    => Controller\ImageController::class,
+                                'action'        => 'upload',
+                            ],
+                        ],
+                    ],
+                    'persons' => [
+                        'type'    => Segment::class,
+                        'options' => [
+                            'route'    => '/persons[/:action]',
+                            'defaults' => [
+                                'controller'    => Controller\PersonController::class,
+                                'action'        => 'index',
+                            ],
+                            'constraints' => [
+                                'action'        => '(search|check)',
+                            ],
+                        ],
+                        'may_terminate' => true,
+                        'child_routes' => [
+                            'view' => [
+                                'type'    => Segment::class,
+                                'options' => [
+                                    'route'    => '/:id',
+                                    'defaults' => [
+                                        'action'        => 'view',
+                                    ],
+                                    'constraints' => [
+                                        'id'            => '[0-9]+',
+                                    ],
+                                ],
+                            ],
+                        ],
+                    ],
+                ],
             ],
         ],
     ],

@@ -2,7 +2,7 @@
 
 namespace AcePedigree;
 
-use AceTools\Factory\DoctrineControllerFactory;
+use AceTools\Factory\DoctrineAwareFactory;
 use Doctrine\ORM\Mapping\Driver\AnnotationDriver;
 
 return [
@@ -13,7 +13,7 @@ return [
     ],
     'controllers' => [
         'factories' => [
-            Controller\IndexController::class => DoctrineControllerFactory::class,
+            Controller\IndexController::class => DoctrineAwareFactory::class,
         ],
     ],
     'router' => [

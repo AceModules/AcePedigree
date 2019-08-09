@@ -37,4 +37,10 @@ class IndexController extends AbstractActionController
     {
         return [];
     }
+
+    // Test mating pedigree
+    public function testMatingAction()
+    {
+        return [];
+    }
 }

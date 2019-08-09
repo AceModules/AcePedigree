@@ -51,10 +51,4 @@ class DogController extends AbstractActionController
     {
         return [];
     }
-
-    // Test mating pedigree
-    public function testAction()
-    {
-        return [];
-    }
 }

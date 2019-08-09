@@ -3,6 +3,8 @@
 namespace AcePedigree;
 
 use AceTools\Factory\DoctrineAwareFactory;
+use Zend\Router\Http\Literal;
+use Zend\Router\Http\Segment;
 use Doctrine\ORM\Mapping\Driver\AnnotationDriver;
 
 return [
@@ -12,27 +14,32 @@ return [
         ],
     ],
     'controllers' => [
+        'aliases' => [
+            'index'  => Controller\IndexController::class,
+            'dog'    => Controller\DogController::class,
+            'image'  => Controller\ImageController::class,
+            'person' => Controller\PersonController::class,
+        ],
         'factories' => [
-            Controller\IndexController::class => DoctrineAwareFactory::class,
+            Controller\IndexController::class  => DoctrineAwareFactory::class,
+            Controller\DogController::class    => DoctrineAwareFactory::class,
+            Controller\ImageController::class  => DoctrineAwareFactory::class,
+            Controller\PersonController::class => DoctrineAwareFactory::class,
         ],
     ],
     'router' => [
         'routes' => [
             'ace-pedigree' => [
-                'type'    => 'Literal',
+                'type'    => Segment::class,
                 'options' => [
-                    // Change this to something specific to your module
-                    'route'    => '/pedigree',
+                    'route'    => '/pedigree[/:controller[/:action]]',
                     'defaults' => [
                         'controller'    => Controller\IndexController::class,
                         'action'        => 'index',
                     ],
                 ],
                 'may_terminate' => true,
-                'child_routes' => [
-                    // You can place additional routes that match under the
-                    // route defined above here.
-                ],
+                'child_routes' => [],
             ],
         ],
     ],

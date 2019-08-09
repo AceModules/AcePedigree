@@ -5,7 +5,7 @@ namespace AcePedigree\Controller;
 use Zend\Mvc\Controller\AbstractActionController;
 use Doctrine\ORM\EntityManager;
 
-class IndexController extends AbstractActionController
+class PersonController extends AbstractActionController
 {
     /**
      * @var EntityManager
@@ -20,20 +20,22 @@ class IndexController extends AbstractActionController
         $this->entityManager = $entityManager;
     }
 
-    // Landing page
-    public function indexAction()
+    // Browse persons alphabetically
+    public function browseAction()
+    {
+        return [
+            'persons' => $this->entityManager->getRepository('AcePedigree\Entity\Person')->findAll(),
+        ];
+    }
+
+    // Search persons
+    public function searchAction()
     {
         return [];
     }
 
-    // Recent database updates
-    public function recentAction()
-    {
-        return [];
-    }
-
-    // Statistic data about dogs
-    public function statisticsAction()
+    // View person details
+    public function viewAction()
     {
         return [];
     }

@@ -5,7 +5,7 @@ namespace AcePedigree\Controller;
 use Zend\Mvc\Controller\AbstractActionController;
 use Doctrine\ORM\EntityManager;
 
-class IndexController extends AbstractActionController
+class ImageController extends AbstractActionController
 {
     /**
      * @var EntityManager
@@ -20,20 +20,14 @@ class IndexController extends AbstractActionController
         $this->entityManager = $entityManager;
     }
 
-    // Landing page
-    public function indexAction()
+    // Upload an image file
+    public function uploadAction()
     {
         return [];
     }
 
-    // Recent database updates
-    public function recentAction()
-    {
-        return [];
-    }
-
-    // Statistic data about dogs
-    public function statisticsAction()
+    // View an uploaded image file
+    public function viewAction()
     {
         return [];
     }

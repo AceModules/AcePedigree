@@ -15,10 +15,10 @@ return [
     ],
     'controllers' => [
         'aliases' => [
-            'index'  => Controller\IndexController::class,
-            'dog'    => Controller\DogController::class,
-            'image'  => Controller\ImageController::class,
-            'person' => Controller\PersonController::class,
+            'index'   => Controller\IndexController::class,
+            'dogs'    => Controller\DogController::class,
+            'images'  => Controller\ImageController::class,
+            'persons' => Controller\PersonController::class,
         ],
         'factories' => [
             Controller\IndexController::class  => DoctrineAwareFactory::class,

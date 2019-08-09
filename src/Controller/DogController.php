@@ -21,7 +21,7 @@ class DogController extends AbstractActionController
     }
 
     // Browse dogs alphabetically
-    public function browseAction()
+    public function indexAction()
     {
         return [
             'dogs' => $this->entityManager->getRepository('AcePedigree\Entity\Dog')->findAll(),

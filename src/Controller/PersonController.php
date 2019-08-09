@@ -21,7 +21,7 @@ class PersonController extends AbstractActionController
     }
 
     // Browse persons alphabetically
-    public function browseAction()
+    public function indexAction()
     {
         return [
             'persons' => $this->entityManager->getRepository('AcePedigree\Entity\Person')->findAll(),

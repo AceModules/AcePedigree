@@ -34,14 +34,14 @@ class DogController extends AbstractActionController
         return [];
     }
 
-    // View dog details
-    public function viewAction()
+    // Check for partial name match
+    public function checkAction()
     {
         return [];
     }
 
-    // Check for partial name match
-    public function checkAction()
+    // View dog details
+    public function viewAction()
     {
         return [];
     }

@@ -34,6 +34,12 @@ class PersonController extends AbstractActionController
         return [];
     }
 
+    // Check for partial name match
+    public function checkAction()
+    {
+        return [];
+    }
+
     // View person details
     public function viewAction()
     {

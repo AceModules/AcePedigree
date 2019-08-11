@@ -1,3 +1,156 @@
-<strong>Module:</strong>        AcePedigree &raquo;
-<strong>Controller:</strong>    Dog &raquo;
-<strong>Action:</strong>        view
+<?php $this->headTitle($entity); ?>
+<h2 class="page-header"><?= $entity ?></h2>
+
+<div class="container">
+  <div class="row row-no-gutters">
+    <div class="col-sm-4">
+      &lt;!-- Image --!&gt;
+    </div>
+    <div class="col-sm-4">
+        <table class="table table-condensed table-hover">
+            <tbody>
+            <tr>
+                <th>Registered Name</th>
+                <td><?= $entity->getName() ?></td>
+            </tr>
+            <tr>
+                <th>Call Name</th>
+                <td><?= $entity->getCallName() ?></td>
+            </tr>
+            <tr>
+                <th>Breeder(s)</th>
+                <td>
+                <?php foreach ($entity->getBreeders() as $person): ?>
+                    <?= $this->entityLink($person) ?>
+                <?php endforeach; ?>
+                </td>
+            </tr>
+            <tr>
+                <th>Owner(s)</th>
+                <td>
+                <?php foreach ($entity->getOwners() as $person): ?>
+                    <?= $this->entityLink($person) ?>
+                <?php endforeach; ?>
+                </th>
+            </tr>
+            <tr>
+                <th>Kennel</th>
+                <td><?= $entity->getKennel() ?></td>
+            </tr>
+            <tr>
+                <th>Sire</th>
+                <td><?= $this->entityLink($entity->getSire()) ?></td>
+            </tr>
+            <tr>
+                <th>Dam</th>
+                <td><?= $this->entityLink($entity->getDam()) ?></td>
+            </tr>
+            <tr>
+                <th>Sex</th>
+                <td><?= $entity->getSexDisplay() ?></td>
+            </tr>
+            <tr>
+                <th>Date of Birth</th>
+                <td><?= $this->fuzzyDate($entity->getBirthYear(), $entity->getBirthMonth(), $entity->getBirthDay()) ?></td>
+            </tr>
+            <tr>
+                <th>Date of Death</th>
+                <td><?= $this->fuzzyDate($entity->getDeathYear(), $entity->getDeathMonth(), $entity->getDeathDay()) ?></td>
+            </tr>
+            <tr>
+                <th>Land of Birth</th>
+                <td><?= $entity->getBirthCountry() ?></td>
+            </tr>
+            <tr>
+                <th>Land of Standing</th>
+                <td><?= $entity->getHomeCountry() ?></td>
+            </tr>
+            <tr>
+                <th>Height</th>
+                <td><?= $entity->getHeight() ?></td>
+            </tr>
+            <tr>
+                <th>Weight</th>
+                <td><?= $entity->getWeight() ?></td>
+            </tr>
+            <tr>
+                <th>Color</th>
+                <td><?= $entity->getColor() ?></td>
+            </tr>
+            <tr>
+                <th>Features</th>
+                <td><?= $entity->getFeatures() ?></td>
+            </tr>
+            <tr>
+                <th>Titles</th>
+                <td><?= $entity->getTitles() ?></td>
+            </tr>
+
+            <?php if (count($offspring)): ?>
+            <tr>
+                <th>Offspring</th>
+                <td>
+                <?php foreach ($offspring as $dog): ?>
+                    <?= $this->entityLink($dog) ?><br />
+                <?php endforeach; ?>
+                </td>
+            </tr>
+            <?php endif; ?>
+
+            </tbody>
+        </table>
+    </div>
+    <div class="col-sm-4">
+    <table class="table table-condensed table-hover">
+            <tbody>
+            <tr>
+                <th>Registration</th>
+                <td><?= $entity->getRegistration() ?></td>
+            </tr>
+            <tr>
+                <th>OFA</th>
+                <td><?= $this->ofaLink($entity->getOfaNumber()) ?></td>
+            </tr>
+            <tr>
+                <th>Notes</th>
+                <td><?= $entity->getNotes() ?></td>
+            </tr>
+
+            <?php if (count($fullSiblings)): ?>
+            <tr>
+                <th>Full Siblings</th>
+                <td>
+                <?php foreach ($fullSiblings as $dog): ?>
+                    <?= $this->entityLink($dog) ?><br />
+                <?php endforeach; ?>
+                </td>
+            </tr>
+            <?php endif; ?>
+
+            <?php if (count($sireHalfSiblings)): ?>
+            <tr>
+                <th>Half Siblings (Sire)</th>
+                <td>
+                <?php foreach ($sireHalfSiblings as $dog): ?>
+                    <?= $this->entityLink($dog) ?><br />
+                <?php endforeach; ?>
+                </td>
+            </tr>
+            <?php endif; ?>
+
+            <?php if (count($damHalfSiblings)): ?>
+            <tr>
+                <th>Half Siblings (Dam)</th>
+                <td>
+                <?php foreach ($damHalfSiblings as $dog): ?>
+                    <?= $this->entityLink($dog) ?><br />
+                <?php endforeach; ?>
+                </td>
+            </tr>
+            <?php endif; ?>
+
+            </tbody>
+        </table>
+    </div>
+  </div>
+</div>

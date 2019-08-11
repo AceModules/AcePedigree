@@ -2,6 +2,7 @@
 
 namespace AcePedigree\Controller;
 
+use AcePedigree\Entity;
 use AceDatagrid\DatagridManager;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Tools\Pagination\Paginator as ORMPaginator;
@@ -33,7 +34,7 @@ class DogController extends AbstractActionController
     // Browse dogs alphabetically
     public function indexAction()
     {
-        $datagrid = $this->datagridManager->get('AcePedigree\Entity\Dog');
+        $datagrid = $this->datagridManager->get(Entity\Dog::class);
 
         $search = $this->params()->fromQuery('q');
         $page = (int)$this->params()->fromQuery('page', 1);
@@ -46,12 +47,12 @@ class DogController extends AbstractActionController
 
         return [
             'singular' => $datagrid->getSingularName(),
-            'plural' => $datagrid->getPluralName(),
-            'columns' => $datagrid->getHeaderColumns(),
-            'result' => $paginator,
-            'search' => $search,
-            'page' => $page,
-            'sort' => $sort,
+            'plural'   => $datagrid->getPluralName(),
+            'columns'  => $datagrid->getHeaderColumns(),
+            'result'   => $paginator,
+            'search'   => $search,
+            'page'     => $page,
+            'sort'     => $sort,
         ];
     }
 
@@ -70,7 +71,38 @@ class DogController extends AbstractActionController
     // View dog details
     public function viewAction()
     {
-        return [];
+        $repository = $this->entityManager->getRepository(Entity\Dog::class);
+
+        $id = (int)$this->params()->fromRoute('id');
+        $entity = $repository->find($id);
+
+        if (!$entity) {
+            $this->getResponse()->setStatusCode(404);
+            return;
+        }
+
+        $offspring = $repository->findByParent($entity);
+        $siblings = $repository->findBySibling($entity);
+
+        $fullSiblings = array_filter($siblings, function($sibling) use ($entity) {
+            return $sibling->getSire() == $entity->getSire() && $sibling->getDam() == $entity->getDam();
+        });
+
+        $sireHalfSiblings = array_filter($siblings, function($sibling) use ($entity) {
+            return $sibling->getSire() == $entity->getSire() && $sibling->getDam() != $entity->getDam();
+        });
+
+        $damHalfSiblings = array_filter($siblings, function($sibling) use ($entity) {
+            return $sibling->getSire() != $entity->getSire() && $sibling->getDam() == $entity->getDam();
+        });
+
+        return [
+            'entity'           => $entity,
+            'offspring'        => $offspring,
+            'fullSiblings'     => $fullSiblings,
+            'sireHalfSiblings' => $sireHalfSiblings,
+            'damHalfSiblings'  => $damHalfSiblings,
+        ];
     }
 
     // Print friendly pedigree

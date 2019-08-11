@@ -148,10 +148,12 @@ return [
     'view_helpers' => [
         'aliases' => [
             'entityLink' => Helper\EntityLink::class,
+            'ofaLink'    => Helper\OfaLink::class,
             'fuzzyDate'  => Helper\FuzzyDate::class,
         ],
         'factories' => [
             Helper\EntityLink::class => InvokableFactory::class,
+            Helper\OfaLink::class    => InvokableFactory::class,
             Helper\FuzzyDate::class  => InvokableFactory::class,
         ],
     ],

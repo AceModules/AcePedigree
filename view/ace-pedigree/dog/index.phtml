@@ -34,8 +34,10 @@
                 <tr>
                     <?php foreach ($columns as $column): ?>
                         <?php $method = $column['method']; ?>
-                        <?php $value = $entity->$method($this); ?>
-                        <?php if (is_bool($value) && $value): ?>
+                        <?php $value = $entity->$method(); ?>
+                        <?php if (is_object($value)): ?>
+                            <td><?= $this->entityLink($value) ?></td>
+                        <?php elseif (is_bool($value) && $value): ?>
                             <td class="text-center"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></td>
                         <?php else: ?>
                             <td><?= $value ?></td>

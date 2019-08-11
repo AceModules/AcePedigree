@@ -147,11 +147,12 @@ return [
     ],
     'view_helpers' => [
         'aliases' => [
-            'fuzzyDate' => Helper\FuzzyDate::class,
-            'FuzzyDate' => Helper\FuzzyDate::class,
+            'entityLink' => Helper\EntityLink::class,
+            'fuzzyDate'  => Helper\FuzzyDate::class,
         ],
         'factories' => [
-            Helper\FuzzyDate::class => InvokableFactory::class,
+            Helper\EntityLink::class => InvokableFactory::class,
+            Helper\FuzzyDate::class  => InvokableFactory::class,
         ],
     ],
     'doctrine' => [

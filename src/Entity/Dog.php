@@ -2,12 +2,14 @@
 
 namespace AcePedigree\Entity;
 
+use AceDatagrid\Annotation as Grid;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ORM\Entity
  * @ORM\Table(name="dog")
+ * @Grid\Title(singular="Dog", plural="Dogs")
  */
 class Dog
 {
@@ -230,6 +232,14 @@ class Dog
     }
 
     /**
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->getName();
+    }
+
+    /**
      * @return int
      */
     public function getId()
@@ -239,6 +249,7 @@ class Dog
 
     /**
      * @return string
+     * @Grid\Header(label="Name", sort={"name"}, default=true)
      */
     public function getName()
     {
@@ -303,6 +314,7 @@ class Dog
 
     /**
      * @return Dog
+     * @Grid\Header(label="Sire", sort={"sire.name", "name"})
      */
     public function getSire()
     {
@@ -319,6 +331,7 @@ class Dog
 
     /**
      * @return Dog
+     * @Grid\Header(label="Dam", sort={"dam.name", "name"})
      */
     public function getDam()
     {
@@ -339,6 +352,18 @@ class Dog
     public function getSex()
     {
         return $this->sex;
+    }
+
+    /**
+     * @return string
+     * @Grid\Header(label="Sex", sort={"sex", "name"}, reverse=true)
+     */
+    public function getSexDisplay()
+    {
+        if (isset($this->sexLabels[$this->sex])) {
+            return $this->sexLabels[$this->sex];
+        }
+        return 'Unknown';
     }
 
     /**
@@ -441,6 +466,7 @@ class Dog
 
     /**
      * @return int
+     * @Grid\Header(label="Birth Year", sort={"birthYear", "name"})
      */
     public function getBirthYear()
     {

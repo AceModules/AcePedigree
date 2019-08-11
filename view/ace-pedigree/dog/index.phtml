@@ -1,3 +1,52 @@
-<strong>Module:</strong>        AcePedigree &raquo;
-<strong>Controller:</strong>    Dog &raquo;
-<strong>Action:</strong>        index
+<?php $this->headTitle('Browse Dogs'); ?>
+<h2 class="page-header">Browse Dogs</h2>
+
+<?php if ($search): ?>
+    <h5>
+        Search results for
+        <a class="label label-default" href="<?= $this->url(null, [], ['query' => ['page' => $page, 'sort' => $sort]], true); ?>">
+            <?= $search; ?> <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+        </a>
+    </h5>
+<?php endif; ?>
+
+<div class="table-responsive">
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <?php foreach ($columns as $column): ?>
+                <?php if ($column['sortName']): ?>
+                    <th><?= $this->sortControl($sort, $column['sortName'], $column['label'], $column['sortReverse'], ['q' => $search, 'page' => $page]); ?></th>
+                <?php else: ?>
+                    <th><?= $column['label']; ?></th>
+                <?php endif; ?>
+            <?php endforeach; ?>
+        </tr>
+        </thead>
+        <tbody>
+        <?php if (!count($result)): ?>
+            <tr>
+                <td colspan="<?= count($columns); ?>" class="text-center">There are no dogs to display.</td>
+            </tr>
+        <?php else: ?>
+            <?php foreach ($result as $entity): ?>
+                <tr>
+                    <?php foreach ($columns as $column): ?>
+                        <?php $method = $column['method']; ?>
+                        <?php $value = $entity->$method(); ?>
+                        <?php if (is_bool($value) && $value): ?>
+                            <td class="text-center"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></td>
+                        <?php else: ?>
+                            <td><?= $value; ?></td>
+                        <?php endif; ?>
+                    <?php endforeach; ?>
+                </tr>
+            <?php endforeach; ?>
+        <?php endif; ?>
+        </tbody>
+    </table>
+</div>
+
+<?php if (count($result)): ?>
+    <?= $this->paginationControl($result, 'sliding', 'partial/paginator.phtml', ['query' => ['q' => $search, 'page' => $page, 'sort' => $sort]]); ?>
+<?php endif; ?>

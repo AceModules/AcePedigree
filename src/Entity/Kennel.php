@@ -110,5 +110,4 @@ class Kennel
             $this->dogs->removeElement($dog);
         }
     }
-
 }

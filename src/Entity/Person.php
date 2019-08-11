@@ -324,5 +324,4 @@ class Person
             $this->dogsOwned->removeElement($dog);
         }
     }
-
 }

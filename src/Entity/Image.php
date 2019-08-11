@@ -149,5 +149,4 @@ class Image
     {
         $this->size = $size;
     }
-
 }

@@ -57,5 +57,4 @@ class Country
     {
         $this->name = $name;
     }
-
 }

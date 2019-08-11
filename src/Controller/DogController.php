@@ -37,7 +37,7 @@ class DogController extends AbstractActionController
         $datagrid = $this->datagridManager->get(Entity\Dog::class);
 
         $search = $this->params()->fromQuery('q');
-        $page = (int)$this->params()->fromQuery('page', 1);
+        $page = (int) $this->params()->fromQuery('page', 1);
         $sort = $this->params()->fromQuery('sort');
 
         $queryBuilder = $datagrid->createSearchQueryBuilder($search, $sort);
@@ -73,7 +73,7 @@ class DogController extends AbstractActionController
     {
         $repository = $this->entityManager->getRepository(Entity\Dog::class);
 
-        $id = (int)$this->params()->fromRoute('id');
+        $id = (int) $this->params()->fromRoute('id');
         $entity = $repository->find($id);
 
         if (!$entity) {
@@ -84,15 +84,15 @@ class DogController extends AbstractActionController
         $offspring = $repository->findByParent($entity);
         $siblings = $repository->findBySibling($entity);
 
-        $fullSiblings = array_filter($siblings, function($sibling) use ($entity) {
+        $fullSiblings = array_filter($siblings, function ($sibling) use ($entity) {
             return $sibling->getSire() == $entity->getSire() && $sibling->getDam() == $entity->getDam();
         });
 
-        $sireHalfSiblings = array_filter($siblings, function($sibling) use ($entity) {
+        $sireHalfSiblings = array_filter($siblings, function ($sibling) use ($entity) {
             return $sibling->getSire() == $entity->getSire() && $sibling->getDam() != $entity->getDam();
         });
 
-        $damHalfSiblings = array_filter($siblings, function($sibling) use ($entity) {
+        $damHalfSiblings = array_filter($siblings, function ($sibling) use ($entity) {
             return $sibling->getSire() != $entity->getSire() && $sibling->getDam() == $entity->getDam();
         });
 

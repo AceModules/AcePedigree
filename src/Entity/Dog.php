@@ -749,5 +749,4 @@ class Dog
             $this->images->removeElement($image);
         }
     }
-
 }

@@ -100,6 +100,14 @@ class Person
     }
 
     /**
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->getName();
+    }
+
+    /**
      * @return int
      */
     public function getId()
@@ -113,6 +121,14 @@ class Person
     public function getName()
     {
         return $this->name;
+    }
+
+    /**
+     * @return string
+     */
+    public function getNameLink($renderer)
+    {
+        return '<a href="' . $renderer->url('ace-pedigree/persons/view', ['id' => $this->id]) . '">' . $this->name . '</a>';
     }
 
     /**

@@ -6,6 +6,7 @@ use AceTools\Factory\DoctrineAwareFactory;
 use Zend\Router\Http\Literal;
 use Zend\Router\Http\Segment;
 use Doctrine\ORM\Mapping\Driver\AnnotationDriver;
+use Zend\ServiceManager\Factory\InvokableFactory;
 
 return [
     'ace_tools' => [
@@ -142,6 +143,15 @@ return [
     'view_manager' => [
         'template_path_stack' => [
             'AcePedigree' => __DIR__ . '/../view',
+        ],
+    ],
+    'view_helpers' => [
+        'aliases' => [
+            'fuzzyDate' => Helper\FuzzyDate::class,
+            'FuzzyDate' => Helper\FuzzyDate::class,
+        ],
+        'factories' => [
+            Helper\FuzzyDate::class => InvokableFactory::class,
         ],
     ],
     'doctrine' => [

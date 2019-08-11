@@ -44,15 +44,12 @@ return [
                         ],
                     ],
                     'dogs' => [
-                        'type'    => Segment::class,
+                        'type'    => Literal::class,
                         'options' => [
-                            'route'    => '/dogs[/:action]',
+                            'route'    => '/dogs',
                             'defaults' => [
                                 'controller'    => Controller\DogController::class,
                                 'action'        => 'index',
-                            ],
-                            'constraints' => [
-                                'action'        => '(search|check)',
                             ],
                         ],
                         'may_terminate' => true,
@@ -67,6 +64,15 @@ return [
                                     'constraints' => [
                                         'action'        => 'print',
                                         'id'            => '[0-9]+',
+                                    ],
+                                ],
+                            ],
+                            'search' => [
+                                'type'    => Segment::class,
+                                'options' => [
+                                    'route'    => '/:action',
+                                    'constraints' => [
+                                        'action'        => '(search|check)',
                                     ],
                                 ],
                             ],
@@ -96,15 +102,12 @@ return [
                         ],
                     ],
                     'persons' => [
-                        'type'    => Segment::class,
+                        'type'    => Literal::class,
                         'options' => [
-                            'route'    => '/persons[/:action]',
+                            'route'    => '/persons',
                             'defaults' => [
                                 'controller'    => Controller\PersonController::class,
                                 'action'        => 'index',
-                            ],
-                            'constraints' => [
-                                'action'        => '(search|check)',
                             ],
                         ],
                         'may_terminate' => true,
@@ -118,6 +121,15 @@ return [
                                     ],
                                     'constraints' => [
                                         'id'            => '[0-9]+',
+                                    ],
+                                ],
+                            ],
+                            'search' => [
+                                'type'    => Segment::class,
+                                'options' => [
+                                    'route'    => '/:action',
+                                    'constraints' => [
+                                        'action'        => '(search|check)',
                                     ],
                                 ],
                             ],

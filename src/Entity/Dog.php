@@ -249,11 +249,19 @@ class Dog
 
     /**
      * @return string
-     * @Grid\Header(label="Name", sort={"name"}, default=true)
      */
     public function getName()
     {
         return $this->name;
+    }
+
+    /**
+     * @return string
+     * @Grid\Header(label="Name", sort={"name"}, default=true)
+     */
+    public function getNameLink($renderer)
+    {
+        return '<a href="' . $renderer->url('ace-pedigree/dogs/view', ['id' => $this->id]) . '">' . $this->name . '</a>';
     }
 
     /**
@@ -314,11 +322,19 @@ class Dog
 
     /**
      * @return Dog
-     * @Grid\Header(label="Sire", sort={"sire.name", "name"})
      */
     public function getSire()
     {
         return $this->sire;
+    }
+
+    /**
+     * @return Dog
+     * @Grid\Header(label="Sire", sort={"sire.name", "name"})
+     */
+    public function getSireLink($renderer)
+    {
+        return $this->sire ? $this->sire->getNameLink($renderer) : null;
     }
 
     /**
@@ -331,11 +347,19 @@ class Dog
 
     /**
      * @return Dog
-     * @Grid\Header(label="Dam", sort={"dam.name", "name"})
      */
     public function getDam()
     {
         return $this->dam;
+    }
+
+    /**
+     * @return Dog
+     * @Grid\Header(label="Dam", sort={"dam.name", "name"})
+     */
+    public function getDamLink($renderer)
+    {
+        return $this->dam ? $this->dam->getNameLink($renderer) : null;
     }
 
     /**

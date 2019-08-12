@@ -81,8 +81,12 @@ class DogController extends AbstractActionController
             return;
         }
 
+        $maxGen = (int) $this->params()->fromQuery('gens', 3);
+        $maxGen = min(9, max(3, $maxGen));
+
         $offspring = $repository->findByParent($entity);
         $siblings = $repository->findBySibling($entity);
+        $ancestors = $repository->findByDescendant($entity, $maxGen);
 
         $fullSiblings = array_filter($siblings, function ($sibling) use ($entity) {
             return $sibling->getSire() == $entity->getSire() && $sibling->getDam() == $entity->getDam();
@@ -102,6 +106,8 @@ class DogController extends AbstractActionController
             'fullSiblings'     => $fullSiblings,
             'sireHalfSiblings' => $sireHalfSiblings,
             'damHalfSiblings'  => $damHalfSiblings,
+            'ancestors'        => $ancestors,
+            'maxGen'           => $maxGen,
         ];
     }
 

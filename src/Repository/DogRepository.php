@@ -45,4 +45,27 @@ class DogRepository extends EntityRepository
             ->getQuery()
             ->getResult();
     }
+
+    /**
+     * @param Dog $dog
+     * @param int $maxGen
+     * @return array|null
+     */
+    function findByDescendant(Dog $dog, $maxGen = 3)
+    {
+        $queryBuilder = $this->getEntityManager()
+            ->createQueryBuilder()
+            ->select('g0')
+            ->from(Dog::class, 'g0')
+            ->setParameter('dog', $dog);
+
+        for ($g = 0; $g < $maxGen; $g++) {
+            $n = $g + 1;
+            $queryBuilder
+                ->leftJoin(Dog::class, "g{$n}", 'WITH', "g{$g}.id = g{$n}.sire OR g{$g}.id = g{$n}.dam")
+                ->orWhere("g{$n} = :dog");
+        }
+
+        return $queryBuilder->getQuery()->getResult();
+    }
 }

@@ -1,3 +1,4 @@
+<?php $this->headLink()->appendStylesheet('/css/pedigree.css'); ?>
 <?php $this->headTitle($entity); ?>
 <h2 class="page-header"><?= $entity ?></h2>
 
@@ -153,4 +154,9 @@
             </table>
         </div>
     </div>
+</div>
+
+<h3>Pedigree</h3>
+<div class="container">
+    <?= $this->pedigreeTable($entity, $maxGen) ?>
 </div>

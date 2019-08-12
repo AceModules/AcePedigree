@@ -147,14 +147,23 @@ return [
     ],
     'view_helpers' => [
         'aliases' => [
-            'entityLink' => Helper\EntityLink::class,
-            'ofaLink'    => Helper\OfaLink::class,
-            'fuzzyDate'  => Helper\FuzzyDate::class,
+            'entityLink'    => Helper\EntityLink::class,
+            'ofaLink'       => Helper\OfaLink::class,
+            'fuzzyDate'     => Helper\FuzzyDate::class,
+            'pedigreeTable' => Helper\PedigreeTable::class,
         ],
         'factories' => [
-            Helper\EntityLink::class => InvokableFactory::class,
-            Helper\OfaLink::class    => InvokableFactory::class,
-            Helper\FuzzyDate::class  => InvokableFactory::class,
+            Helper\EntityLink::class    => InvokableFactory::class,
+            Helper\OfaLink::class       => InvokableFactory::class,
+            Helper\FuzzyDate::class     => InvokableFactory::class,
+            Helper\PedigreeTable::class => InvokableFactory::class,
+        ],
+    ],
+    'asset_manager' => [
+        'resolver_configs' => [
+            'paths' => [
+                __NAMESPACE__ => __DIR__ . '/../asset',
+            ],
         ],
     ],
     'doctrine' => [

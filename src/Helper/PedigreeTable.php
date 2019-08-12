@@ -9,24 +9,27 @@ class PedigreeTable extends AbstractHelper
 {
     /**
      * @param Dog $dog
+     * @param int $maxGen
      * @return string
      */
     public function __invoke(Dog $dog = null, $maxGen = 3)
     {
-        return str_replace('<tr></tr>', '', '<table class="pedigree pedigree-gen-' . $maxGen .'"><tr>' . $this->pedigreeCell($dog, $maxGen, 0) . '</tr></table>');
+        return str_replace('<tr></tr>', '', '<table class="pedigree max-gen-' . $maxGen .'"><tr>' . $this->getPedigreeCell($dog, $maxGen, 0) . '</tr></table>');
     }
 
     /**
      * @param Dog $dog
+     * @param int $maxGen
+     * @param int $gen
      * @return string
      */
-    private function pedigreeCell(Dog $dog = null, $maxGen = 3, $gen = 0)
+    private function getPedigreeCell(Dog $dog = null, $maxGen = 3, $gen = 0)
     {
-        $html = '<td rowspan="' . (1 << ($maxGen - $gen)) . '">' . $this->view->partial('partial/pedigree-cell.phtml', ['dog' => $dog]) . '</td>';
+        $html = '<td class="gen-' . $gen . '" rowspan="' . (1 << ($maxGen - $gen)) . '">' . $this->view->partial('partial/pedigree-cell.phtml', ['dog' => $dog]) . '</td>';
 
         if ($gen < $maxGen) {
-            $html .= $this->pedigreeCell(($dog ? $dog->getSire() : null), $maxGen, $gen + 1);
-            $html .= $this->pedigreeCell(($dog ? $dog->getDam() : null), $maxGen, $gen + 1);
+            $html .= $this->getPedigreeCell(($dog ? $dog->getSire() : null), $maxGen, $gen + 1);
+            $html .= $this->getPedigreeCell(($dog ? $dog->getDam() : null), $maxGen, $gen + 1);
         } else {
             $html .= '</tr><tr>';
         }

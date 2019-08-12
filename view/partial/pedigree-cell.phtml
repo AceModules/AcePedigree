@@ -1,1 +1,26 @@
-<?= $this->entityLink($dog) ?>
+<?php if ($dog) : ?>
+
+    <?php if ($dog->getTitles()) : ?>
+        <div class="small text-success text-capitalize"><?= $dog->getTitles() ?></div>
+    <?php endif; ?>
+
+    <b><?= $this->entityLink($dog) ?></b>
+
+    <?php if ($dog->getColor()) : ?>
+        <div class="small text-muted"><?= $dog->getColor() ?></div>
+    <?php endif; ?>
+
+    <?php if ($dog->getBirthCountry() || $dog->getHomeCountry()) : ?>
+        <div class="small text-muted">
+            <?= $dog->getBirthCountry() ?>
+            <?php if ($dog->getHomeCountry() && $dog->getHomeCountry() != $dog->getBirthCountry()) : ?>
+                &xrarr; <?= $dog->getHomeCountry() ?>
+            <?php endif; ?>
+        </div>
+    <?php endif; ?>
+
+    <?php if ($dog->getBirthYear()) : ?>
+        <div class="small text-muted"><?= $dog->getBirthYear() ?></div>
+    <?php endif; ?>
+
+<?php endif; ?>

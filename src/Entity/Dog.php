@@ -57,7 +57,7 @@ class Dog
     /**
      * @var Kennel
      * 
-     * @ORM\ManyToOne(targetEntity="AcePedigree\Entity\Kennel")
+     * @ORM\ManyToOne(targetEntity="AcePedigree\Entity\Kennel", inversedBy="dogs")
      * @ORM\JoinColumn(name="kennelId", referencedColumnName="id", nullable=true)
      */
     protected $kennel;
@@ -88,7 +88,7 @@ class Dog
     /**
      * @var ArrayCollection
      *
-     * @ORM\ManyToMany(targetEntity="AcePedigree\Entity\Person")
+     * @ORM\ManyToMany(targetEntity="AcePedigree\Entity\Person", inversedBy="dogsBred")
      * @ORM\JoinTable(name="dog_breeder",
      *     joinColumns={@ORM\JoinColumn(name="dogId", referencedColumnName="id")},
      *     inverseJoinColumns={@ORM\JoinColumn(name="breederId", referencedColumnName="id")}
@@ -99,7 +99,7 @@ class Dog
     /**
      * @var ArrayCollection
      *
-     * @ORM\ManyToMany(targetEntity="AcePedigree\Entity\Person")
+     * @ORM\ManyToMany(targetEntity="AcePedigree\Entity\Person", inversedBy="dogsOwned")
      * @ORM\JoinTable(name="dog_owner",
      *     joinColumns={@ORM\JoinColumn(name="dogId", referencedColumnName="id")},
      *     inverseJoinColumns={@ORM\JoinColumn(name="ownerId", referencedColumnName="id")}

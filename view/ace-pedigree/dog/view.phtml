@@ -1,5 +1,6 @@
 <?php $this->headLink()->appendStylesheet('/css/pedigree.css'); ?>
 <?php $this->headTitle($entity); ?>
+<?php $this->pedigree($entity, $maxGen); ?>
 <h2 class="page-header"><?= $entity ?></h2>
 
 <div class="container">
@@ -158,5 +159,10 @@
 
 <h3>Pedigree</h3>
 <div class="container">
-    <?= $this->pedigreeTable($entity, $maxGen) ?>
+    <?= $this->pedigree() ?>
+</div>
+
+<h3>Analysis</h3>
+<div class="container">
+    <?= $this->pedigree()->coefficientOfInbreeding() ?>
 </div>

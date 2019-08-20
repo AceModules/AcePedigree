@@ -147,16 +147,16 @@ return [
     ],
     'view_helpers' => [
         'aliases' => [
-            'entityLink'    => Helper\EntityLink::class,
-            'ofaLink'       => Helper\OfaLink::class,
-            'fuzzyDate'     => Helper\FuzzyDate::class,
-            'pedigreeTable' => Helper\PedigreeTable::class,
+            'entityLink' => Helper\EntityLink::class,
+            'ofaLink'    => Helper\OfaLink::class,
+            'fuzzyDate'  => Helper\FuzzyDate::class,
+            'pedigree'   => Helper\Pedigree::class,
         ],
         'factories' => [
-            Helper\EntityLink::class    => InvokableFactory::class,
-            Helper\OfaLink::class       => InvokableFactory::class,
-            Helper\FuzzyDate::class     => InvokableFactory::class,
-            Helper\PedigreeTable::class => InvokableFactory::class,
+            Helper\EntityLink::class => InvokableFactory::class,
+            Helper\OfaLink::class    => InvokableFactory::class,
+            Helper\FuzzyDate::class  => InvokableFactory::class,
+            Helper\Pedigree::class   => InvokableFactory::class,
         ],
     ],
     'asset_manager' => [

@@ -1,5 +1,5 @@
 <td class="gen-<?= $gen ?>" rowspan="<?= 1 << ($maxGen - $gen) ?>">
-    <?php if ($dog) : ?>
+    <?php if ($dog && $dog->getId()) : ?>
 
     <?php if ($dog->getTitles()) : ?>
     <div class="small text-success text-capitalize"><?= $dog->getTitles() ?></div>
@@ -23,6 +23,10 @@
     <?php if ($dog->getBirthYear()) : ?>
     <div class="small text-muted"><?= $dog->getBirthYear() ?></div>
     <?php endif; ?>
+
+    <?php elseif ($dog): ?>
+
+    <b><?= $dog->getName() ?></b>
 
     <?php endif; ?>
 </td>

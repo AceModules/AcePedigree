@@ -98,11 +98,11 @@ class PedigreeAnalysis
      */
     public function getAncestorLoss()
     {
-        if (count($this->genCounts) == 1) {
+        if (!$this->genCounts) {
             return 1;
         }
 
-        return (count($this->ancestorTable) - 1) / (array_sum($this->genCounts) - 1);
+        return (count($this->ancestorTable) - 1) / array_sum($this->genCounts);
     }
 
     /**

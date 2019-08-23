@@ -32,11 +32,15 @@ class Pedigree extends AbstractHelper
      */
     public function __toString()
     {
-        $html = '<table class="pedigree max-gen-' . $this->analysis->getMaxGen() . '"><tr>' .
-            $this->pedigreeCell($this->analysis->getDog(), $this->analysis->getMaxGen()) .
-            '</tr></table>';
+        return $this->view->partial('partial/pedigree-table', ['dog' => $this->analysis->getDog(), 'maxGen' => $this->analysis->getMaxGen()]);
+    }
 
-        return str_replace('<tr></tr>', '', $html);
+    /**
+     * @return string
+     */
+    public function analysis()
+    {
+        return $this->view->partial('partial/pedigree-analysis', ['maxGen' => $this->analysis->getMaxGen()]);
     }
 
     /**
@@ -77,25 +81,5 @@ class Pedigree extends AbstractHelper
     public function ancestorsArray()
     {
         return $this->analysis->getAncestorsByBlood();
-    }
-
-    /**
-     * @param Dog $dog
-     * @param int $maxGen
-     * @param int $gen
-     * @return string
-     */
-    private function pedigreeCell(Dog $dog = null, $maxGen = 3, $gen = 0)
-    {
-        $html = '<td class="gen-' . $gen . '" rowspan="' . (1 << ($maxGen - $gen)) . '">' . $this->view->partial('partial/pedigree-cell.phtml', ['dog' => $dog]) . '</td>';
-
-        if ($gen < $maxGen) {
-            $html .= $this->pedigreeCell(($dog ? $dog->getSire() : null), $maxGen, $gen + 1);
-            $html .= $this->pedigreeCell(($dog ? $dog->getDam() : null), $maxGen, $gen + 1);
-        } else {
-            $html .= '</tr><tr>';
-        }
-
-        return $html;
     }
 }

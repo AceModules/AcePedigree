@@ -51,5 +51,5 @@
 </div>
 
 <?php if (count($result)) : ?>
-    <?= $this->paginationControl($result, 'sliding', 'partial/paginator.phtml', ['query' => ['q' => $search, 'page' => $page, 'sort' => $sort]]); ?>
+    <?= $this->paginationControl($result, 'sliding', 'partial/paginator', ['query' => ['q' => $search, 'page' => $page, 'sort' => $sort]]); ?>
 <?php endif; ?>

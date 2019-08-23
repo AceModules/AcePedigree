@@ -1,4 +1,8 @@
 <h3>Pedigree</h3>
 <div class="container">
-    <?= $this->pedigree() ?>
+    <table class="pedigree max-gen-<?= $maxGen ?>">
+        <tr>
+            <?= $this->partial('partial/pedigree-cell', ['dog' => $dog, 'gen' => 0, 'maxGen' => $maxGen, 'n' => 1]); ?>
+        </tr>
+    </table>
 </div>

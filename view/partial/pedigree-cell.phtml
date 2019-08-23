@@ -1,26 +1,36 @@
-<?php if ($dog) : ?>
+<td class="gen-<?= $gen ?>" rowspan="<?= 1 << ($maxGen - $gen) ?>">
+    <?php if ($dog) : ?>
 
     <?php if ($dog->getTitles()) : ?>
-        <div class="small text-success text-capitalize"><?= $dog->getTitles() ?></div>
+    <div class="small text-success text-capitalize"><?= $dog->getTitles() ?></div>
     <?php endif; ?>
 
     <b><?= $this->entityLink($dog) ?></b>
 
     <?php if ($dog->getColor()) : ?>
-        <div class="small text-muted"><?= $dog->getColor() ?></div>
+    <div class="small text-muted"><?= $dog->getColor() ?></div>
     <?php endif; ?>
 
     <?php if ($dog->getBirthCountry() || $dog->getHomeCountry()) : ?>
-        <div class="small text-muted">
-            <?= $dog->getBirthCountry() ?>
-            <?php if ($dog->getHomeCountry() && $dog->getHomeCountry() != $dog->getBirthCountry()) : ?>
-                &xrarr; <?= $dog->getHomeCountry() ?>
-            <?php endif; ?>
-        </div>
+    <div class="small text-muted">
+        <?= $dog->getBirthCountry() ?>
+        <?php if ($dog->getHomeCountry() && $dog->getHomeCountry() != $dog->getBirthCountry()) : ?>
+        &xrarr; <?= $dog->getHomeCountry() ?>
+        <?php endif; ?>
+    </div>
     <?php endif; ?>
 
     <?php if ($dog->getBirthYear()) : ?>
-        <div class="small text-muted"><?= $dog->getBirthYear() ?></div>
+    <div class="small text-muted"><?= $dog->getBirthYear() ?></div>
     <?php endif; ?>
 
+    <?php endif; ?>
+</td>
+
+<?php if ($gen < $maxGen) : ?>
+<?= $this->partial('partial/pedigree-cell', ['dog' => ($dog ? $dog->getSire() : null), 'gen' => $gen + 1, 'maxGen' => $maxGen, 'n' => $n + 1]); ?>
+<?= $this->partial('partial/pedigree-cell', ['dog' => ($dog ? $dog->getDam() : null), 'gen' => $gen + 1, 'maxGen' => $maxGen, 'n' => $n + (1 << ($maxGen - $gen))]); ?>
+<?php elseif ($n < (2 << $maxGen) - 1): ?>
+</tr>
+<tr>
 <?php endif; ?>

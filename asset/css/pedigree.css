@@ -51,3 +51,18 @@
 .pedigree.max-gen-9 td {
     width: 10%
 }
+
+.ancestors th,
+.ancestors td {
+    text-align: center;
+}
+
+.ancestors th:first-child,
+.ancestors td:first-child {
+    text-align: left;
+}
+
+.text-secondary,
+.text-muted {
+    color: #aaa !important;
+}

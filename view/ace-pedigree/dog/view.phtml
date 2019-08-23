@@ -23,7 +23,7 @@
                         <th>Breeder(s)</th>
                         <td>
                             <?php foreach ($entity->getBreeders() as $person) : ?>
-                                <?= $this->entityLink($person) ?>
+                            <?= $this->entityLink($person) ?>
                             <?php endforeach; ?>
                         </td>
                     </tr>
@@ -31,7 +31,7 @@
                         <th>Owner(s)</th>
                         <td>
                             <?php foreach ($entity->getOwners() as $person) : ?>
-                                <?= $this->entityLink($person) ?>
+                            <?= $this->entityLink($person) ?>
                             <?php endforeach; ?>
                         </td>
                     </tr>
@@ -89,14 +89,14 @@
                     </tr>
 
                     <?php if (count($offspring)) : ?>
-                        <tr>
-                            <th>Offspring</th>
-                            <td>
-                                <?php foreach ($offspring as $dog) : ?>
-                                    <?= $this->entityLink($dog) ?><br />
-                                <?php endforeach; ?>
-                            </td>
-                        </tr>
+                    <tr>
+                        <th>Offspring</th>
+                        <td>
+                            <?php foreach ($offspring as $dog) : ?>
+                            <?= $this->entityLink($dog) ?><br />
+                            <?php endforeach; ?>
+                        </td>
+                    </tr>
                     <?php endif; ?>
 
                 </tbody>
@@ -119,36 +119,36 @@
                     </tr>
 
                     <?php if (count($fullSiblings)) : ?>
-                        <tr>
-                            <th>Full Siblings</th>
-                            <td>
-                                <?php foreach ($fullSiblings as $dog) : ?>
-                                    <?= $this->entityLink($dog) ?><br />
-                                <?php endforeach; ?>
-                            </td>
-                        </tr>
+                    <tr>
+                        <th>Full Siblings</th>
+                        <td>
+                            <?php foreach ($fullSiblings as $dog) : ?>
+                            <?= $this->entityLink($dog) ?><br />
+                            <?php endforeach; ?>
+                        </td>
+                    </tr>
                     <?php endif; ?>
 
                     <?php if (count($sireHalfSiblings)) : ?>
-                        <tr>
-                            <th>Half Siblings (Sire)</th>
-                            <td>
-                                <?php foreach ($sireHalfSiblings as $dog) : ?>
-                                    <?= $this->entityLink($dog) ?><br />
-                                <?php endforeach; ?>
-                            </td>
-                        </tr>
+                    <tr>
+                        <th>Half Siblings (Sire)</th>
+                        <td>
+                            <?php foreach ($sireHalfSiblings as $dog) : ?>
+                            <?= $this->entityLink($dog) ?><br />
+                            <?php endforeach; ?>
+                        </td>
+                    </tr>
                     <?php endif; ?>
 
                     <?php if (count($damHalfSiblings)) : ?>
-                        <tr>
-                            <th>Half Siblings (Dam)</th>
-                            <td>
-                                <?php foreach ($damHalfSiblings as $dog) : ?>
-                                    <?= $this->entityLink($dog) ?><br />
-                                <?php endforeach; ?>
-                            </td>
-                        </tr>
+                    <tr>
+                        <th>Half Siblings (Dam)</th>
+                        <td>
+                            <?php foreach ($damHalfSiblings as $dog) : ?>
+                            <?= $this->entityLink($dog) ?><br />
+                            <?php endforeach; ?>
+                        </td>
+                    </tr>
                     <?php endif; ?>
 
                 </tbody>

@@ -22,6 +22,11 @@ class PedigreeAnalysis
     protected $ancestorTable = [];
 
     /**
+     * @var array
+     */
+    protected $genCounts = [];
+
+    /**
      * @param Dog $dog
      * @param int $maxGen
      */
@@ -29,7 +34,7 @@ class PedigreeAnalysis
     {
         $this->dogId = $dog->getId() ?: 0;
         $this->maxGen = $maxGen;
-        $this->buildAncestorTable($dog, $maxGen);
+        $this->buildAncestorTable($dog);
         $this->calculateStatistics();
     }
 
@@ -50,6 +55,22 @@ class PedigreeAnalysis
     }
 
     /**
+     * @return int
+     */
+    public function getCompleteGens()
+    {
+        $completeGens = 0;
+        foreach ($this->genCounts as $gen => $count) {
+            if ($count != 1 << $gen) {
+                break;
+            }
+            $completeGens++;
+        }
+
+        return $completeGens;
+    }
+
+    /**
      * @return float
      */
     public function getCoefficientOfInbreeding()
@@ -58,19 +79,30 @@ class PedigreeAnalysis
     }
 
     /**
-     * @return array
+     * @return float
      */
-    public function getAncestorsByContribution()
+    public function getRelationshipCoefficient()
     {
-        $ancestors = array_filter($this->ancestorTable, function ($row) {
-            return $row['ic'] > 0;
-        });
+        $sireId = $this->ancestorTable[$this->dogId]['sire'];
+        $damId  = $this->ancestorTable[$this->dogId]['dam'];
 
-        uasort($ancestors, function ($a, $b) {
-            return ($b['ic'] > $a['ic'] ? 1 : ($b['ic'] < $a['ic'] ? -1 : 0));
-        });
+        if (!$sireId || !$damId) {
+            return 0;
+        }
 
-        return $ancestors;
+        return 2 * $this->ancestorTable[$this->dogId]['coi'] / sqrt((1 + $this->ancestorTable[$sireId]['coi']) * (1 + $this->ancestorTable[$damId]['coi']));
+    }
+
+    /**
+     * @return float
+     */
+    public function getAncestorLoss()
+    {
+        if (count($this->genCounts) == 1) {
+            return 1;
+        }
+
+        return (count($this->ancestorTable) - 1) / (array_sum($this->genCounts) - 1);
     }
 
     /**
@@ -79,11 +111,11 @@ class PedigreeAnalysis
     public function getAncestorsByBlood()
     {
         $ancestors = array_filter($this->ancestorTable, function ($row) {
-            return $row['blood'] > 0;
+            return max($row['gens']) > 0 && $row['blood'] > 0;
         });
 
         uasort($ancestors, function ($a, $b) {
-            return ($b['blood'] > $a['blood'] ? 1 : ($b['blood'] < $a['blood'] ? -1 : 0));
+            return ($b['blood'] > $a['blood'] ? 1 : ($b['blood'] < $a['blood'] ? -1 : max($a['gens']) - max($b['gens'])));
         });
 
         return $ancestors;
@@ -91,28 +123,35 @@ class PedigreeAnalysis
 
     /**
      * @param Dog $dog
-     * @param int $maxGen
      * @param int $gen
      */
-    private function buildAncestorTable(Dog $dog = null, $maxGen, $gen = 0, $line = null, $path = [])
+    private function buildAncestorTable(Dog $dog = null, $gen = 0, $line = null, $path = [])
     {
         if ($dog) {
+            if ($gen > 0) {
+                if (!isset($this->genCounts[$gen])) {
+                    $this->genCounts[$gen] = 0;
+                }
+                $this->genCounts[$gen]++;
+            }
+
             $dogId = $dog->getId() ?: 0;
+
             if (!isset($this->ancestorTable[$dogId])) {
                 $this->ancestorTable[$dogId] = [
                     'entity' => $dog,
-                    'sire'   => ($gen < $maxGen && $dog->getSire() ? $dog->getSire()->getId() : null),
-                    'dam'    => ($gen < $maxGen && $dog->getDam() ? $dog->getDam()->getId() : null),
-                    'max'    => 0,
+                    'sire'   => ($gen < $this->maxGen && $dog->getSire() ? $dog->getSire()->getId() : null),
+                    'dam'    => ($gen < $this->maxGen && $dog->getDam() ? $dog->getDam()->getId() : null),
                     'cov'    => [],
                     'coi'    => 0,
+                    'gens'   => [],
                     'paths'  => [],
                     'blood'  => 0,
                     'ic'     => 0,
                 ];
             }
 
-            $this->ancestorTable[$dogId]['max'] = max($gen, $this->ancestorTable[$dogId]['max']);
+            $this->ancestorTable[$dogId]['gens'][] = $gen;
             $this->ancestorTable[$dogId]['blood'] += 1 / (1 << $gen);
 
             if ($line) {
@@ -120,9 +159,9 @@ class PedigreeAnalysis
                 $this->ancestorTable[$dogId]['paths'][$line][] = $path;
             }
 
-            if ($gen < $maxGen) {
-                $this->buildAncestorTable($dog->getSire(), $maxGen, $gen + 1, $line ?: 'sire', $path);
-                $this->buildAncestorTable($dog->getDam(),  $maxGen, $gen + 1, $line ?: 'dam',  $path);
+            if ($gen < $this->maxGen) {
+                $this->buildAncestorTable($dog->getSire(), $gen + 1, $line ?: 'sire', $path);
+                $this->buildAncestorTable($dog->getDam(),  $gen + 1, $line ?: 'dam',  $path);
             }
         }
     }
@@ -133,7 +172,7 @@ class PedigreeAnalysis
     private function calculateStatistics()
     {
         uasort($this->ancestorTable, function ($a, $b) {
-            return $b['max'] - $a['max'];
+            return max($b['gens']) - max($a['gens']);
         });
 
         $ancestorIds = array_keys($this->ancestorTable);
@@ -158,7 +197,7 @@ class PedigreeAnalysis
     {
         if (!isset($dog1Id) || !isset($dog2Id)) {
             return 0;
-        } elseif ($this->ancestorTable[$dog1Id]['max'] < $this->ancestorTable[$dog2Id]['max']) {
+        } elseif (max($this->ancestorTable[$dog1Id]['gens']) < max($this->ancestorTable[$dog2Id]['gens'])) {
             list($dog1Id, $dog2Id) = array($dog2Id, $dog1Id);
         }
 

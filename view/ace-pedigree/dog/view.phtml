@@ -157,12 +157,5 @@
     </div>
 </div>
 
-<h3>Pedigree</h3>
-<div class="container">
-    <?= $this->pedigree() ?>
-</div>
-
-<h3>Analysis</h3>
-<div class="container">
-    <?= $this->pedigree()->coefficientOfInbreeding() ?>
-</div>
+<?= $this->partial('partial/pedigree-table') ?>
+<?= $this->partial('partial/pedigree-analysis') ?>

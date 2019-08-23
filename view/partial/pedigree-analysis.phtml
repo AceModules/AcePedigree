@@ -1,0 +1,36 @@
+<h3>Analysis</h3>
+<div class="container">
+    Coefficient of Inbreeding (COI): <?= round(100 * $this->pedigree()->coefficientOfInbreeding(), 2) ?>%<br />
+    Relationionship Coefficient of Sire and Dam (RC): <?= round(100 * $this->pedigree()->relationshipCoefficient(), 2) ?>%<br />
+    Ancestor Loss (AVK): <?= round(100 * $this->pedigree()->ancestorLoss(), 2) ?>%<br />
+    <small><i>Calculations based on <?= $this->pedigree()->completeGens() ?> complete generation(s) of <?= $maxGen ?> requested.</i></small><br />
+
+    <br />
+
+    <table class="table table-striped">
+        <tr>
+            <th>Total Contribution by Ancestor</th>
+            <th style="width: 15%">Sex</th>
+            <th style="width: 10%">COI</th>
+            <th style="width: 10%">Blood</th>
+            <th style="width: 10%">Contrib</th>
+            <th style="width: 5%">Total</th>
+            <?php for ($gen = 1; $gen <= $maxGen; $gen++) : ?>
+            <th style="width: 5%">Gen <?= $gen ?></th>
+            <?php endfor; ?>
+        </tr>
+        <?php foreach ($this->pedigree()->ancestorsArray() as $ancestor): ?>
+        <tr>
+            <td><?= $this->entityLink($ancestor['entity']) ?></td>
+            <td><?= $ancestor['entity']->getSexDisplay() ?></td>
+            <td><?= round(100 * $ancestor['coi'], 2) ?>%</td>
+            <td><?= round(100 * $ancestor['blood'], 2) ?>%</td>
+            <td><?= round(100 * $ancestor['ic'], 2) ?>%</td>
+            <td><?= count($ancestor['gens']) ?></td>
+            <?php for ($gen = 1; $gen <= $maxGen; $gen++): ?>
+            <td><?= count(array_filter($ancestor['gens'], function ($a) use ($gen) { return $a == $gen; })) ?></td>
+            <?php endfor; ?>
+        </tr>
+        <?php endforeach; ?>
+    </table>
+</div>

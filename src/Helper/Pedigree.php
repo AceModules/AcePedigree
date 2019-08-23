@@ -42,9 +42,41 @@ class Pedigree extends AbstractHelper
     /**
      * @return string
      */
+    public function completeGens()
+    {
+        return $this->analysis->getCompleteGens();
+    }
+
+    /**
+     * @return string
+     */
     public function coefficientOfInbreeding()
     {
-        return sprintf('%.3f%%', 100 * $this->analysis->getCoefficientOfInbreeding());
+        return $this->analysis->getCoefficientOfInbreeding();
+    }
+
+    /**
+     * @return string
+     */
+    public function relationshipCoefficient()
+    {
+        return $this->analysis->getRelationshipCoefficient();
+    }
+
+    /**
+     * @return string
+     */
+    public function ancestorLoss()
+    {
+        return $this->analysis->getAncestorLoss();
+    }
+
+    /**
+     * @return array
+     */
+    public function ancestorsArray()
+    {
+        return $this->analysis->getAncestorsByBlood();
     }
 
     /**

@@ -240,6 +240,17 @@ class Dog
     }
 
     /**
+     * @return array
+     */
+    public function __debugInfo()
+    {
+        return [
+            'id' => $this->id,
+            'name' => $this->name,
+        ];
+    }
+
+    /**
      * @return string
      * @Grid\Header(label="Name", sort={"name"}, default=true)
      */

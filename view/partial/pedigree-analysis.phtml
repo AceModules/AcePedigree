@@ -3,7 +3,10 @@
     Coefficient of Inbreeding (COI): <?= round(100 * $this->pedigree()->coefficientOfInbreeding(), 2) ?>%<br />
     Relationionship Coefficient of Sire and Dam (RC): <?= round(100 * $this->pedigree()->relationshipCoefficient(), 2) ?>%<br />
     Ancestor Loss (AVK): <?= round(100 * $this->pedigree()->ancestorLoss(), 2) ?>%<br />
-    <small><i>Calculations based on <?= $this->pedigree()->completeGens() ?> complete generation(s) of <?= $maxGen ?> requested.</i></small><br />
+
+    <small class="text-<?= $this->pedigree()->completeGens() < $maxGen ? 'danger' : 'success'; ?>">
+        <i>Calculations based on <?= $this->pedigree()->completeGens() ?> complete generation(s) of <?= $maxGen ?> requested.</i>
+    </small><br />
 
     <br />
 

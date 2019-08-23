@@ -27,6 +27,11 @@ class PedigreeAnalysis
     protected $genCounts = [];
 
     /**
+     * @var int
+     */
+    protected $completeGens;
+
+    /**
      * @param Dog $dog
      * @param int $maxGen
      */
@@ -59,15 +64,17 @@ class PedigreeAnalysis
      */
     public function getCompleteGens()
     {
-        $completeGens = 0;
-        foreach ($this->genCounts as $gen => $count) {
-            if ($count != 1 << $gen) {
-                break;
+        if (!isset($this->completeGens)) {
+            $this->completeGens = 0;
+            foreach ($this->genCounts as $gen => $count) {
+                if ($count != 1 << $gen) {
+                    break;
+                }
+                $this->completeGens++;
             }
-            $completeGens++;
         }
 
-        return $completeGens;
+        return $this->completeGens;
     }
 
     /**

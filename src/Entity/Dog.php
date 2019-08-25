@@ -9,7 +9,6 @@ use Doctrine\Common\Collections\ArrayCollection;
 /**
  * @ORM\Entity(repositoryClass="AcePedigree\Repository\DogRepository")
  * @ORM\Table(name="dog")
- * @Grid\Title(singular="Dog", plural="Dogs")
  */
 class Dog
 {

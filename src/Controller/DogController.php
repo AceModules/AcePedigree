@@ -46,8 +46,6 @@ class DogController extends AbstractActionController
         $paginator->setCurrentPageNumber($page);
 
         return [
-            'singular' => $datagrid->getSingularName(),
-            'plural'   => $datagrid->getPluralName(),
             'columns'  => $datagrid->getHeaderColumns(),
             'result'   => $paginator,
             'search'   => $search,

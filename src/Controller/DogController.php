@@ -36,11 +36,10 @@ class DogController extends AbstractActionController
     {
         $datagrid = $this->datagridManager->get(Entity\Dog::class);
 
-        $search = $this->params()->fromQuery('q');
         $page = (int) $this->params()->fromQuery('page', 1);
         $sort = $this->params()->fromQuery('sort');
 
-        $queryBuilder = $datagrid->createSearchQueryBuilder($search, $sort);
+        $queryBuilder = $datagrid->createSearchQueryBuilder(null, $sort);
         $paginator = new Paginator(new DoctrineAdapter(new ORMPaginator($queryBuilder)));
         $paginator->setDefaultItemCountPerPage(20);
         $paginator->setCurrentPageNumber($page);
@@ -48,7 +47,6 @@ class DogController extends AbstractActionController
         return [
             'columns'  => $datagrid->getHeaderColumns(),
             'result'   => $paginator,
-            'search'   => $search,
             'page'     => $page,
             'sort'     => $sort,
         ];

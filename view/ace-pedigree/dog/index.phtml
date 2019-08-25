@@ -1,15 +1,6 @@
-<?php $title = ($search ? 'Search Dogs' : 'Browse Dogs'); ?>
+<?php $title = 'Browse Dogs'; ?>
 <?php $this->headTitle($title); ?>
 <h2 class="page-header"><?= $title ?></h2>
-
-<?php if ($search) : ?>
-    <h5>
-        Search results for
-        <a class="label label-default" href="<?= $this->url(null, [], ['query' => ['page' => $page, 'sort' => $sort]], true); ?>">
-            <?= $search; ?> <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-        </a>
-    </h5>
-<?php endif; ?>
 
 <div class="table-responsive">
     <table class="table table-striped">
@@ -17,7 +8,7 @@
             <tr>
                 <?php foreach ($columns as $column) : ?>
                     <?php if ($column['sortName']) : ?>
-                        <th><?= $this->sortControl($sort, $column['sortName'], $column['label'], $column['sortReverse'], ['q' => $search, 'page' => $page]) ?></th>
+                        <th><?= $this->sortControl($sort, $column['sortName'], $column['label'], $column['sortReverse'], ['page' => $page]) ?></th>
                     <?php else : ?>
                         <th><?= $column['label'] ?></th>
                     <?php endif; ?>
@@ -51,5 +42,5 @@
 </div>
 
 <?php if (count($result)) : ?>
-    <?= $this->paginationControl($result, 'sliding', 'partial/paginator', ['query' => ['q' => $search, 'page' => $page, 'sort' => $sort]]); ?>
+    <?= $this->paginationControl($result, 'sliding', 'partial/paginator', ['query' => ['page' => $page, 'sort' => $sort]]); ?>
 <?php endif; ?>

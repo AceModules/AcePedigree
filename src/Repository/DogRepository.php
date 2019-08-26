@@ -3,8 +3,9 @@
 namespace AcePedigree\Repository;
 
 use AcePedigree\Entity\Dog;
+use AceDatagrid\Datagrid;
 use Doctrine\ORM\EntityRepository;
-use Doctrine\Common\Collections\Criteria;
+use Doctrine\ORM\QueryBuilder;
 
 class DogRepository extends EntityRepository
 {
@@ -67,5 +68,59 @@ class DogRepository extends EntityRepository
         }
 
         return $queryBuilder->getQuery()->getResult();
+    }
+
+    /**
+     * @param Datagrid $datagrid
+     * @param array $searchParams
+     * @param string $sortParam
+     * @return QueryBuilder
+     */
+    function createSearchQueryBuilder(Datagrid $datagrid, array $searchParams, &$sortParam = '')
+    {
+        $queryBuilder = $datagrid->createSearchQueryBuilder(null, $sortParam);
+        $searchParams = array_filter($searchParams);
+
+        foreach ($searchParams as $property => $searchParam) {
+            switch ($property) {
+                case 'sex':
+                    $queryBuilder->andWhere($queryBuilder->expr()->eq('entity.sex', $searchParam));
+                    break;
+
+                case 'minHeight':
+                    $queryBuilder->andWhere($queryBuilder->expr()->gte('entity.height', $searchParam));
+                    break;
+
+                case 'maxHeight':
+                    $queryBuilder->andWhere($queryBuilder->expr()->lte('entity.height', $searchParam));
+                    break;
+
+                case 'minWeight':
+                    $queryBuilder->andWhere($queryBuilder->expr()->gte('entity.weight', $searchParam));
+                    break;
+
+                case 'maxWeight':
+                    $queryBuilder->andWhere($queryBuilder->expr()->lte('entity.weight', $searchParam));
+                    break;
+
+                default:
+                    $metadata = $this->getEntityManager()->getClassMetadata(Dog::class);
+                    $reflection = $metadata->getReflectionClass();
+
+                    if ($reflection->hasProperty($property)) {
+                        $searchParam = strtolower(trim(preg_replace('/[^a-z0-9! -]+/i', '', $searchParam)));
+                        $searchParamParts = array_filter(explode(' ', $searchParam));
+
+                        foreach ($searchParamParts as $searchParamPart) {
+                            $queryBuilder->andWhere(
+                                $queryBuilder->expr()->like('entity.' . $property, $queryBuilder->expr()->literal('%' . $searchParamPart . '%'))
+                            );
+                        }
+                    }
+                    break;
+            }
+        }
+
+        return $queryBuilder;
     }
 }

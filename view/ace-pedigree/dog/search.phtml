@@ -1,3 +1,16 @@
-<strong>Module:</strong>        AcePedigree &raquo;
-<strong>Controller:</strong>    Dog &raquo;
-<strong>Action:</strong>        search
+<?php $title = 'Search Dogs'; ?>
+<?php $this->headTitle($title); ?>
+<h2 class="page-header"><?= $title ?></h2>
+
+<?= $this->form($form) ?>
+
+<script>
+    $(function() {
+        $('form').submit(function() {
+            $(this).find(':input').filter(function() {
+                return $(this).val() === '';
+            }).removeAttr('name');
+            return true;
+        });
+    });
+</script>

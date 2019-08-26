@@ -4,6 +4,7 @@ namespace AcePedigree\Controller;
 
 use AcePedigree\Entity;
 use AceDatagrid\DatagridManager;
+use AcePedigree\Form\AdvancedSearch;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Tools\Pagination\Paginator as ORMPaginator;
 use DoctrineORMModule\Paginator\Adapter\DoctrinePaginator as DoctrineAdapter;
@@ -39,7 +40,16 @@ class DogController extends AbstractActionController
         $page = (int) $this->params()->fromQuery('page', 1);
         $sort = $this->params()->fromQuery('sort');
 
-        $queryBuilder = $datagrid->createSearchQueryBuilder(null, $sort);
+        $form = new AdvancedSearch();
+        $form->setData($this->getRequest()->getQuery());
+
+        if ($form->isValid()) {
+            $queryBuilder = $this->entityManager->getRepository(Entity\Dog::class)
+                ->createSearchQueryBuilder($datagrid, $form->getData(), $sort);
+        } else {
+            $queryBuilder = $datagrid->createSearchQueryBuilder(null, $sort);
+        }
+
         $paginator = new Paginator(new DoctrineAdapter(new ORMPaginator($queryBuilder)));
         $paginator->setDefaultItemCountPerPage(20);
         $paginator->setCurrentPageNumber($page);
@@ -55,7 +65,9 @@ class DogController extends AbstractActionController
     // Search dogs
     public function searchAction()
     {
-        return [];
+        return [
+            'form' => new AdvancedSearch(),
+        ];
     }
 
     // Check for partial name match

@@ -2,7 +2,7 @@
 
 namespace AcePedigree\Controller;
 
-use AcePedigree\Entity;
+use AcePedigree\Entity\Dog;
 use AceDatagrid\DatagridManager;
 use AcePedigree\Form\AdvancedSearch;
 use Doctrine\ORM\EntityManager;
@@ -35,7 +35,7 @@ class DogController extends AbstractActionController
     // Browse dogs alphabetically
     public function indexAction()
     {
-        $datagrid = $this->datagridManager->get(Entity\Dog::class);
+        $datagrid = $this->datagridManager->get(Dog::class);
 
         $page = (int) $this->params()->fromQuery('page', 1);
         $sort = $this->params()->fromQuery('sort');
@@ -44,7 +44,7 @@ class DogController extends AbstractActionController
         $form->setData($this->getRequest()->getQuery());
 
         if ($form->isValid()) {
-            $queryBuilder = $this->entityManager->getRepository(Entity\Dog::class)
+            $queryBuilder = $this->entityManager->getRepository(Dog::class)
                 ->createSearchQueryBuilder($datagrid, $form->getData(), $sort);
         } else {
             $queryBuilder = $datagrid->createSearchQueryBuilder(null, $sort);
@@ -79,7 +79,7 @@ class DogController extends AbstractActionController
     // View dog details
     public function viewAction()
     {
-        $repository = $this->entityManager->getRepository(Entity\Dog::class);
+        $repository = $this->entityManager->getRepository(Dog::class);
 
         $id = (int) $this->params()->fromRoute('id');
         $entity = $repository->find($id);

@@ -30,7 +30,7 @@ class Kennel
     /**
      * @var ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="AcePedigree\Entity\Dog", mappedBy="kennel")
+     * @ORM\OneToMany(targetEntity="Dog", mappedBy="kennel")
      */
     protected $dogs;
 

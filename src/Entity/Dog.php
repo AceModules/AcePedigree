@@ -56,7 +56,7 @@ class Dog
     /**
      * @var Kennel
      * 
-     * @ORM\ManyToOne(targetEntity="AcePedigree\Entity\Kennel", inversedBy="dogs")
+     * @ORM\ManyToOne(targetEntity="Kennel", inversedBy="dogs")
      * @ORM\JoinColumn(name="kennelId", referencedColumnName="id", nullable=true)
      */
     protected $kennel;
@@ -64,7 +64,7 @@ class Dog
     /**
      * @var Dog
      * 
-     * @ORM\ManyToOne(targetEntity="AcePedigree\Entity\Dog")
+     * @ORM\ManyToOne(targetEntity="Dog")
      * @ORM\JoinColumn(name="sireId", referencedColumnName="id", nullable=true)
      */
     protected $sire;
@@ -72,7 +72,7 @@ class Dog
     /**
      * @var Dog
      * 
-     * @ORM\ManyToOne(targetEntity="AcePedigree\Entity\Dog")
+     * @ORM\ManyToOne(targetEntity="Dog")
      * @ORM\JoinColumn(name="damId", referencedColumnName="id", nullable=true)
      */
     protected $dam;
@@ -87,7 +87,7 @@ class Dog
     /**
      * @var ArrayCollection
      *
-     * @ORM\ManyToMany(targetEntity="AcePedigree\Entity\Person", inversedBy="dogsBred")
+     * @ORM\ManyToMany(targetEntity="Person", inversedBy="dogsBred")
      * @ORM\JoinTable(name="dog_breeder",
      *     joinColumns={@ORM\JoinColumn(name="dogId", referencedColumnName="id")},
      *     inverseJoinColumns={@ORM\JoinColumn(name="breederId", referencedColumnName="id")}
@@ -98,7 +98,7 @@ class Dog
     /**
      * @var ArrayCollection
      *
-     * @ORM\ManyToMany(targetEntity="AcePedigree\Entity\Person", inversedBy="dogsOwned")
+     * @ORM\ManyToMany(targetEntity="Person", inversedBy="dogsOwned")
      * @ORM\JoinTable(name="dog_owner",
      *     joinColumns={@ORM\JoinColumn(name="dogId", referencedColumnName="id")},
      *     inverseJoinColumns={@ORM\JoinColumn(name="ownerId", referencedColumnName="id")}
@@ -151,7 +151,7 @@ class Dog
     /**
      * @var Country
      *
-     * @ORM\ManyToOne(targetEntity="AcePedigree\Entity\Country")
+     * @ORM\ManyToOne(targetEntity="Country")
      * @ORM\JoinColumn(name="birthCountryId", referencedColumnName="id", nullable=true)
      */
     protected $birthCountry;
@@ -159,7 +159,7 @@ class Dog
     /**
      * @var Country
      *
-     * @ORM\ManyToOne(targetEntity="AcePedigree\Entity\Country")
+     * @ORM\ManyToOne(targetEntity="Country")
      * @ORM\JoinColumn(name="homeCountryId", referencedColumnName="id", nullable=true)
      */
     protected $homeCountry;
@@ -216,7 +216,7 @@ class Dog
     /**
      * @var ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="AcePedigree\Entity\Image", mappedBy="dog")
+     * @ORM\OneToMany(targetEntity="Image", mappedBy="dog")
      */
     protected $images;
 

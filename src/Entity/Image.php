@@ -22,7 +22,7 @@ class Image
     /**
      * @var Dog
      *
-     * @ORM\ManyToOne(targetEntity="AcePedigree\Entity\Dog", inversedBy="images")
+     * @ORM\ManyToOne(targetEntity="Dog", inversedBy="images")
      * @ORM\JoinColumn(name="dogId", referencedColumnName="id")
      */
     protected $dog;

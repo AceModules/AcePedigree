@@ -79,14 +79,14 @@ class Person
     /**
      * @var ArrayCollection
      *
-     * @ORM\ManyToMany(targetEntity="AcePedigree\Entity\Dog", mappedBy="breeders")
+     * @ORM\ManyToMany(targetEntity="Dog", mappedBy="breeders")
      */
     protected $dogsBred;
 
     /**
      * @var ArrayCollection
      *
-     * @ORM\ManyToMany(targetEntity="AcePedigree\Entity\Dog", mappedBy="owners")
+     * @ORM\ManyToMany(targetEntity="Dog", mappedBy="owners")
      */
     protected $dogsOwned;
 

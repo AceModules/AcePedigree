@@ -54,20 +54,19 @@ class DogRepository extends EntityRepository
      */
     function findByDescendant(Dog $dog, $maxGen = 3)
     {
-        $queryBuilder = $this->getEntityManager()
-            ->createQueryBuilder()
-            ->select('g0')
-            ->from(Dog::class, 'g0')
-            ->setParameter('dog', $dog);
+        $tableName = $this->getEntityManager()->getClassMetadata(Dog::class)->getTableName();
 
-        for ($g = 0; $g < $maxGen; $g++) {
-            $n = $g + 1;
-            $queryBuilder
-                ->leftJoin(Dog::class, "g{$n}", 'WITH', "g{$g}.id = g{$n}.sire OR g{$g}.id = g{$n}.dam")
-                ->orWhere("g{$n} = :dog");
-        }
+        $sql = 'WITH RECURSIVE ancestors AS (' .
+            "SELECT d.id, d.sireId, d.damId FROM {$tableName} d WHERE id = :dog UNION ALL " .
+            "SELECT a.id, a.sireId, a.damId FROM {$tableName} a INNER JOIN ancestors ON a.id = ancestors.sireId OR a.id = ancestors.damId" .
+            ') SELECT id FROM ancestors;';
 
-        return $queryBuilder->getQuery()->getResult();
+        $query = $this->getEntityManager()
+            ->getConnection()
+            ->prepare($sql);
+        $query->execute(['dog' => $dog->getId()]);
+
+        return $this->findById($query->fetchAll(\PDO::FETCH_COLUMN));
     }
 
     /**

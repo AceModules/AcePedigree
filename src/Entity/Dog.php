@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 
 /**
- * @ORM\Entity(repositoryClass="AcePedigree\Repository\DogRepository")
+ * @ORM\Entity(repositoryClass="AcePedigree\Entity\Repository\DogRepository")
  * @ORM\Table(name="dog")
  */
 class Dog

@@ -1,6 +1,6 @@
 <?php
 
-namespace AcePedigree\Repository;
+namespace AcePedigree\Entity\Repository;
 
 use AcePedigree\Entity\Dog;
 use AceDatagrid\Datagrid;

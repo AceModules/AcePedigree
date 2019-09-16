@@ -57,9 +57,9 @@ class DogRepository extends EntityRepository
         $tableName = $this->getEntityManager()->getClassMetadata(Dog::class)->getTableName();
 
         $sql = 'WITH RECURSIVE cte AS (' .
-            "SELECT x.* FROM {$tableName} x WHERE x.id = :dog UNION ALL " .
+            "SELECT x.* FROM {$tableName} x WHERE x.id = :dog UNION DISTINCT " .
             "SELECT a.* FROM {$tableName} a INNER JOIN cte ON a.id = cte.sireId OR a.id = cte.damId" .
-            ') SELECT DISTINCT cte.* FROM cte;';
+            ') SELECT cte.* FROM cte;';
 
         $rsm = new ResultSetMappingBuilder($this->getEntityManager());
         $rsm->addRootEntityFromClassMetadata(Dog::class, 'cte');
@@ -79,9 +79,9 @@ class DogRepository extends EntityRepository
         $tableName = $this->getEntityManager()->getClassMetadata(Dog::class)->getTableName();
 
         $sql = 'WITH RECURSIVE cte AS (' .
-            "SELECT x.* FROM {$tableName} x WHERE x.id = :dog UNION ALL " .
+            "SELECT x.* FROM {$tableName} x WHERE x.id = :dog UNION DISTINCT " .
             "SELECT d.* FROM {$tableName} d INNER JOIN cte ON d.sireId = cte.id OR d.damId = cte.id" .
-            ') SELECT DISTINCT cte.* FROM cte;';
+            ') SELECT cte.* FROM cte;';
 
         $rsm = new ResultSetMappingBuilder($this->getEntityManager());
         $rsm->addRootEntityFromClassMetadata(Dog::class, 'cte');
@@ -99,19 +99,19 @@ class DogRepository extends EntityRepository
     function findByRelative(Dog $dog)
     {
         $tableName = $this->getEntityManager()->getClassMetadata(Dog::class)->getTableName();
-        $ancestors = $this->findByDescendant($dog);
 
         $sql = 'WITH RECURSIVE cte AS (' .
-            "SELECT x.* FROM {$tableName} x WHERE x.id IN (:ancestors) UNION ALL " .
+            "SELECT x.* FROM {$tableName} x WHERE x.id = :dog UNION DISTINCT " .
+            "SELECT a.* FROM {$tableName} a INNER JOIN cte ON a.id = cte.sireId OR a.id = cte.damId UNION DISTINCT " .
             "SELECT d.* FROM {$tableName} d INNER JOIN cte ON d.sireId = cte.id OR d.damId = cte.id" .
-            ') SELECT DISTINCT cte.* FROM cte;';
+            ') SELECT cte.* FROM cte;';
 
         $rsm = new ResultSetMappingBuilder($this->getEntityManager());
         $rsm->addRootEntityFromClassMetadata(Dog::class, 'cte');
 
         return $this->getEntityManager()
             ->createNativeQuery($sql, $rsm)
-            ->setParameter('ancestors', $ancestors)
+            ->setParameter('dog', $dog)
             ->getResult();
     }
 

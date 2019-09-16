@@ -71,6 +71,51 @@ class DogRepository extends EntityRepository
     }
 
     /**
+     * @param Dog $dog
+     * @return array|null
+     */
+    function findByAncestor(Dog $dog)
+    {
+        $tableName = $this->getEntityManager()->getClassMetadata(Dog::class)->getTableName();
+
+        $sql = 'WITH RECURSIVE cte AS (' .
+            "SELECT x.* FROM {$tableName} x WHERE x.id = :dog UNION ALL " .
+            "SELECT d.* FROM {$tableName} d INNER JOIN cte ON d.sireId = cte.id OR d.damId = cte.id" .
+            ') SELECT DISTINCT cte.* FROM cte;';
+
+        $rsm = new ResultSetMappingBuilder($this->getEntityManager());
+        $rsm->addRootEntityFromClassMetadata(Dog::class, 'cte');
+
+        return $this->getEntityManager()
+            ->createNativeQuery($sql, $rsm)
+            ->setParameter('dog', $dog)
+            ->getResult();
+    }
+
+    /**
+     * @param Dog $dog
+     * @return array|null
+     */
+    function findByRelative(Dog $dog)
+    {
+        $tableName = $this->getEntityManager()->getClassMetadata(Dog::class)->getTableName();
+        $ancestors = $this->findByDescendant($dog);
+
+        $sql = 'WITH RECURSIVE cte AS (' .
+            "SELECT x.* FROM {$tableName} x WHERE x.id IN (:ancestors) UNION ALL " .
+            "SELECT d.* FROM {$tableName} d INNER JOIN cte ON d.sireId = cte.id OR d.damId = cte.id" .
+            ') SELECT DISTINCT cte.* FROM cte;';
+
+        $rsm = new ResultSetMappingBuilder($this->getEntityManager());
+        $rsm->addRootEntityFromClassMetadata(Dog::class, 'cte');
+
+        return $this->getEntityManager()
+            ->createNativeQuery($sql, $rsm)
+            ->setParameter('ancestors', $ancestors)
+            ->getResult();
+    }
+
+    /**
      * @param Datagrid $datagrid
      * @param array $searchParams
      * @param string $sortParam

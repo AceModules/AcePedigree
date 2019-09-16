@@ -6,6 +6,7 @@ use AcePedigree\Entity\Dog;
 use AceDatagrid\Datagrid;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\QueryBuilder;
+use Doctrine\ORM\Query\ResultSetMappingBuilder;
 
 class DogRepository extends EntityRepository
 {
@@ -55,17 +56,18 @@ class DogRepository extends EntityRepository
     {
         $tableName = $this->getEntityManager()->getClassMetadata(Dog::class)->getTableName();
 
-        $sql = 'WITH RECURSIVE ancestors AS (' .
-            "SELECT d.id, d.sireId, d.damId FROM {$tableName} d WHERE id = :dog UNION ALL " .
-            "SELECT a.id, a.sireId, a.damId FROM {$tableName} a INNER JOIN ancestors ON a.id = ancestors.sireId OR a.id = ancestors.damId" .
-            ') SELECT DISTINCT id FROM ancestors;';
+        $sql = 'WITH RECURSIVE cte AS (' .
+            "SELECT x.* FROM {$tableName} x WHERE x.id = :dog UNION ALL " .
+            "SELECT a.* FROM {$tableName} a INNER JOIN cte ON a.id = cte.sireId OR a.id = cte.damId" .
+            ') SELECT DISTINCT cte.* FROM cte;';
 
-        $query = $this->getEntityManager()
-            ->getConnection()
-            ->prepare($sql);
-        $query->execute(['dog' => $dog->getId()]);
+        $rsm = new ResultSetMappingBuilder($this->getEntityManager());
+        $rsm->addRootEntityFromClassMetadata(Dog::class, 'cte');
 
-        return $this->findById($query->fetchAll(\PDO::FETCH_COLUMN));
+        return $this->getEntityManager()
+            ->createNativeQuery($sql, $rsm)
+            ->setParameter('dog', $dog)
+            ->getResult();
     }
 
     /**

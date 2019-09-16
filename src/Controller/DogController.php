@@ -94,7 +94,7 @@ class DogController extends AbstractActionController
 
         $offspring = $repository->findByParent($entity);
         $siblings = $repository->findBySibling($entity);
-        $ancestors = $repository->findByDescendant($entity, $maxGen);
+        $ancestors = $repository->findByDescendant($entity);
 
         $fullSiblings = array_filter($siblings, function ($sibling) use ($entity) {
             return $sibling->getSire() == $entity->getSire() && $sibling->getDam() == $entity->getDam();

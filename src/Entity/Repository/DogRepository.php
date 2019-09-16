@@ -49,22 +49,21 @@ class DogRepository extends EntityRepository
 
     /**
      * @param Dog $dog
-     * @param int $maxGen
      * @return array|null
      */
-    function findByDescendant(Dog $dog, $maxGen = 3)
+    function findByDescendant(Dog $dog)
     {
         $tableName = $this->getEntityManager()->getClassMetadata(Dog::class)->getTableName();
 
         $sql = 'WITH RECURSIVE ancestors AS (' .
-            "SELECT d.id, d.sireId, d.damId, 0 AS gen FROM {$tableName} d WHERE id = :dog UNION ALL " .
-            "SELECT a.id, a.sireId, a.damId, ancestors.gen+1 AS gen FROM {$tableName} a INNER JOIN ancestors ON a.id = ancestors.sireId OR a.id = ancestors.damId" .
-            ') SELECT DISTINCT id FROM ancestors WHERE gen <= :maxGen;';
+            "SELECT d.id, d.sireId, d.damId FROM {$tableName} d WHERE id = :dog UNION ALL " .
+            "SELECT a.id, a.sireId, a.damId FROM {$tableName} a INNER JOIN ancestors ON a.id = ancestors.sireId OR a.id = ancestors.damId" .
+            ') SELECT DISTINCT id FROM ancestors;';
 
         $query = $this->getEntityManager()
             ->getConnection()
             ->prepare($sql);
-        $query->execute(['dog' => $dog->getId(), 'maxGen' => $maxGen]);
+        $query->execute(['dog' => $dog->getId()]);
 
         return $this->findById($query->fetchAll(\PDO::FETCH_COLUMN));
     }

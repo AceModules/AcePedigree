@@ -2,6 +2,7 @@
 
 namespace AcePedigree\Entity;
 
+use AcePedigree\DTO\PedigreeDTO;
 use AceDatagrid\Annotation as Grid;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -22,6 +23,11 @@ class Dog
         self::SEX_MALE => 'Male',
         self::SEX_FEMALE => 'Female',
     );
+
+    /**
+     * @var PedigreeDTO
+     */
+    protected $dto;
 
     /**
      * @var int
@@ -247,6 +253,30 @@ class Dog
             'id' => $this->id,
             'name' => $this->name,
         ];
+    }
+
+    /**
+     * @return mixed
+     */
+    public function __call($method, $args)
+    {
+        if (!method_exists($this->getDTO(), $method)) {
+            throw new \BadMethodCallException('Call to undefined method ' . Dog::class . '::' . $method . '()');
+        }
+
+        return call_user_func_array([$this->getDTO(), $method], $args);
+    }
+
+    /**
+     * @return PedigreeDTO
+     */
+    public function getDTO()
+    {
+        if (!isset($this->dto)) {
+            $this->dto = new PedigreeDTO($this);
+        }
+
+        return $this->dto;
     }
 
     /**

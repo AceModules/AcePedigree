@@ -57,8 +57,7 @@
     text-align: center;
 }
 
-.ancestors th:first-child,
-.ancestors td:first-child {
+.ancestors .text-left {
     text-align: left;
 }
 

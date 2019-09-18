@@ -1,8 +1,7 @@
 <?php
 
-namespace AcePedigree\Entity\Subscriber;
+namespace AcePedigree\Subscriber;
 
-use AcePedigree\Entity\Ancestry;
 use AcePedigree\Entity\Dog;
 use Doctrine\Common\EventSubscriber;
 use Doctrine\Common\Persistence\Event\LifecycleEventArgs;

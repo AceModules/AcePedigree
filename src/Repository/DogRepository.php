@@ -1,6 +1,6 @@
 <?php
 
-namespace AcePedigree\Entity\Repository;
+namespace AcePedigree\Repository;
 
 use AcePedigree\Entity\Ancestry;
 use AcePedigree\Entity\Dog;

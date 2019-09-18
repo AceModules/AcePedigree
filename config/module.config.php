@@ -2,7 +2,6 @@
 
 namespace AcePedigree;
 
-use AcePedigree\Entity\Subscriber;
 use AceTools\Factory\DoctrineAwareFactory;
 use Zend\Router\Http\Literal;
 use Zend\Router\Http\Segment;

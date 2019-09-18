@@ -179,9 +179,14 @@ class PedigreeDTO
             return 1;
         }
 
+        list($ancestor, $descendant) = [$dto, $this];
+        if ($ancestor->isDescendantOf($descendant)) {
+            return 0;
+        }
+
         return 0.5 * (
-            ($this->sire ? $this->sire->getConsanguinityWith($dto) : 0) +
-            ($this->dam  ? $this->dam->getConsanguinityWith($dto)  : 0)
+            ($descendant->getSire() ? $descendant->getSire()->getConsanguinityWith($ancestor) : 0) +
+            ($descendant->getDam()  ? $descendant->getDam()->getConsanguinityWith($ancestor)  : 0)
         );
     }
 
@@ -197,10 +202,28 @@ class PedigreeDTO
             );
         }
 
+        list($ancestor, $descendant) = [$dto, $this];
+        if ($ancestor->isDescendantOf($descendant)) {
+            list($ancestor, $descendant) = [$descendant, $ancestor];
+        }
+
         return 0.5 * (
-            ($this->sire ? $dto->getCovarianceWith($this->sire) : 0) +
-            ($this->dam  ? $dto->getCovarianceWith($this->dam)  : 0)
+            ($descendant->getSire() ? $descendant->getSire()->getCovarianceWith($ancestor) : 0) +
+            ($descendant->getDam()  ? $descendant->getDam()->getCovarianceWith($ancestor)  : 0)
         );
+    }
+
+    /**
+     * @param PedigreeDTO $dto
+     * @return bool
+     */
+    public function isDescendantOf(PedigreeDTO $dto)
+    {
+        if ($dto == $this) {
+            return true;
+        }
+
+        return ($this->sire && $this->sire->isDescendantOf($dto)) || ($this->dam && $this->dam->isDescendantOf($dto));
     }
 
     /**

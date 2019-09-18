@@ -2,8 +2,10 @@
 
 namespace AcePedigree\Entity\Repository;
 
+use AcePedigree\Entity\Ancestry;
 use AcePedigree\Entity\Dog;
 use AceDatagrid\Datagrid;
+use Doctrine\DBAL\Connection;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\ORM\Query\ResultSetMappingBuilder;
@@ -167,5 +169,42 @@ class DogRepository extends EntityRepository
         }
 
         return $queryBuilder;
+    }
+
+    /**
+     * @param Dog $dog
+     */
+    public function updateAncestry(Dog $dog)
+    {
+        $tableName = $this->getEntityManager()->getClassMetadata(Ancestry::class)->getTableName();
+
+        $this->getEntityManager()
+            ->getConnection()
+            ->executeQuery(
+                "DELETE FROM {$tableName} WHERE dog1Id = :dog OR dog2Id = :dog",
+                [':dog' => $dog->getId()]
+            );
+
+        $placeholders = [];
+        $values = [];
+        $types = [];
+
+        foreach ($this->findByRelative($dog) as $relative) {
+            $placeholders[] = '(?)';
+            $values[] = [
+                min($dog->getId(), $relative->getId()),
+                max($dog->getId(), $relative->getId()),
+                $dog->getCovarianceWith($relative->getDTO()),
+            ];
+            $types[] = Connection::PARAM_STR_ARRAY;
+        }
+
+        $this->getEntityManager()
+            ->getConnection()
+            ->executeQuery(
+                "INSERT INTO {$tableName} (dog1Id, dog2Id, covariance) VALUES " . implode(', ', $placeholders),
+                $values,
+                $types
+            );
     }
 }

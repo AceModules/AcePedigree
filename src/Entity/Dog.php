@@ -374,6 +374,7 @@ class Dog
      */
     public function setSire($sire)
     {
+        unset($this->dto);
         $this->sire = $sire;
     }
 
@@ -391,6 +392,7 @@ class Dog
      */
     public function setDam($dam)
     {
+        unset($this->dto);
         $this->dam = $dam;
     }
 

@@ -2,6 +2,7 @@
 
 namespace AcePedigree\Subscriber;
 
+use AcePedigree\Entity\Ancestry;
 use AcePedigree\Entity\Dog;
 use Doctrine\Common\EventSubscriber;
 use Doctrine\Common\Persistence\Event\LifecycleEventArgs;
@@ -29,7 +30,7 @@ class DogSubscriber implements EventSubscriber
         $entity = $args->getObject();
 
         if ($entity instanceof Dog) {
-            $entityManager->getRepository(Dog::class)->updateAncestry($entity);
+            $entityManager->getRepository(Ancestry::class)->updateAncestry($entity);
         }
     }
 
@@ -43,7 +44,7 @@ class DogSubscriber implements EventSubscriber
         $changeSet = $entityManager->getUnitOfWork()->getEntityChangeSet($entity);
 
         if ($entity instanceof Dog && (array_key_exists('sire', $changeSet) || array_key_exists('dam', $changeSet))) {
-            $entityManager->getRepository(Dog::class)->updateAncestry($entity);
+            $entityManager->getRepository(Ancestry::class)->updateAncestry($entity);
         }
     }
 }

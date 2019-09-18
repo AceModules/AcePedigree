@@ -5,7 +5,7 @@ namespace AcePedigree\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="AcePedigree\Repository\AncestryRepository")
  * @ORM\Table(name="ancestry")
  */
 class Ancestry

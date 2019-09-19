@@ -188,5 +188,13 @@ return [
                 ],
             ],
         ],
+        'migrations_configuration' => [
+            'orm_default' => [
+                'name'      => 'AcePedigree Migrations',
+                'directory' => __DIR__ . '/../src/Migrations',
+                'namespace' => __NAMESPACE__ . '\Migrations',
+                'table'     => 'pedigree_schema',
+            ],
+        ],
     ],
 ];

@@ -44,4 +44,18 @@ class KinshipRepository extends EntityRepository
                 $types
             );
     }
+
+    /**
+     * @param Dog $dog
+     * @return float
+     */
+    public function getAverageCovariance(Dog $dog)
+    {
+        return $this->getEntityManager()
+            ->getConnection()
+            ->fetchColumn(
+                'SELECT avgCovariance FROM pedigree_kinship_avg WHERE dogId = :dog',
+                [':dog' => $dog->getId()]
+            );
+    }
 }

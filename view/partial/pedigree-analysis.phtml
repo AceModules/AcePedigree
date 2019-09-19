@@ -3,6 +3,7 @@
     Coefficient of Inbreeding (COI): <?= round(100 * $dog->getCoefficientOfInbreeding(), 2) ?>%<br />
     Relationionship Coefficient of Sire and Dam (RC): <?= round(100 * $dog->getCoefficientOfRelationship(), 2) ?>%<br />
     Ancestor Loss (AVK): <?= round(100 * $dog->getAncestorLoss(), 2) ?>%<br />
+    Mean Kinship with Population (MK): <?= round(100 * $dog->getAverageCovariance(), 2) ?>%<br />
 
     <small class="text-<?= $dog->getLastCompleteGen() < $maxGen ? 'danger' : 'success'; ?>">
         <i>Calculations based on <?= $dog->getLastCompleteGen() ?> complete generation(s) of <?= $maxGen ?> requested.</i>

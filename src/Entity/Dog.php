@@ -227,6 +227,11 @@ class Dog
     protected $images;
 
     /**
+     * @var mixed
+     */
+    protected $averageCovariance;
+
+    /**
      * Constructor
      */
     public function __construct()
@@ -790,5 +795,25 @@ class Dog
         foreach ($images as $image) {
             $this->images->removeElement($image);
         }
+    }
+
+    /**
+     * @return float
+     */
+    public function getAverageCovariance()
+    {
+        if (is_callable($this->averageCovariance)) {
+            $this->averageCovariance = call_user_func_array($this->averageCovariance, [$this]);
+        }
+
+        return $this->averageCovariance;
+    }
+
+    /**
+     * @param callable $callback
+     */
+    public function setAverageCovariance(callable $callback)
+    {
+        $this->averageCovariance = $callback;
     }
 }

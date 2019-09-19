@@ -9,7 +9,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ORM\Entity(repositoryClass="AcePedigree\Repository\DogRepository")
- * @ORM\Table(name="dog")
+ * @ORM\Table(name="pedigree_dog")
  */
 class Dog
 {
@@ -94,7 +94,7 @@ class Dog
      * @var ArrayCollection
      *
      * @ORM\ManyToMany(targetEntity="Person", inversedBy="dogsBred")
-     * @ORM\JoinTable(name="dog_breeder",
+     * @ORM\JoinTable(name="pedigree_dog_breeder",
      *     joinColumns={@ORM\JoinColumn(name="dogId", referencedColumnName="id")},
      *     inverseJoinColumns={@ORM\JoinColumn(name="breederId", referencedColumnName="id")}
      * )
@@ -105,7 +105,7 @@ class Dog
      * @var ArrayCollection
      *
      * @ORM\ManyToMany(targetEntity="Person", inversedBy="dogsOwned")
-     * @ORM\JoinTable(name="dog_owner",
+     * @ORM\JoinTable(name="pedigree_dog_owner",
      *     joinColumns={@ORM\JoinColumn(name="dogId", referencedColumnName="id")},
      *     inverseJoinColumns={@ORM\JoinColumn(name="ownerId", referencedColumnName="id")}
      * )

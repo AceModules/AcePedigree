@@ -9,11 +9,6 @@ use Doctrine\ORM\Mapping\Driver\AnnotationDriver;
 use Zend\ServiceManager\Factory\InvokableFactory;
 
 return [
-    'ace_tools' => [
-        'table_prefixes' => [
-            __NAMESPACE__ . '\Entity' => 'pedigree_',
-        ],
-    ],
     'controllers' => [
         'factories' => [
             Controller\IndexController::class  => DoctrineAwareFactory::class,

@@ -2,19 +2,19 @@
 
 namespace AcePedigree\Repository;
 
-use AcePedigree\Entity\Ancestry;
+use AcePedigree\Entity\Kinship;
 use AcePedigree\Entity\Dog;
 use Doctrine\DBAL\Connection;
 use Doctrine\ORM\EntityRepository;
 
-class AncestryRepository extends EntityRepository
+class KinshipRepository extends EntityRepository
 {
     /**
      * @param Dog $dog
      */
     public function updateAncestry(Dog $dog)
     {
-        $tableName = $this->getEntityManager()->getClassMetadata(Ancestry::class)->getTableName();
+        $tableName = $this->getEntityManager()->getClassMetadata(Kinship::class)->getTableName();
 
         $this->getEntityManager()
             ->getConnection()

@@ -5,10 +5,10 @@ namespace AcePedigree\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="AcePedigree\Repository\AncestryRepository")
- * @ORM\Table(name="pedigree_ancestry")
+ * @ORM\Entity(repositoryClass="AcePedigree\Repository\KinshipRepository")
+ * @ORM\Table(name="pedigree_kinship")
  */
-class Ancestry
+class Kinship
 {
     /**
      * @var Dog

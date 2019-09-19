@@ -54,11 +54,9 @@ class DogRepository extends EntityRepository
      */
     function findByDescendant(Dog $dog)
     {
-        $tableName = $this->getEntityManager()->getClassMetadata(Dog::class)->getTableName();
-
         $sql = 'WITH RECURSIVE cte AS (' .
-            "SELECT x.* FROM {$tableName} x WHERE x.id = :dog UNION " .
-            "SELECT a.* FROM {$tableName} a JOIN cte ON a.id = cte.sireId OR a.id = cte.damId" .
+            'SELECT x.* FROM pedigree_dog x WHERE x.id = :dog UNION ' .
+            'SELECT a.* FROM pedigree_dog a JOIN cte ON a.id = cte.sireId OR a.id = cte.damId' .
             ') SELECT cte.* FROM cte;';
 
         $rsm = new ResultSetMappingBuilder($this->getEntityManager());
@@ -76,11 +74,9 @@ class DogRepository extends EntityRepository
      */
     function findByAncestor(Dog $dog)
     {
-        $tableName = $this->getEntityManager()->getClassMetadata(Dog::class)->getTableName();
-
         $sql = 'WITH RECURSIVE cte AS (' .
-            "SELECT x.* FROM {$tableName} x WHERE x.id = :dog UNION " .
-            "SELECT d.* FROM {$tableName} d JOIN cte ON d.sireId = cte.id OR d.damId = cte.id" .
+            'SELECT x.* FROM pedigree_dog x WHERE x.id = :dog UNION ' .
+            'SELECT d.* FROM pedigree_dog d JOIN cte ON d.sireId = cte.id OR d.damId = cte.id' .
             ') SELECT cte.* FROM cte;';
 
         $rsm = new ResultSetMappingBuilder($this->getEntityManager());
@@ -98,13 +94,11 @@ class DogRepository extends EntityRepository
      */
     function findByRelative(Dog $dog)
     {
-        $tableName = $this->getEntityManager()->getClassMetadata(Dog::class)->getTableName();
-
         $sql = 'WITH RECURSIVE cte AS (' .
-            "SELECT x.*, 1 AS isAncestor FROM {$tableName} x WHERE x.id = :dog UNION " .
-            "SELECT a.*, 1 AS isAncestor FROM {$tableName} a JOIN cte ON (a.id = cte.sireId OR a.id = cte.damId) AND cte.isAncestor = 1 UNION " .
-            "SELECT d.*, 0 AS isAncestor FROM {$tableName} d JOIN cte ON d.sireId = cte.id OR d.damId = cte.id" .
-            ") SELECT DISTINCT r.* FROM cte JOIN {$tableName} r ON r.id = cte.id;";
+            'SELECT x.*, 1 AS isAncestor FROM pedigree_dog x WHERE x.id = :dog UNION ' .
+            'SELECT a.*, 1 AS isAncestor FROM pedigree_dog a JOIN cte ON (a.id = cte.sireId OR a.id = cte.damId) AND cte.isAncestor = 1 UNION ' .
+            'SELECT d.*, 0 AS isAncestor FROM pedigree_dog d JOIN cte ON d.sireId = cte.id OR d.damId = cte.id' .
+            ') SELECT DISTINCT r.* FROM cte JOIN pedigree_dog r ON r.id = cte.id;';
 
         $rsm = new ResultSetMappingBuilder($this->getEntityManager());
         $rsm->addRootEntityFromClassMetadata(Dog::class, 'cte');

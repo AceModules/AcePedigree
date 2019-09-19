@@ -14,12 +14,10 @@ class KinshipRepository extends EntityRepository
      */
     public function updateAncestry(Dog $dog)
     {
-        $tableName = $this->getEntityManager()->getClassMetadata(Kinship::class)->getTableName();
-
         $this->getEntityManager()
             ->getConnection()
             ->executeQuery(
-                "DELETE FROM {$tableName} WHERE dog1Id = :dog OR dog2Id = :dog",
+                'DELETE FROM pedigree_kinship WHERE dog1Id = :dog OR dog2Id = :dog',
                 [':dog' => $dog->getId()]
             );
 
@@ -41,7 +39,7 @@ class KinshipRepository extends EntityRepository
         $this->getEntityManager()
             ->getConnection()
             ->executeQuery(
-                "INSERT INTO {$tableName} (dog1Id, dog2Id, covariance) VALUES " . implode(', ', $placeholders),
+                'INSERT INTO pedigree_kinship (dog1Id, dog2Id, covariance) VALUES ' . implode(', ', $placeholders),
                 $values,
                 $types
             );

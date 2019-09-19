@@ -2,7 +2,6 @@
 
 namespace AcePedigree\Repository;
 
-use AcePedigree\Entity\Kinship;
 use AcePedigree\Entity\Dog;
 use Doctrine\DBAL\Connection;
 use Doctrine\ORM\EntityRepository;

@@ -2,7 +2,6 @@
 
 namespace AcePedigree\Helper;
 
-use AcePedigree\Ofa;
 use Zend\View\Helper\AbstractHelper;
 
 class OfaLink extends AbstractHelper

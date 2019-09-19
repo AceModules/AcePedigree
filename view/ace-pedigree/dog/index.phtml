@@ -41,5 +41,5 @@
 </div>
 
 <?php if (count($result)) : ?>
-    <?= $this->paginationControl($result, 'sliding', 'partial/paginator', ['query' => ['page' => $page, 'sort' => $sort]]); ?>
+    <?= $this->paginationControl($result, 'sliding', 'partial/datagrid-paginator', ['query' => ['page' => $page, 'sort' => $sort]]); ?>
 <?php endif; ?>

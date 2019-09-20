@@ -821,9 +821,9 @@ class Dog
      * @return string
      * @Grid\Header(label="COI", sort={"statistics.inbreedingCoefficient", "statistics.averageCovariance"}, reverse=true)
      */
-    public function getCoefficientOfInbreedingDisplay()
+    public function getInbreedingCoefficientDisplay()
     {
-        return round(100 * $this->getCoefficientOfInbreeding(), 2) . '%';
+        return round(100 * $this->getInbreedingCoefficient(), 2) . '%';
     }
 
     /**

@@ -139,7 +139,7 @@ class PedigreeDTO
     /**
      * @return float
      */
-    public function getCoefficientOfInbreeding()
+    public function getInbreedingCoefficient()
     {
         return $this->getCovarianceWith($this) - 1;
     }
@@ -153,8 +153,8 @@ class PedigreeDTO
             return 0;
         }
 
-        return 2 * $this->getCoefficientOfInbreeding() /
-            sqrt((1 + $this->sire->getCoefficientOfInbreeding()) * (1 + $this->dam->getCoefficientOfInbreeding()));
+        return 2 * $this->getInbreedingCoefficient() /
+            sqrt((1 + $this->sire->getInbreedingCoefficient()) * (1 + $this->dam->getInbreedingCoefficient()));
     }
 
     /**
@@ -256,7 +256,7 @@ class PedigreeDTO
         foreach ($this->ancestorPaths[$dto->getId()]['sire'] as $sirePath) {
             foreach ($this->ancestorPaths[$dto->getId()]['dam'] as $damPath) {
                 if (count(array_intersect($sirePath, $damPath)) == 1) {
-                    $contribution += pow(0.5, count($sirePath) + count($damPath) - 1) * (1 + $dto->getCoefficientOfInbreeding());
+                    $contribution += pow(0.5, count($sirePath) + count($damPath) - 1) * (1 + $dto->getInbreedingCoefficient());
                 }
             }
         }

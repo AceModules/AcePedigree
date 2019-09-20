@@ -4,6 +4,7 @@ namespace AcePedigree\Repository;
 
 use AcePedigree\Entity\Dog;
 use AceDatagrid\Datagrid;
+use Doctrine\DBAL\Connection;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\ORM\Query\ResultSetMappingBuilder;
@@ -161,5 +162,55 @@ class DogRepository extends EntityRepository
         }
 
         return $queryBuilder;
+    }
+
+    /**
+     * @param Dog $dog
+     */
+    public function updateAncestry(Dog $dog)
+    {
+        $this->getEntityManager()
+            ->getConnection()
+            ->executeQuery(
+                'DELETE FROM pedigree_dog_kinship WHERE dog1Id = :dog OR dog2Id = :dog',
+                [':dog' => $dog->getId()]
+            );
+
+        $relatives = $this->getEntityManager()->getRepository(Dog::class)->findByRelative($dog);
+        $placeholders = [];
+        $values = [];
+        $types = [];
+
+        foreach ($relatives as $relative) {
+            $placeholders[] = '(?)';
+            $values[] = [
+                min($dog->getId(), $relative->getId()),
+                max($dog->getId(), $relative->getId()),
+                $dog->getCovarianceWith($relative->getDTO()),
+            ];
+            $types[] = Connection::PARAM_STR_ARRAY;
+        }
+
+        $this->getEntityManager()
+            ->getConnection()
+            ->executeQuery(
+                'INSERT INTO pedigree_dog_kinship (dog1Id, dog2Id, covariance) VALUES ' . implode(', ', $placeholders),
+                $values,
+                $types
+            );
+    }
+
+    /**
+     * @param Dog $dog
+     * @return float
+     */
+    public function getAverageCovariance(Dog $dog)
+    {
+        return $this->getEntityManager()
+            ->getConnection()
+            ->fetchColumn(
+                'SELECT averageCovariance FROM pedigree_dog_statistics WHERE dogId = :dog',
+                [':dog' => $dog->getId()]
+            );
     }
 }

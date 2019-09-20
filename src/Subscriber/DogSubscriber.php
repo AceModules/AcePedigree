@@ -2,7 +2,6 @@
 
 namespace AcePedigree\Subscriber;
 
-use AcePedigree\Entity\Kinship;
 use AcePedigree\Entity\Dog;
 use Doctrine\Common\EventSubscriber;
 use Doctrine\Common\Persistence\Event\LifecycleEventArgs;
@@ -31,7 +30,7 @@ class DogSubscriber implements EventSubscriber
         $entity = $args->getObject();
 
         if ($entity instanceof Dog) {
-            $entityManager->getRepository(Kinship::class)->updateAncestry($entity);
+            $entityManager->getRepository(Dog::class)->updateAncestry($entity);
         }
     }
 
@@ -45,7 +44,7 @@ class DogSubscriber implements EventSubscriber
         $changeSet = $entityManager->getUnitOfWork()->getEntityChangeSet($entity);
 
         if ($entity instanceof Dog && (array_key_exists('sire', $changeSet) || array_key_exists('dam', $changeSet))) {
-            $entityManager->getRepository(Kinship::class)->updateAncestry($entity);
+            $entityManager->getRepository(Dog::class)->updateAncestry($entity);
         }
     }
 
@@ -58,7 +57,7 @@ class DogSubscriber implements EventSubscriber
         $entity = $args->getObject();
 
         if ($entity instanceof Dog) {
-            $callback = [$entityManager->getRepository(Kinship::class), 'getAverageCovariance'];
+            $callback = [$entityManager->getRepository(Dog::class), 'getAverageCovariance'];
             $entity->setAverageCovariance($callback);
         }
     }

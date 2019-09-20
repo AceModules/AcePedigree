@@ -89,8 +89,8 @@ class DogController extends AbstractActionController
             return;
         }
 
-        $maxGen = (int) $this->params()->fromQuery('gens', 3);
-        $maxGen = min(9, max(3, $maxGen));
+        $maxGen = (int) $this->params()->fromQuery('maxGen', 3);
+        $maxGen = min(9, max(2, $maxGen));
 
         $offspring = $repository->findByParent($entity);
         $siblings = $repository->findBySibling($entity);

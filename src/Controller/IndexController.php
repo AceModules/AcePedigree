@@ -47,8 +47,8 @@ class IndexController extends AbstractActionController
         $entity = new Entity\Dog();
         $entity->setName('Future Offspring');
 
-        $maxGen = (int) $this->params()->fromQuery('gens', 3);
-        $maxGen = min(9, max(3, $maxGen));
+        $maxGen = (int) $this->params()->fromQuery('maxGen', 3);
+        $maxGen = min(9, max(2, $maxGen));
 
         $sireId = (int) $this->params()->fromQuery('sire');
         $sire = $repository->find($sireId);

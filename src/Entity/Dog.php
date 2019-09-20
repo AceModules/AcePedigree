@@ -39,6 +39,13 @@ class Dog
     protected $id;
 
     /**
+     * @var DogStatistics
+     *
+     * @ORM\OneToMany(targetEntity="DogStatistics", mappedBy="dog")
+     */
+    protected $statistics;
+
+    /**
      * @var string
      *
      * @ORM\Column(type="string", length=50)
@@ -227,11 +234,6 @@ class Dog
     protected $images;
 
     /**
-     * @var mixed
-     */
-    protected $averageCovariance;
-
-    /**
      * Constructor
      */
     public function __construct()
@@ -299,6 +301,16 @@ class Dog
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * @return DogStatistics
+     */
+    public function getStatistics()
+    {
+        // Had to fool doctrine into thinking statistics
+        // is M:1 in order to prevent extra queries
+        return $this->statistics[0];
     }
 
     /**
@@ -795,25 +807,5 @@ class Dog
         foreach ($images as $image) {
             $this->images->removeElement($image);
         }
-    }
-
-    /**
-     * @return float
-     */
-    public function getAverageCovariance()
-    {
-        if (is_callable($this->averageCovariance)) {
-            $this->averageCovariance = call_user_func_array($this->averageCovariance, [$this]);
-        }
-
-        return $this->averageCovariance;
-    }
-
-    /**
-     * @param callable $callback
-     */
-    public function setAverageCovariance(callable $callback)
-    {
-        $this->averageCovariance = $callback;
     }
 }

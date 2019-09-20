@@ -170,6 +170,14 @@ class PedigreeDTO
     }
 
     /**
+     * @return float
+     */
+    public function getAverageCovariance()
+    {
+        return $this->entity->getStatistics()->getAverageCovariance();
+    }
+
+    /**
      * @param PedigreeDTO $dto
      * @return float
      */

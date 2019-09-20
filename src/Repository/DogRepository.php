@@ -199,18 +199,4 @@ class DogRepository extends EntityRepository
                 $types
             );
     }
-
-    /**
-     * @param Dog $dog
-     * @return float
-     */
-    public function getAverageCovariance(Dog $dog)
-    {
-        return $this->getEntityManager()
-            ->getConnection()
-            ->fetchColumn(
-                'SELECT averageCovariance FROM pedigree_dog_statistics WHERE dogId = :dog',
-                [':dog' => $dog->getId()]
-            );
-    }
 }

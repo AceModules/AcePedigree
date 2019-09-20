@@ -196,5 +196,10 @@ return [
                 'table'     => 'pedigree_schema',
             ],
         ],
+        'configuration' => [
+            'orm_default' => [
+                'filter_schema_assets_expression' => '~^(?!pedigree_dog_statistics)~',
+            ],
+        ],
     ],
 ];

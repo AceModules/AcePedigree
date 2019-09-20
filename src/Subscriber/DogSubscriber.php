@@ -17,7 +17,6 @@ class DogSubscriber implements EventSubscriber
         return [
             Events::postPersist,
             Events::postUpdate,
-            Events::postLoad,
         ];
     }
 
@@ -45,20 +44,6 @@ class DogSubscriber implements EventSubscriber
 
         if ($entity instanceof Dog && (array_key_exists('sire', $changeSet) || array_key_exists('dam', $changeSet))) {
             $entityManager->getRepository(Dog::class)->updateAncestry($entity);
-        }
-    }
-
-    /**
-     * @param LifecycleEventArgs $args
-     */
-    public function postLoad(LifecycleEventArgs $args)
-    {
-        $entityManager = $args->getObjectManager();
-        $entity = $args->getObject();
-
-        if ($entity instanceof Dog) {
-            $callback = [$entityManager->getRepository(Dog::class), 'getAverageCovariance'];
-            $entity->setAverageCovariance($callback);
         }
     }
 }

@@ -5,7 +5,7 @@ namespace AcePedigree\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="AcePedigree\Repository\KinshipRepository")
+ * @ORM\Entity(readOnly=true, repositoryClass="AcePedigree\Repository\KinshipRepository")
  * @ORM\Table(name="pedigree_kinship")
  */
 class Kinship
@@ -34,6 +34,9 @@ class Kinship
      * @ORM\Column(type="float")
      */
     protected $covariance;
+
+    private function __construct()
+    { }
 
     /**
      * @return Dog

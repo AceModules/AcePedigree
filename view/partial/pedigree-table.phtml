@@ -1,6 +1,10 @@
 <h3>Pedigree</h3>
 <div class="container">
     <form class="form-inline">
+        <?php if (!$dog->getId()) : ?>
+            <input type="hidden" name="sire" value="<?= $dog->getSire()->getId() ?>" />
+            <input type="hidden" name="dam" value="<?= $dog->getDam()->getId() ?>" />
+        <?php endif; ?>
         Displaying <select class="form-control" id="maxGen" name="maxGen">
             <option>2</option>
             <option>3</option>

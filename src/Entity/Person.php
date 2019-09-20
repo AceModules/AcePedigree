@@ -263,7 +263,7 @@ class Person
      * @param Dog $dog
      * @return boolean
      */
-    public function hasDogBred($dog)
+    public function hasDogBred(Dog $dog)
     {
         $this->dogsBred->contains($dog);
     }
@@ -300,7 +300,7 @@ class Person
      * @param Dog $dog
      * @return boolean
      */
-    public function hasDogOwned($dog)
+    public function hasDogOwned(Dog $dog)
     {
         $this->dogsOwned->contains($dog);
     }

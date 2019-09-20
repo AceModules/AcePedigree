@@ -81,7 +81,7 @@ class Image
     /**
      * @param Dog $dog
      */
-    public function setDog($dog)
+    public function setDog(Dog $dog)
     {
         $this->dog = $dog;
     }

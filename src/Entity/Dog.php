@@ -372,7 +372,7 @@ class Dog
     /**
      * @param Kennel $kennel
      */
-    public function setKennel($kennel)
+    public function setKennel(Kennel $kennel = null)
     {
         $this->kennel = $kennel;
     }
@@ -389,8 +389,12 @@ class Dog
     /**
      * @param Dog $sire
      */
-    public function setSire($sire)
+    public function setSire(Dog $sire = null)
     {
+        if ($sire && $sire->isDescendantOf($this->getDTO())) {
+            throw new \Exception(sprintf('Dog \'%s\' cannot be sire of his ancestor \'%s\'', $sire, $this));
+        }
+
         unset($this->dto);
         $this->sire = $sire;
     }
@@ -407,8 +411,12 @@ class Dog
     /**
      * @param Dog $dam
      */
-    public function setDam($dam)
+    public function setDam(Dog $dam = null)
     {
+        if ($dam && $dam->isDescendantOf($this->getDTO())) {
+            throw new \Exception(sprintf('Dog \'%s\' cannot be dam of her ancestor \'%s\'', $dam, $this));
+        }
+
         unset($this->dto);
         $this->dam = $dam;
     }
@@ -461,7 +469,7 @@ class Dog
      * @param Person $breeder
      * @return boolean
      */
-    public function hasBreeder($breeder)
+    public function hasBreeder(Person $breeder)
     {
         $this->breeders->contains($breeder);
     }
@@ -506,7 +514,7 @@ class Dog
      * @param Person $owner
      * @return boolean
      */
-    public function hasOwner($owner)
+    public function hasOwner(Person $owner)
     {
         $this->owners->contains($owner);
     }
@@ -639,7 +647,7 @@ class Dog
     /**
      * @param Country $birthCountry
      */
-    public function setBirthCountry($birthCountry)
+    public function setBirthCountry(Country $birthCountry = null)
     {
         $this->birthCountry = $birthCountry;
     }
@@ -655,7 +663,7 @@ class Dog
     /**
      * @param Country $homeCountry
      */
-    public function setHomeCountry($homeCountry)
+    public function setHomeCountry(Country $homeCountry = null)
     {
         $this->homeCountry = $homeCountry;
     }
@@ -784,7 +792,7 @@ class Dog
      * @param Image $image
      * @return boolean
      */
-    public function hasImage($image)
+    public function hasImage(Image $image)
     {
         $this->images->contains($image);
     }

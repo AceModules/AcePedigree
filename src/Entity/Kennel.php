@@ -86,7 +86,7 @@ class Kennel
      * @param Dog $dog
      * @return boolean
      */
-    public function hasDog($dog)
+    public function hasDog(Dog $dog)
     {
         $this->dogs->contains($dog);
     }

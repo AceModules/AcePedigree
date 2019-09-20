@@ -816,4 +816,22 @@ class Dog
             $this->images->removeElement($image);
         }
     }
+
+    /**
+     * @return string
+     * @Grid\Header(label="COI", sort={"statistics.inbreedingCoefficient", "statistics.averageCovariance"}, reverse=true)
+     */
+    public function getCoefficientOfInbreedingDisplay()
+    {
+        return round(100 * $this->getCoefficientOfInbreeding(), 2) . '%';
+    }
+
+    /**
+     * @return string
+     * @Grid\Header(label="MK", sort={"statistics.averageCovariance", "statistics.inbreedingCoefficient"}, reverse=true)
+     */
+    public function getAverageCovarianceDisplay()
+    {
+        return round(100 * $this->getAverageCovariance(), 2) . '%';
+    }
 }

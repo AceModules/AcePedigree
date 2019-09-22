@@ -428,7 +428,7 @@ class Dog
 
     /**
      * @return string
-     * @Grid\Header(label="COI", sort={"inbreedingCoefficient", "averageCovariance"}, reverse=true)
+     * @Grid\Header(label="COI", sort={"inbreedingCoefficient", "averageCovariance", "-name"}, reverse=true)
      */
     public function getInbreedingCoefficientDisplay()
     {
@@ -445,7 +445,7 @@ class Dog
 
     /**
      * @return string
-     * @Grid\Header(label="MK", sort={"averageCovariance", "inbreedingCoefficient"}, reverse=true)
+     * @Grid\Header(label="MK", sort={"averageCovariance", "inbreedingCoefficient", "-name"}, reverse=true)
      */
     public function getAverageCovarianceDisplay()
     {

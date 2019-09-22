@@ -39,13 +39,6 @@ class Dog
     protected $id;
 
     /**
-     * @var DogStatistics
-     *
-     * @ORM\OneToMany(targetEntity="DogStatistics", mappedBy="dog")
-     */
-    protected $statistics;
-
-    /**
      * @var string
      *
      * @ORM\Column(type="string", length=50)
@@ -89,6 +82,20 @@ class Dog
      * @ORM\JoinColumn(name="damId", referencedColumnName="id", nullable=true)
      */
     protected $dam;
+
+    /**
+     * @var float
+     *
+     * @ORM\Column(type="float", nullable=true)
+     */
+    protected $inbreedingCoefficient;
+
+    /**
+     * @var float
+     *
+     * @ORM\Column(type="float", nullable=true)
+     */
+    protected $averageCovariance;
 
     /**
      * @var int
@@ -304,16 +311,6 @@ class Dog
     }
 
     /**
-     * @return DogStatistics
-     */
-    public function getStatistics()
-    {
-        // Had to fool doctrine into thinking statistics
-        // is M:1 in order to prevent extra queries
-        return $this->statistics[0];
-    }
-
-    /**
      * @return string
      */
     public function getName()
@@ -419,6 +416,40 @@ class Dog
 
         unset($this->dto);
         $this->dam = $dam;
+    }
+
+    /**
+     * @return float
+     */
+    public function getInbreedingCoefficient()
+    {
+        return $this->inbreedingCoefficient;
+    }
+
+    /**
+     * @return string
+     * @Grid\Header(label="COI", sort={"inbreedingCoefficient", "averageCovariance"}, reverse=true)
+     */
+    public function getInbreedingCoefficientDisplay()
+    {
+        return round(100 * $this->inbreedingCoefficient, 2) . '%';
+    }
+
+    /**
+     * @return float
+     */
+    public function getAverageCovariance()
+    {
+        return $this->averageCovariance;
+    }
+
+    /**
+     * @return string
+     * @Grid\Header(label="MK", sort={"averageCovariance", "inbreedingCoefficient"}, reverse=true)
+     */
+    public function getAverageCovarianceDisplay()
+    {
+        return round(100 * $this->averageCovariance, 2) . '%';
     }
 
     /**
@@ -815,23 +846,5 @@ class Dog
         foreach ($images as $image) {
             $this->images->removeElement($image);
         }
-    }
-
-    /**
-     * @return string
-     * @Grid\Header(label="COI", sort={"statistics.inbreedingCoefficient", "statistics.averageCovariance"}, reverse=true)
-     */
-    public function getInbreedingCoefficientDisplay()
-    {
-        return round(100 * $this->getInbreedingCoefficient(), 2) . '%';
-    }
-
-    /**
-     * @return string
-     * @Grid\Header(label="MK", sort={"statistics.averageCovariance", "statistics.inbreedingCoefficient"}, reverse=true)
-     */
-    public function getAverageCovarianceDisplay()
-    {
-        return round(100 * $this->getAverageCovariance(), 2) . '%';
     }
 }

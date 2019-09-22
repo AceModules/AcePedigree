@@ -198,5 +198,10 @@ class DogRepository extends EntityRepository
                 $values,
                 $types
             );
+
+        // This could potentially be slow in a very large db
+        $this->getEntityManager()
+            ->getConnection()
+            ->executeQuery('UPDATE pedigree_dog d JOIN pedigree_dog_statistics s ON s.dogId = d.id SET d.inbreedingCoefficient = s.inbreedingCoefficient, d.averageCovariance = s.averageCovariance');
     }
 }

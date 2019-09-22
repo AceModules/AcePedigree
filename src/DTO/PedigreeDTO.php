@@ -170,21 +170,6 @@ class PedigreeDTO
     }
 
     /**
-     * @return float
-     */
-    public function getAverageCovariance()
-    {
-        if (!$this->entity->getStatistics()) {
-            return 0.5 * (
-                ($this->sire ? $this->sire->getAverageCovariance() : 0) +
-                ($this->dam ? $this->dam->getAverageCovariance() : 0)
-            );
-        }
-
-        return $this->entity->getStatistics()->getAverageCovariance();
-    }
-
-    /**
      * @param PedigreeDTO $dto
      * @return float
      */

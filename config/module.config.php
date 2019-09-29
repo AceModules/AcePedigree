@@ -35,7 +35,7 @@ return [
                         'options' => [
                             'route'    => '/:action',
                             'constraints' => [
-                                'action'        => '(recent|statistics|graph|test-mating)',
+                                'action'        => '(recent|statistics|graph|json|test-mating)',
                             ],
                         ],
                     ],
@@ -138,6 +138,9 @@ return [
     'view_manager' => [
         'template_path_stack' => [
             'AcePedigree' => __DIR__ . '/../view',
+        ],
+        'strategies' => [
+            'ViewJsonStrategy',
         ],
     ],
     'view_helpers' => [

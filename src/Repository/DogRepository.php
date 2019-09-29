@@ -226,6 +226,12 @@ class DogRepository extends EntityRepository
             ->getQuery()
             ->getArrayResult();
 
+        array_walk($links, function (&$link) {
+            $link['source'] = (int) $link['source'];
+            $link['target'] = (int) $link['target'];
+            $link['distance'] = (float) $link['distance'];
+        });
+
         return [$nodes, $links];
     }
 }

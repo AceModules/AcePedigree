@@ -3,8 +3,9 @@
 namespace AcePedigree\Controller;
 
 use AcePedigree\Entity;
-use Zend\Mvc\Controller\AbstractActionController;
 use Doctrine\ORM\EntityManager;
+use Zend\Mvc\Controller\AbstractActionController;
+use Zend\View\Model\JsonModel;
 
 class IndexController extends AbstractActionController
 {
@@ -42,13 +43,19 @@ class IndexController extends AbstractActionController
     // Force directed graph of database relationships
     public function graphAction()
     {
+        return [];
+    }
+
+    // Data for the force directed graph
+    public function jsonAction()
+    {
         $repository = $this->entityManager->getRepository(Entity\Dog::class);
         list($nodes, $links) = $repository->getForceDirectedKinshipData();
 
-        return [
-            'nodes' => json_encode($nodes, JSON_NUMERIC_CHECK),
-            'links' => json_encode($links, JSON_NUMERIC_CHECK),
-        ];
+        return new JsonModel([
+            'nodes' => $nodes,
+            'links' => $links,
+        ]);
     }
 
     // Test mating pedigree

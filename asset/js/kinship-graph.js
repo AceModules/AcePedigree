@@ -1,4 +1,4 @@
-function kinshipGraph($container, nodes, links) {
+function kinshipGraph($container, dataUrl) {
     var Graph = ForceGraph3D()
         ($container[0])
         .width($container.width())
@@ -10,10 +10,7 @@ function kinshipGraph($container, nodes, links) {
         .nodeOpacity(1)
         .nodeVal(node => node.value * 10)
         .linkVisibility(false)
-        .graphData({
-            nodes: nodes,
-            links: links
-        });
+        .jsonUrl(dataUrl);
 
     Graph.d3Force('link').distance(link => link.distance * 1000);
 

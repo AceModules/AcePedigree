@@ -12,7 +12,7 @@ function kinshipGraph($container, dataUrl) {
         .linkVisibility(false)
         .jsonUrl(dataUrl);
 
-    Graph.d3Force('link').distance(link => link.distance * 1000);
+    Graph.d3Force('link').distance(link => link.distance * 100);
 
     let resizeGraph;
     (resizeGraph = function() {

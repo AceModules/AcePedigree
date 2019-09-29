@@ -35,7 +35,7 @@ return [
                         'options' => [
                             'route'    => '/:action',
                             'constraints' => [
-                                'action'        => '(recent|statistics|test-mating)',
+                                'action'        => '(recent|statistics|graph|test-mating)',
                             ],
                         ],
                     ],

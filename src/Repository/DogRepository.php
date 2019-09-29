@@ -4,6 +4,7 @@ namespace AcePedigree\Repository;
 
 use AcePedigree\Entity\Dog;
 use AceDatagrid\Datagrid;
+use AcePedigree\Entity\DogKinship;
 use Doctrine\DBAL\Connection;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\QueryBuilder;
@@ -203,5 +204,28 @@ class DogRepository extends EntityRepository
         $this->getEntityManager()
             ->getConnection()
             ->executeQuery('UPDATE pedigree_dog d JOIN pedigree_dog_statistics s ON s.dogId = d.id SET d.inbreedingCoefficient = s.inbreedingCoefficient, d.averageCovariance = s.averageCovariance');
+    }
+
+    /**
+     * @return array
+     */
+    public function getForceDirectedKinshipData()
+    {
+        $nodes = $this->getEntityManager()
+            ->createQueryBuilder()
+            ->select('d.id, d.name, d.averageCovariance AS value')
+            ->from(Dog::class, 'd')
+            ->getQuery()
+            ->getArrayResult();
+
+        $links = $this->getEntityManager()
+            ->createQueryBuilder()
+            ->select('IDENTITY(k.dog1) AS source, IDENTITY(k.dog2) AS target, 1 - k.covariance AS distance')
+            ->from(DogKinship::class, 'k')
+            ->where('k.dog1 != k.dog2')
+            ->getQuery()
+            ->getArrayResult();
+
+        return [$nodes, $links];
     }
 }

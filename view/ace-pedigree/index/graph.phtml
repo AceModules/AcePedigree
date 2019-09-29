@@ -1,0 +1,17 @@
+<?php $title = 'Population Relationship Graph'; ?>
+<?php $this->headLink()->appendStylesheet($this->basePath('css/kinship-graph.css')); ?>
+<?php $this->headScript()
+    ->appendFile('//unpkg.com/d3-dsv')
+    ->appendFile('//unpkg.com/3d-force-graph')
+    ->appendFile($this->basePath('js/kinship-graph.js')); ?>
+<?php $this->headTitle($title); ?>
+<h2 class="page-header"><?= $title ?></h2>
+
+<div id="kinship-graph"></div>
+
+<script>
+    var nodes = <?= $nodes ?>,
+        links = <?= $links ?>;
+
+    kinshipGraph($('#kinship-graph'), nodes, links);
+</script>

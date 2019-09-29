@@ -1,4 +1,4 @@
-<?php $this->headLink()->appendStylesheet('/css/pedigree.css'); ?>
+<?php $this->headLink()->appendStylesheet($this->basePath('css/pedigree.css')); ?>
 <?php $this->headTitle($entity); ?>
 <?php $this->pedigree($entity, $maxGen); ?>
 <h2 class="page-header"><?= $entity ?></h2>

@@ -39,6 +39,18 @@ class IndexController extends AbstractActionController
         return [];
     }
 
+    // Force directed graph of database relationships
+    public function graphAction()
+    {
+        $repository = $this->entityManager->getRepository(Entity\Dog::class);
+        list($nodes, $links) = $repository->getForceDirectedKinshipData();
+
+        return [
+            'nodes' => json_encode($nodes, JSON_NUMERIC_CHECK),
+            'links' => json_encode($links, JSON_NUMERIC_CHECK),
+        ];
+    }
+
     // Test mating pedigree
     public function testMatingAction()
     {

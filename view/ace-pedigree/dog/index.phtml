@@ -8,7 +8,7 @@
             <tr>
                 <?php foreach ($columns as $column) : ?>
                     <?php if ($column['sortName']) : ?>
-                        <th><?= $this->sortControl($sort, $column['sortName'], $column['label'], $column['sortReverse'], ['page' => $page]) ?></th>
+                        <th><?= $this->sortControl($sort, $column['sortName'], $column['label'], $column['sortReverse'], $search + ['page' => $page]) ?></th>
                     <?php else : ?>
                         <th><?= $column['label'] ?></th>
                     <?php endif; ?>
@@ -41,5 +41,5 @@
 </div>
 
 <?php if (count($result)) : ?>
-    <?= $this->paginationControl($result, 'sliding', 'partial/datagrid-paginator', ['query' => ['page' => $page, 'sort' => $sort]]); ?>
+    <?= $this->paginationControl($result, 'sliding', 'partial/datagrid-paginator', ['query' => $search + ['page' => $page, 'sort' => $sort]]); ?>
 <?php endif; ?>

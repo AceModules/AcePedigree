@@ -39,13 +39,15 @@ class DogController extends AbstractActionController
 
         $page = (int) $this->params()->fromQuery('page', 1);
         $sort = $this->params()->fromQuery('sort');
+        $search = [];
 
         $form = new AdvancedSearch();
         $form->setData($this->getRequest()->getQuery());
 
         if ($form->isValid()) {
+            $search = $form->getData();
             $queryBuilder = $this->entityManager->getRepository(Dog::class)
-                ->createSearchQueryBuilder($datagrid, $form->getData(), $sort);
+                ->createSearchQueryBuilder($datagrid, $search, $sort);
         } else {
             $queryBuilder = $datagrid->createSearchQueryBuilder(null, $sort);
         }
@@ -59,6 +61,7 @@ class DogController extends AbstractActionController
             'result'   => $paginator,
             'page'     => $page,
             'sort'     => $sort,
+            'search'   => $search,
         ];
     }
 

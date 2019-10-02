@@ -144,6 +144,22 @@ class DogRepository extends EntityRepository
                     $queryBuilder->andWhere($queryBuilder->expr()->lte('entity.weight', $searchParam));
                     break;
 
+                case 'minCOI':
+                    $queryBuilder->andWhere($queryBuilder->expr()->gte('entity.inbreedingCoefficient', $searchParam / 100));
+                    break;
+
+                case 'maxCOI':
+                    $queryBuilder->andWhere($queryBuilder->expr()->lte('entity.inbreedingCoefficient', $searchParam / 100));
+                    break;
+
+                case 'minMK':
+                    $queryBuilder->andWhere($queryBuilder->expr()->gte('entity.averageCovariance', $searchParam / 100));
+                    break;
+
+                case 'maxMK':
+                    $queryBuilder->andWhere($queryBuilder->expr()->lte('entity.averageCovariance', $searchParam / 100));
+                    break;
+
                 default:
                     $metadata = $this->getEntityManager()->getClassMetadata(Dog::class);
                     $reflection = $metadata->getReflectionClass();

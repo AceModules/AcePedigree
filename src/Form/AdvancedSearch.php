@@ -122,7 +122,46 @@ class AdvancedSearch extends Form
 
         // Siblings
         // Offspring
-        // Statistics
+
+        $minCOI = new Element\Number('minCOI');
+        $minCOI->setAttribute('placeholder', 'Min. COI %');
+        $minCOI->setAttribute('step', '0.1');
+        $this->add($minCOI);
+
+        $minCOIFilter = new Input('minCOI');
+        $minCOIFilter->setRequired(false);
+        $minCOIFilter->getValidatorChain()->attach(new Validator\Between(['min' => 0, 'max' => 100]));
+        $this->filter->add($minCOIFilter);
+
+        $maxCOI = new Element\Number('maxCOI');
+        $maxCOI->setAttribute('placeholder', 'Max. COI %');
+        $maxCOI->setAttribute('step', '0.1');
+        $this->add($maxCOI);
+
+        $maxCOIFilter = new Input('maxCOI');
+        $maxCOIFilter->setRequired(false);
+        $maxCOIFilter->getValidatorChain()->attach(new Validator\Between(['min' => 0, 'max' => 100]));
+        $this->filter->add($maxCOIFilter);
+
+        $minMK = new Element\Number('minMK');
+        $minMK->setAttribute('placeholder', 'Min. MK %');
+        $minMK->setAttribute('step', '0.1');
+        $this->add($minMK);
+
+        $minMKFilter = new Input('minMK');
+        $minMKFilter->setRequired(false);
+        $minMKFilter->getValidatorChain()->attach(new Validator\Between(['min' => 0, 'max' => 100]));
+        $this->filter->add($minMKFilter);
+
+        $maxMK = new Element\Number('maxMK');
+        $maxMK->setAttribute('placeholder', 'Max. MK %');
+        $maxMK->setAttribute('step', '0.1');
+        $this->add($maxMK);
+
+        $maxMKFilter = new Input('maxMK');
+        $maxMKFilter->setRequired(false);
+        $maxMKFilter->getValidatorChain()->attach(new Validator\Between(['min' => 0, 'max' => 100]));
+        $this->filter->add($maxMKFilter);
 
         $buttons = new Form('buttons');
         $buttons->setOption('twb-layout', 'inline');

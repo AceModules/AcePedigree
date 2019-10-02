@@ -23,7 +23,7 @@ class Person
     /**
      * @var string
      *
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", length=80)
      */
     protected $name;
 
@@ -44,35 +44,43 @@ class Person
     /**
      * @var string
      *
-     * @ORM\Column(type="string", nullable=true)
+     * @ORM\Column(type="string", length=50, nullable=true)
      */
     protected $street;
 
     /**
      * @var string
      *
-     * @ORM\Column(type="string", nullable=true)
+     * @ORM\Column(type="string", length=30, nullable=true)
      */
     protected $city;
 
     /**
      * @var string
      *
-     * @ORM\Column(type="string", nullable=true)
+     * @ORM\Column(type="string", length=30, nullable=true)
      */
     protected $region;
 
     /**
      * @var string
      *
-     * @ORM\Column(type="string", nullable=true)
+     * @ORM\Column(type="string", length=15, nullable=true)
      */
-    protected $postCode;
+    protected $postalCode;
+
+    /**
+     * @var Country
+     *
+     * @ORM\ManyToOne(targetEntity="Country")
+     * @ORM\JoinColumn(name="countryId", referencedColumnName="id", nullable=true)
+     */
+    protected $country;
 
     /**
      * @var string
      *
-     * @ORM\Column(type="string", nullable=true)
+     * @ORM\Column(type="string", length=20, nullable=true)
      */
     protected $phone;
 
@@ -222,17 +230,33 @@ class Person
     /**
      * @return string
      */
-    public function getPostCode()
+    public function getPostalCode()
     {
-        return $this->postCode;
+        return $this->postalCode;
     }
 
     /**
-     * @param string $postcode
+     * @param string $postalCode
      */
-    public function setPostCode($postCode)
+    public function setPostalCode($postalCode)
     {
-        $this->postCode = $postCode;
+        $this->postalCode = $postalCode;
+    }
+
+    /**
+     * @return Country
+     */
+    public function getCountry()
+    {
+        return $this->country;
+    }
+
+    /**
+     * @param Country $country
+     */
+    public function setCountry(Country $country = null)
+    {
+        $this->country = $country;
     }
 
     /**

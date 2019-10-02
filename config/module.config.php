@@ -9,6 +9,14 @@ use Doctrine\ORM\Mapping\Driver\AnnotationDriver;
 use Zend\ServiceManager\Factory\InvokableFactory;
 
 return [
+    'ace_admin' => [
+        'entities' => [
+            'countries' => Entity\Country::class,
+            'dogs'      => Entity\Dog::class,
+            'kennels'   => Entity\Kennel::class,
+            'persons'   => Entity\Person::class,
+        ],
+    ],
     'controllers' => [
         'factories' => [
             Controller\IndexController::class  => DoctrineAwareFactory::class,
@@ -137,7 +145,7 @@ return [
     ],
     'view_manager' => [
         'template_path_stack' => [
-            'AcePedigree' => __DIR__ . '/../view',
+            __NAMESPACE__ => __DIR__ . '/../view',
         ],
         'strategies' => [
             'ViewJsonStrategy',

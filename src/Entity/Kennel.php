@@ -2,12 +2,17 @@
 
 namespace AcePedigree\Entity;
 
+use AceDatagrid\Annotation as Grid;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
+use Zend\Form\Annotation as Form;
 
 /**
  * @ORM\Entity
  * @ORM\Table(name="pedigree_kennel")
+ * @Form\Name("kennel")
+ * @Form\Hydrator("Zend\Hydrator\ClassMethods")
+ * @Grid\Title(singular="Kennel", plural="Kennels")
  */
 class Kennel
 {
@@ -17,6 +22,7 @@ class Kennel
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Form\Exclude()
      */
     protected $id;
 
@@ -24,6 +30,13 @@ class Kennel
      * @var string
      *
      * @ORM\Column(type="string", length=80)
+     * @Form\Required(true)
+     * @Form\Type("Zend\Form\Element\Text")
+     * @Form\Options({"label": "Name"})
+     * @Form\Filter({"name": "StringTrim"})
+     * @Form\Filter({"name": "StripTags"})
+     * @Form\Validator({"name": "StringLength", "options": {"max": "80"}})
+     * @Grid\Search()
      */
     protected $name;
 
@@ -31,6 +44,7 @@ class Kennel
      * @var ArrayCollection
      *
      * @ORM\OneToMany(targetEntity="Dog", mappedBy="kennel")
+     * @Form\Exclude()
      */
     protected $dogs;
 
@@ -60,6 +74,7 @@ class Kennel
 
     /**
      * @return string
+     * @Grid\Header(label="Kennel", sort={"name"}, default=true)
      */
     public function getName()
     {

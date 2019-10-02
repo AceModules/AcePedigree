@@ -2,12 +2,17 @@
 
 namespace AcePedigree\Entity;
 
+use AceDatagrid\Annotation as Grid;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
+use Zend\Form\Annotation as Form;
 
 /**
  * @ORM\Entity
  * @ORM\Table(name="pedigree_person")
+ * @Form\Name("person")
+ * @Form\Hydrator("Zend\Hydrator\ClassMethods")
+ * @Grid\Title(singular="Person", plural="Persons")
  */
 class Person
 {
@@ -17,6 +22,7 @@ class Person
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Form\Exclude()
      */
     protected $id;
 
@@ -24,6 +30,14 @@ class Person
      * @var string
      *
      * @ORM\Column(type="string", length=80)
+     * @Form\Required(true)
+     * @Form\Type("Zend\Form\Element\Text")
+     * @Form\Options({"label": "Name"})
+     * @Form\Filter({"name": "StringTrim"})
+     * @Form\Filter({"name": "StripTags"})
+     * @Form\Validator({"name": "StringLength", "options": {"max": "80"}})
+     * @Grid\Search()
+     * @Grid\Suggest()
      */
     protected $name;
 
@@ -31,6 +45,9 @@ class Person
      * @var string
      *
      * @ORM\Column(type="string", nullable=true)
+     * @Form\Required(false)
+     * @Form\Type("Zend\Form\Element\Email")
+     * @Form\Options({"label": "Email"})
      */
     protected $email;
 
@@ -38,6 +55,9 @@ class Person
      * @var string
      *
      * @ORM\Column(type="string", nullable=true)
+     * @Form\Required(false)
+     * @Form\Type("Zend\Form\Element\Url")
+     * @Form\Options({"label": "Website"})
      */
     protected $website;
 
@@ -45,6 +65,12 @@ class Person
      * @var string
      *
      * @ORM\Column(type="string", length=50, nullable=true)
+     * @Form\Required(false)
+     * @Form\Type("Zend\Form\Element\Text")
+     * @Form\Options({"label": "Street Address"})
+     * @Form\Filter({"name": "StringTrim"})
+     * @Form\Filter({"name": "StripTags"})
+     * @Form\Validator({"name": "StringLength", "options": {"max": "50"}})
      */
     protected $street;
 
@@ -52,6 +78,12 @@ class Person
      * @var string
      *
      * @ORM\Column(type="string", length=30, nullable=true)
+     * @Form\Required(false)
+     * @Form\Type("Zend\Form\Element\Text")
+     * @Form\Options({"label": "City"})
+     * @Form\Filter({"name": "StringTrim"})
+     * @Form\Filter({"name": "StripTags"})
+     * @Form\Validator({"name": "StringLength", "options": {"max": "30"}})
      */
     protected $city;
 
@@ -59,6 +91,12 @@ class Person
      * @var string
      *
      * @ORM\Column(type="string", length=30, nullable=true)
+     * @Form\Required(false)
+     * @Form\Type("Zend\Form\Element\Text")
+     * @Form\Options({"label": "State/Region"})
+     * @Form\Filter({"name": "StringTrim"})
+     * @Form\Filter({"name": "StripTags"})
+     * @Form\Validator({"name": "StringLength", "options": {"max": "30"}})
      */
     protected $region;
 
@@ -66,6 +104,12 @@ class Person
      * @var string
      *
      * @ORM\Column(type="string", length=15, nullable=true)
+     * @Form\Required(false)
+     * @Form\Type("Zend\Form\Element\Text")
+     * @Form\Options({"label": "Postal Code"})
+     * @Form\Filter({"name": "StringTrim"})
+     * @Form\Filter({"name": "StripTags"})
+     * @Form\Validator({"name": "StringLength", "options": {"max": "15"}})
      */
     protected $postalCode;
 
@@ -74,6 +118,15 @@ class Person
      *
      * @ORM\ManyToOne(targetEntity="Country")
      * @ORM\JoinColumn(name="countryId", referencedColumnName="id", nullable=true)
+     * @Form\Required(false)
+     * @Form\Type("AceAdmin\Form\Element\ObjectLiveSearch")
+     * @Form\Options({"label": "Country", "empty_option": "Select a Country",
+     *     "find_method": {
+     *         "name": "findBy",
+     *         "params": {"criteria": {}, "orderBy": {"name": "ASC"}}
+     *     }
+     * })
+     * @Grid\Search(columnName="country.name")
      */
     protected $country;
 
@@ -81,6 +134,9 @@ class Person
      * @var string
      *
      * @ORM\Column(type="string", length=20, nullable=true)
+     * @Form\Required(false)
+     * @Form\Type("AceAdmin\Form\Element\Phone")
+     * @Form\Options({"label": "Phone"})
      */
     protected $phone;
 
@@ -88,6 +144,7 @@ class Person
      * @var ArrayCollection
      *
      * @ORM\ManyToMany(targetEntity="Dog", mappedBy="breeders")
+     * @Form\Exclude()
      */
     protected $dogsBred;
 
@@ -95,6 +152,7 @@ class Person
      * @var ArrayCollection
      *
      * @ORM\ManyToMany(targetEntity="Dog", mappedBy="owners")
+     * @Form\Exclude()
      */
     protected $dogsOwned;
 
@@ -125,6 +183,7 @@ class Person
 
     /**
      * @return string
+     * @Grid\Header(label="Name", sort={"name"}, default=true)
      */
     public function getName()
     {
@@ -149,6 +208,7 @@ class Person
 
     /**
      * @return string
+     * @Grid\Header(label="Email", sort={"email"})
      */
     public function getEmail()
     {
@@ -165,6 +225,7 @@ class Person
 
     /**
      * @return string
+     * @Grid\Header(label="Website", sort={"website"})
      */
     public function getWebsite()
     {
@@ -245,6 +306,7 @@ class Person
 
     /**
      * @return Country
+     * @Grid\Header(label="Country", sort={"country.name"})
      */
     public function getCountry()
     {
@@ -313,6 +375,15 @@ class Person
     }
 
     /**
+     * @return int
+     * @Grid\Header(label="Dogs Bred", sort={"count(dogsBred.id)"})
+     */
+    public function getDogsBredCount()
+    {
+        return count($this->dogsBred);
+    }
+
+    /**
      * @return ArrayCollection
      */
     public function getDogsOwned()
@@ -347,5 +418,14 @@ class Person
         foreach ($dogs as $dog) {
             $this->dogsOwned->removeElement($dog);
         }
+    }
+
+    /**
+     * @return int
+     * @Grid\Header(label="Dogs Owned", sort={"count(dogsOwned.id)"})
+     */
+    public function getDogsOwnedCount()
+    {
+        return count($this->dogsOwned);
     }
 }

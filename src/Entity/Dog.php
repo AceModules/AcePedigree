@@ -6,10 +6,12 @@ use AcePedigree\DTO\PedigreeDTO;
 use AceDatagrid\Annotation as Grid;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
+use Zend\Form\Annotation as Form;
 
 /**
  * @ORM\Entity(repositoryClass="AcePedigree\Repository\DogRepository")
  * @ORM\Table(name="pedigree_dog")
+ * @Grid\Title(singular="Dog", plural="Dogs")
  */
 class Dog
 {
@@ -18,6 +20,8 @@ class Dog
 
     /**
      * @var array
+     *
+     * @Form\Exclude()
      */
     protected $sexLabels = array(
         self::SEX_MALE => 'Male',
@@ -26,6 +30,8 @@ class Dog
 
     /**
      * @var PedigreeDTO
+     *
+     * @Form\Exclude()
      */
     protected $dto;
 
@@ -35,6 +41,7 @@ class Dog
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Form\Exclude()
      */
     protected $id;
 
@@ -42,6 +49,13 @@ class Dog
      * @var string
      *
      * @ORM\Column(type="string", length=50)
+     * @Form\Required(true)
+     * @Form\Type("Zend\Form\Element\Text")
+     * @Form\Options({"label": "Registered Name"})
+     * @Form\Filter({"name": "StringTrim"})
+     * @Form\Filter({"name": "StripTags"})
+     * @Form\Validator({"name": "StringLength", "options": {"max": "50"}})
+     * @Grid\Search()
      */
     protected $name;
 
@@ -49,6 +63,12 @@ class Dog
      * @var string
      *
      * @ORM\Column(type="string", length=15, nullable=true)
+     * @Form\Required(false)
+     * @Form\Type("Zend\Form\Element\Text")
+     * @Form\Options({"label": "Call Name"})
+     * @Form\Filter({"name": "StringTrim"})
+     * @Form\Filter({"name": "StripTags"})
+     * @Form\Validator({"name": "StringLength", "options": {"max": "15"}})
      */
     protected $callName;
 
@@ -56,6 +76,13 @@ class Dog
      * @var string
      *
      * @ORM\Column(type="string", length=80, nullable=true)
+     * @Form\Required(false)
+     * @Form\Type("Zend\Form\Element\Text")
+     * @Form\Options({"label": "Registration"})
+     * @Form\Filter({"name": "StringTrim"})
+     * @Form\Filter({"name": "StripTags"})
+     * @Form\Validator({"name": "StringLength", "options": {"max": "80"}})
+     * @Grid\Search()
      */
     protected $registration;
 
@@ -64,6 +91,15 @@ class Dog
      * 
      * @ORM\ManyToOne(targetEntity="Kennel", inversedBy="dogs")
      * @ORM\JoinColumn(name="kennelId", referencedColumnName="id", nullable=true)
+     * @Form\Required(false)
+     * @Form\Type("AceAdmin\Form\Element\ObjectLiveSearch")
+     * @Form\Options({"label": "Kennel", "empty_option": "Select a Kennel",
+     *     "find_method": {
+     *         "name": "findBy",
+     *         "params": {"criteria": {}, "orderBy": {"name": "ASC"}}
+     *     }
+     * })
+     * @Grid\Search(columnName="kennel.name")
      */
     protected $kennel;
 
@@ -72,6 +108,14 @@ class Dog
      * 
      * @ORM\ManyToOne(targetEntity="Dog")
      * @ORM\JoinColumn(name="sireId", referencedColumnName="id", nullable=true)
+     * @Form\Required(false)
+     * @Form\Type("AceAdmin\Form\Element\ObjectLiveSearch")
+     * @Form\Options({"label": "Sire", "empty_option": "Select a Dog",
+     *     "find_method": {
+     *         "name": "findBy",
+     *         "params": {"criteria": {"sex": 1}, "orderBy": {"name": "ASC"}}
+     *     }
+     * })
      */
     protected $sire;
 
@@ -80,6 +124,14 @@ class Dog
      * 
      * @ORM\ManyToOne(targetEntity="Dog")
      * @ORM\JoinColumn(name="damId", referencedColumnName="id", nullable=true)
+     * @Form\Required(false)
+     * @Form\Type("AceAdmin\Form\Element\ObjectLiveSearch")
+     * @Form\Options({"label": "Dam", "empty_option": "Select a Dog",
+     *     "find_method": {
+     *         "name": "findBy",
+     *         "params": {"criteria": {"sex": 2}, "orderBy": {"name": "ASC"}}
+     *     }
+     * })
      */
     protected $dam;
 
@@ -87,6 +139,7 @@ class Dog
      * @var float
      *
      * @ORM\Column(type="float", nullable=true)
+     * @Form\Exclude()
      */
     protected $inbreedingCoefficient;
 
@@ -94,6 +147,7 @@ class Dog
      * @var float
      *
      * @ORM\Column(type="float", nullable=true)
+     * @Form\Exclude()
      */
     protected $averageCovariance;
 
@@ -101,6 +155,13 @@ class Dog
      * @var int
      * 
      * @ORM\Column(type="integer", nullable=true)
+     * @Form\Required(true)
+     * @Form\Type("Zend\Form\Element\Radio")
+     * @Form\Options({"label": "Sex"})
+     * @Form\Attributes({"options": {
+     *      "1": "Male",
+     *      "2": "Female"
+     * }})
      */
     protected $sex;
 
@@ -112,6 +173,16 @@ class Dog
      *     joinColumns={@ORM\JoinColumn(name="dogId", referencedColumnName="id")},
      *     inverseJoinColumns={@ORM\JoinColumn(name="breederId", referencedColumnName="id")}
      * )
+     * @Form\Required(false)
+     * @Form\Type("AceAdmin\Form\Element\ObjectLiveSearch")
+     * @Form\Options({"label": "Breeders", "empty_option": "Select Breeders",
+     *     "find_method": {
+     *         "name": "findBy",
+     *         "params": {"criteria": {}, "orderBy": {"name": "ASC"}}
+     *     }
+     * })
+     * @Form\Attributes({"multiple": true})
+     * @Grid\Search(columnName="breeders.name")
      */
     protected $breeders;
 
@@ -123,6 +194,16 @@ class Dog
      *     joinColumns={@ORM\JoinColumn(name="dogId", referencedColumnName="id")},
      *     inverseJoinColumns={@ORM\JoinColumn(name="ownerId", referencedColumnName="id")}
      * )
+     * @Form\Required(false)
+     * @Form\Type("AceAdmin\Form\Element\ObjectLiveSearch")
+     * @Form\Options({"label": "Owners", "empty_option": "Select Owners",
+     *     "find_method": {
+     *         "name": "findBy",
+     *         "params": {"criteria": {}, "orderBy": {"name": "ASC"}}
+     *     }
+     * })
+     * @Form\Attributes({"multiple": true})
+     * @Grid\Search(columnName="owners.name")
      */
     protected $owners;
 
@@ -130,6 +211,11 @@ class Dog
      * @var int
      *
      * @ORM\Column(type="integer", nullable=true)
+     * @Form\Required(false)
+     * @Form\Type("Zend\Form\Element\Number")
+     * @Form\Options({"label": "Birth Year"})
+     * @Form\Validator({"name": "Between", "options": {"min": "1900", "max": "2100"}})
+     * @Grid\Search()
      */
     protected $birthYear;
 
@@ -137,6 +223,24 @@ class Dog
      * @var int
      *
      * @ORM\Column(type="integer", nullable=true)
+     * @Form\Required(false)
+     * @Form\Type("Zend\Form\Element\Select")
+     * @Form\Options({"label": "Birth Month"})
+     * @Form\Attributes({"options": {
+     *      "": "",
+     *      "1": "January",
+     *      "2": "February",
+     *      "3": "March",
+     *      "4": "April",
+     *      "5": "May",
+     *      "6": "June",
+     *      "7": "July",
+     *      "8": "August",
+     *      "9": "September",
+     *      "10": "October",
+     *      "11": "November",
+     *      "12": "December",
+     * }})
      */
     protected $birthMonth;
 
@@ -144,6 +248,10 @@ class Dog
      * @var int
      *
      * @ORM\Column(type="integer", nullable=true)
+     * @Form\Required(false)
+     * @Form\Type("Zend\Form\Element\Number")
+     * @Form\Options({"label": "Birth Day"})
+     * @Form\Validator({"name": "Between", "options": {"min": "1", "max": "31"}})
      */
     protected $birthDay;
 
@@ -151,6 +259,10 @@ class Dog
      * @var int
      *
      * @ORM\Column(type="integer", nullable=true)
+     * @Form\Required(false)
+     * @Form\Type("Zend\Form\Element\Number")
+     * @Form\Options({"label": "Death Year"})
+     * @Form\Validator({"name": "Between", "options": {"min": "1900", "max": "2100"}})
      */
     protected $deathYear;
 
@@ -158,6 +270,24 @@ class Dog
      * @var int
      *
      * @ORM\Column(type="integer", nullable=true)
+     * @Form\Required(false)
+     * @Form\Type("Zend\Form\Element\Select")
+     * @Form\Options({"label": "Death Month"})
+     * @Form\Attributes({"options": {
+     *      "": "",
+     *      "1": "January",
+     *      "2": "February",
+     *      "3": "March",
+     *      "4": "April",
+     *      "5": "May",
+     *      "6": "June",
+     *      "7": "July",
+     *      "8": "August",
+     *      "9": "September",
+     *      "10": "October",
+     *      "11": "November",
+     *      "12": "December",
+     * }})
      */
     protected $deathMonth;
 
@@ -165,6 +295,10 @@ class Dog
      * @var int
      *
      * @ORM\Column(type="integer", nullable=true)
+     * @Form\Required(false)
+     * @Form\Type("Zend\Form\Element\Number")
+     * @Form\Options({"label": "Death Day"})
+     * @Form\Validator({"name": "Between", "options": {"min": "1", "max": "31"}})
      */
     protected $deathDay;
 
@@ -173,6 +307,15 @@ class Dog
      *
      * @ORM\ManyToOne(targetEntity="Country")
      * @ORM\JoinColumn(name="birthCountryId", referencedColumnName="id", nullable=true)
+     * @Form\Required(false)
+     * @Form\Type("AceAdmin\Form\Element\ObjectLiveSearch")
+     * @Form\Options({"label": "Land of Birth", "empty_option": "Select a Country",
+     *     "find_method": {
+     *         "name": "findBy",
+     *         "params": {"criteria": {}, "orderBy": {"name": "ASC"}}
+     *     }
+     * })
+     * @Grid\Search(columnName="birthCountry.name")
      */
     protected $birthCountry;
 
@@ -181,6 +324,15 @@ class Dog
      *
      * @ORM\ManyToOne(targetEntity="Country")
      * @ORM\JoinColumn(name="homeCountryId", referencedColumnName="id", nullable=true)
+     * @Form\Required(false)
+     * @Form\Type("AceAdmin\Form\Element\ObjectLiveSearch")
+     * @Form\Options({"label": "Land of Standing", "empty_option": "Select a Country",
+     *     "find_method": {
+     *         "name": "findBy",
+     *         "params": {"criteria": {}, "orderBy": {"name": "ASC"}}
+     *     }
+     * })
+     * @Grid\Search(columnName="homeCountry.name")
      */
     protected $homeCountry;
 
@@ -188,6 +340,10 @@ class Dog
      * @var float
      *
      * @ORM\Column(type="float", nullable=true)
+     * @Form\Required(false)
+     * @Form\Type("Zend\Form\Element\Number")
+     * @Form\Options({"label": "Height (Inches)"})
+     * @Form\Validator({"name": "Between", "options": {"min": "4", "max": "30"}})
      */
     protected $height;
 
@@ -195,6 +351,10 @@ class Dog
      * @var float
      *
      * @ORM\Column(type="float", nullable=true)
+     * @Form\Required(false)
+     * @Form\Type("Zend\Form\Element\Number")
+     * @Form\Options({"label": "Weight (Pounds)"})
+     * @Form\Validator({"name": "Between", "options": {"min": "4", "max": "200"}})
      */
     protected $weight;
 
@@ -202,6 +362,17 @@ class Dog
      * @var string
      *
      * @ORM\Column(type="string", length=20, nullable=true)
+     * @Form\Required(false)
+     * @Form\Type("Zend\Form\Element\Select")
+     * @Form\Options({"label": "Color"})
+     * @Form\Attributes({"options": {
+     *      "": "",
+     *      "Red": "Red",
+     *      "Brindle": "Brindle",
+     *      "White": "White",
+     *      "Other": "Other",
+     * }})
+     * @Grid\Search()
      */
     protected $color;
 
@@ -209,6 +380,10 @@ class Dog
      * @var int
      *
      * @ORM\Column(type="integer", nullable=true)
+     * @Form\Required(false)
+     * @Form\Type("Zend\Form\Element\Number")
+     * @Form\Options({"label": "OFA Number"})
+     * @Form\Validator({"name":"Regex", "options":{"pattern":"/^\d{7}$/"}})
      */
     protected $ofaNumber;
 
@@ -216,6 +391,10 @@ class Dog
      * @var string
      *
      * @ORM\Column(type="string", nullable=true)
+     * @Form\Required(false)
+     * @Form\Type("Zend\Form\Element\Textarea")
+     * @Form\Options({"label": "Features"})
+     * @Grid\Search()
      */
     protected $features;
 
@@ -223,6 +402,10 @@ class Dog
      * @var string
      *
      * @ORM\Column(type="string", nullable=true)
+     * @Form\Required(false)
+     * @Form\Type("Zend\Form\Element\Textarea")
+     * @Form\Options({"label": "Titles"})
+     * @Grid\Search()
      */
     protected $titles;
 
@@ -230,6 +413,10 @@ class Dog
      * @var string
      *
      * @ORM\Column(type="text", nullable=true)
+     * @Form\Required(false)
+     * @Form\Type("Zend\Form\Element\Textarea")
+     * @Form\Options({"label": "Notes"})
+     * @Grid\Search()
      */
     protected $notes;
 
@@ -237,6 +424,7 @@ class Dog
      * @var ArrayCollection
      *
      * @ORM\OneToMany(targetEntity="Image", mappedBy="dog")
+     * @Form\Exclude()
      */
     protected $images;
 

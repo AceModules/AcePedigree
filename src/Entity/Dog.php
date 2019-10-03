@@ -154,7 +154,7 @@ class Dog
     /**
      * @var int
      * 
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\Column(type="integer")
      * @Form\Required(true)
      * @Form\Type("Zend\Form\Element\Radio")
      * @Form\Options({"label": "Sex"})

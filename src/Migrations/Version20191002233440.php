@@ -14,7 +14,7 @@ final class Version20191002233440 extends AbstractMigration
 {
     public function getDescription() : string
     {
-        return '';
+        return 'Update address fields on person table.';
     }
 
     public function up(Schema $schema) : void

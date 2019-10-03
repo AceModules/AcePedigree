@@ -1,6 +1,6 @@
 <?php
 
-namespace AcePedigree\Helper;
+namespace AcePedigree\View\Helper;
 
 use AcePedigree\Entity;
 use Zend\View\Helper\AbstractHelper;

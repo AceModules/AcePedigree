@@ -1,15 +1,15 @@
 <?php
 
-namespace AcePedigree\Helper;
+namespace AcePedigree\View\Helper;
 
-use AcePedigree\DTO\PedigreeDTO;
+use AcePedigree\Entity\DTO\DogDTO;
 use AcePedigree\Entity\Dog;
 use Zend\View\Helper\AbstractHelper;
 
 class Pedigree extends AbstractHelper
 {
     /**
-     * @var PedigreeDTO
+     * @var DogDTO
      */
     protected $dto;
 

@@ -153,18 +153,18 @@ return [
     ],
     'view_helpers' => [
         'aliases' => [
-            'entityLink'       => Helper\EntityLink::class,
-            'ofaLink'          => Helper\OfaLink::class,
-            'testMatingButton' => Helper\TestMatingButton::class,
-            'fuzzyDate'        => Helper\FuzzyDate::class,
-            'pedigree'         => Helper\Pedigree::class,
+            'entityLink'       => View\Helper\EntityLink::class,
+            'ofaLink'          => View\Helper\OfaLink::class,
+            'testMatingButton' => View\Helper\TestMatingButton::class,
+            'fuzzyDate'        => View\Helper\FuzzyDate::class,
+            'pedigree'         => View\Helper\Pedigree::class,
         ],
         'factories' => [
-            Helper\EntityLink::class       => InvokableFactory::class,
-            Helper\OfaLink::class          => InvokableFactory::class,
-            Helper\TestMatingButton::class => InvokableFactory::class,
-            Helper\FuzzyDate::class        => InvokableFactory::class,
-            Helper\Pedigree::class         => InvokableFactory::class,
+            View\Helper\EntityLink::class       => InvokableFactory::class,
+            View\Helper\OfaLink::class          => InvokableFactory::class,
+            View\Helper\TestMatingButton::class => InvokableFactory::class,
+            View\Helper\FuzzyDate::class        => InvokableFactory::class,
+            View\Helper\Pedigree::class         => InvokableFactory::class,
         ],
     ],
     'asset_manager' => [
@@ -176,14 +176,14 @@ return [
     ],
     'service_manager' => [
         'factories' => [
-            Subscriber\DogSubscriber::class => InvokableFactory::class,
+            Entity\Subscriber\DogSubscriber::class => InvokableFactory::class,
         ],
     ],
     'doctrine' => [
         'eventmanager' => [
             'orm_default' => [
                 'subscribers' => [
-                    Subscriber\DogSubscriber::class,
+                    Entity\Subscriber\DogSubscriber::class,
                 ],
             ],
         ],

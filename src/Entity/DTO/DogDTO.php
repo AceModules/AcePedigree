@@ -1,10 +1,10 @@
 <?php
 
-namespace AcePedigree\DTO;
+namespace AcePedigree\Entity\DTO;
 
 use AcePedigree\Entity\Dog;
 
-class PedigreeDTO
+class DogDTO
 {
     /**
      * @var int
@@ -12,12 +12,12 @@ class PedigreeDTO
     protected $id;
 
     /**
-     * @var PedigreeDTO
+     * @var DogDTO
      */
     protected $sire;
 
     /**
-     * @var PedigreeDTO
+     * @var DogDTO
      */
     protected $dam;
 
@@ -81,7 +81,7 @@ class PedigreeDTO
     }
 
     /**
-     * @return PedigreeDTO
+     * @return DogDTO
      */
     public function getSire()
     {
@@ -89,7 +89,7 @@ class PedigreeDTO
     }
 
     /**
-     * @return PedigreeDTO
+     * @return DogDTO
      */
     public function getDam()
     {
@@ -170,10 +170,10 @@ class PedigreeDTO
     }
 
     /**
-     * @param PedigreeDTO $dto
+     * @param DogDTO $dto
      * @return float
      */
-    public function getConsanguinityWith(PedigreeDTO $dto)
+    public function getConsanguinityWith(DogDTO $dto)
     {
         if ($dto == $this) {
             return 1;
@@ -191,10 +191,10 @@ class PedigreeDTO
     }
 
     /**
-     * @param PedigreeDTO $dto
+     * @param DogDTO $dto
      * @return float
      */
-    public function getCovarianceWith(PedigreeDTO $dto)
+    public function getCovarianceWith(DogDTO $dto)
     {
         if ($dto == $this) {
             return 1 + (0.5 *
@@ -214,10 +214,10 @@ class PedigreeDTO
     }
 
     /**
-     * @param PedigreeDTO $dto
+     * @param DogDTO $dto
      * @return bool
      */
-    public function isDescendantOf(PedigreeDTO $dto)
+    public function isDescendantOf(DogDTO $dto)
     {
         if ($dto == $this) {
             return true;
@@ -227,10 +227,10 @@ class PedigreeDTO
     }
 
     /**
-     * @param PedigreeDTO $dto
+     * @param DogDTO $dto
      * @return float
      */
-    public function getInbreedingContributionFrom(PedigreeDTO $dto)
+    public function getInbreedingContributionFrom(DogDTO $dto)
     {
         if (!isset($this->ancestorPaths[$dto->getId()]['sire']) || !isset($this->ancestorPaths[$dto->getId()]['dam'])) {
             return 0;
@@ -252,7 +252,7 @@ class PedigreeDTO
     /**
      * @return array
      */
-    public function getGenerationTotalsFor(PedigreeDTO $dto)
+    public function getGenerationTotalsFor(DogDTO $dto)
     {
         if (!isset($this->ancestorPaths[$dto->getId()])) {
             return [];
@@ -274,7 +274,7 @@ class PedigreeDTO
     /**
      * @return int
      */
-    public function getShortestPathTo(PedigreeDTO $dto)
+    public function getShortestPathTo(DogDTO $dto)
     {
         return min(array_keys($this->getGenerationTotalsFor($dto)));
     }
@@ -282,7 +282,7 @@ class PedigreeDTO
     /**
      * @param Dog $dog
      * @param string $line
-     * @return PedigreeDTO
+     * @return DogDTO
      */
     private function addParent(Dog $dog, $line)
     {

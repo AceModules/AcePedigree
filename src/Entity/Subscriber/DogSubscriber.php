@@ -1,6 +1,6 @@
 <?php
 
-namespace AcePedigree\Subscriber;
+namespace AcePedigree\Entity\Subscriber;
 
 use AcePedigree\Entity\Dog;
 use Doctrine\Common\EventSubscriber;

@@ -2,14 +2,14 @@
 
 namespace AcePedigree\Entity;
 
-use AcePedigree\DTO\PedigreeDTO;
+use AcePedigree\Entity\DTO\DogDTO;
 use AceDatagrid\Annotation as Grid;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Zend\Form\Annotation as Form;
 
 /**
- * @ORM\Entity(repositoryClass="AcePedigree\Repository\DogRepository")
+ * @ORM\Entity(repositoryClass="AcePedigree\Entity\Repository\DogRepository")
  * @ORM\Table(name="pedigree_dog")
  * @Grid\Title(singular="Dog", plural="Dogs")
  */
@@ -29,7 +29,7 @@ class Dog
     );
 
     /**
-     * @var PedigreeDTO
+     * @var DogDTO
      *
      * @Form\Exclude()
      */
@@ -492,12 +492,12 @@ class Dog
     }
 
     /**
-     * @return PedigreeDTO
+     * @return DogDTO
      */
     public function getDTO()
     {
         if (!isset($this->dto)) {
-            $this->dto = new PedigreeDTO($this);
+            $this->dto = new DogDTO($this);
         }
 
         return $this->dto;

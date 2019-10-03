@@ -68,6 +68,7 @@ class Dog
      * @Form\Options({"label": "Call Name"})
      * @Form\Filter({"name": "StringTrim"})
      * @Form\Filter({"name": "StripTags"})
+     * @Form\Filter({"name": "ToNull"})
      * @Form\Validator({"name": "StringLength", "options": {"max": "15"}})
      */
     protected $callName;
@@ -81,6 +82,7 @@ class Dog
      * @Form\Options({"label": "Registration"})
      * @Form\Filter({"name": "StringTrim"})
      * @Form\Filter({"name": "StripTags"})
+     * @Form\Filter({"name": "ToNull"})
      * @Form\Validator({"name": "StringLength", "options": {"max": "80"}})
      * @Grid\Search()
      */
@@ -99,6 +101,7 @@ class Dog
      *         "params": {"criteria": {}, "orderBy": {"name": "ASC"}}
      *     }
      * })
+     * @Form\Filter({"name": "ToNull"})
      * @Grid\Search(columnName="kennel.name")
      */
     protected $kennel;
@@ -116,6 +119,7 @@ class Dog
      *         "params": {"criteria": {"sex": 1}, "orderBy": {"name": "ASC"}}
      *     }
      * })
+     * @Form\Filter({"name": "ToNull"})
      */
     protected $sire;
 
@@ -132,6 +136,7 @@ class Dog
      *         "params": {"criteria": {"sex": 2}, "orderBy": {"name": "ASC"}}
      *     }
      * })
+     * @Form\Filter({"name": "ToNull"})
      */
     protected $dam;
 
@@ -182,6 +187,7 @@ class Dog
      *     }
      * })
      * @Form\Attributes({"multiple": true})
+     * @Form\Filter({"name": "ToNull"})
      * @Grid\Search(columnName="breeders.name")
      */
     protected $breeders;
@@ -203,6 +209,7 @@ class Dog
      *     }
      * })
      * @Form\Attributes({"multiple": true})
+     * @Form\Filter({"name": "ToNull"})
      * @Grid\Search(columnName="owners.name")
      */
     protected $owners;
@@ -214,6 +221,7 @@ class Dog
      * @Form\Required(false)
      * @Form\Type("Zend\Form\Element\Number")
      * @Form\Options({"label": "Birth Year"})
+     * @Form\Filter({"name": "ToNull"})
      * @Form\Validator({"name": "Between", "options": {"min": "1900", "max": "2100"}})
      * @Grid\Search()
      */
@@ -241,6 +249,7 @@ class Dog
      *      "11": "November",
      *      "12": "December",
      * }})
+     * @Form\Filter({"name": "ToNull"})
      */
     protected $birthMonth;
 
@@ -251,6 +260,7 @@ class Dog
      * @Form\Required(false)
      * @Form\Type("Zend\Form\Element\Number")
      * @Form\Options({"label": "Birth Day"})
+     * @Form\Filter({"name": "ToNull"})
      * @Form\Validator({"name": "Between", "options": {"min": "1", "max": "31"}})
      */
     protected $birthDay;
@@ -262,6 +272,7 @@ class Dog
      * @Form\Required(false)
      * @Form\Type("Zend\Form\Element\Number")
      * @Form\Options({"label": "Death Year"})
+     * @Form\Filter({"name": "ToNull"})
      * @Form\Validator({"name": "Between", "options": {"min": "1900", "max": "2100"}})
      */
     protected $deathYear;
@@ -288,6 +299,7 @@ class Dog
      *      "11": "November",
      *      "12": "December",
      * }})
+     * @Form\Filter({"name": "ToNull"})
      */
     protected $deathMonth;
 
@@ -298,6 +310,7 @@ class Dog
      * @Form\Required(false)
      * @Form\Type("Zend\Form\Element\Number")
      * @Form\Options({"label": "Death Day"})
+     * @Form\Filter({"name": "ToNull"})
      * @Form\Validator({"name": "Between", "options": {"min": "1", "max": "31"}})
      */
     protected $deathDay;
@@ -315,6 +328,7 @@ class Dog
      *         "params": {"criteria": {}, "orderBy": {"name": "ASC"}}
      *     }
      * })
+     * @Form\Filter({"name": "ToNull"})
      * @Grid\Search(columnName="birthCountry.name")
      */
     protected $birthCountry;
@@ -332,6 +346,7 @@ class Dog
      *         "params": {"criteria": {}, "orderBy": {"name": "ASC"}}
      *     }
      * })
+     * @Form\Filter({"name": "ToNull"})
      * @Grid\Search(columnName="homeCountry.name")
      */
     protected $homeCountry;
@@ -343,6 +358,7 @@ class Dog
      * @Form\Required(false)
      * @Form\Type("Zend\Form\Element\Number")
      * @Form\Options({"label": "Height (Inches)"})
+     * @Form\Filter({"name": "ToNull"})
      * @Form\Validator({"name": "Between", "options": {"min": "4", "max": "30"}})
      */
     protected $height;
@@ -354,6 +370,7 @@ class Dog
      * @Form\Required(false)
      * @Form\Type("Zend\Form\Element\Number")
      * @Form\Options({"label": "Weight (Pounds)"})
+     * @Form\Filter({"name": "ToNull"})
      * @Form\Validator({"name": "Between", "options": {"min": "4", "max": "200"}})
      */
     protected $weight;
@@ -372,6 +389,7 @@ class Dog
      *      "White": "White",
      *      "Other": "Other",
      * }})
+     * @Form\Filter({"name": "ToNull"})
      * @Grid\Search()
      */
     protected $color;
@@ -383,6 +401,7 @@ class Dog
      * @Form\Required(false)
      * @Form\Type("Zend\Form\Element\Number")
      * @Form\Options({"label": "OFA Number"})
+     * @Form\Filter({"name": "ToNull"})
      * @Form\Validator({"name":"Regex", "options":{"pattern":"/^\d{7}$/"}})
      */
     protected $ofaNumber;
@@ -394,6 +413,7 @@ class Dog
      * @Form\Required(false)
      * @Form\Type("Zend\Form\Element\Textarea")
      * @Form\Options({"label": "Features"})
+     * @Form\Filter({"name": "ToNull"})
      * @Grid\Search()
      */
     protected $features;
@@ -405,6 +425,7 @@ class Dog
      * @Form\Required(false)
      * @Form\Type("Zend\Form\Element\Textarea")
      * @Form\Options({"label": "Titles"})
+     * @Form\Filter({"name": "ToNull"})
      * @Grid\Search()
      */
     protected $titles;
@@ -416,6 +437,7 @@ class Dog
      * @Form\Required(false)
      * @Form\Type("Zend\Form\Element\Textarea")
      * @Form\Options({"label": "Notes"})
+     * @Form\Filter({"name": "ToNull"})
      * @Grid\Search()
      */
     protected $notes;

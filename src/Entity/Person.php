@@ -48,6 +48,7 @@ class Person
      * @Form\Required(false)
      * @Form\Type("Zend\Form\Element\Email")
      * @Form\Options({"label": "Email"})
+     * @Form\Filter({"name": "ToNull"})
      */
     protected $email;
 
@@ -58,6 +59,7 @@ class Person
      * @Form\Required(false)
      * @Form\Type("Zend\Form\Element\Url")
      * @Form\Options({"label": "Website"})
+     * @Form\Filter({"name": "ToNull"})
      */
     protected $website;
 
@@ -70,6 +72,7 @@ class Person
      * @Form\Options({"label": "Street Address"})
      * @Form\Filter({"name": "StringTrim"})
      * @Form\Filter({"name": "StripTags"})
+     * @Form\Filter({"name": "ToNull"})
      * @Form\Validator({"name": "StringLength", "options": {"max": "50"}})
      */
     protected $street;
@@ -83,6 +86,7 @@ class Person
      * @Form\Options({"label": "City"})
      * @Form\Filter({"name": "StringTrim"})
      * @Form\Filter({"name": "StripTags"})
+     * @Form\Filter({"name": "ToNull"})
      * @Form\Validator({"name": "StringLength", "options": {"max": "30"}})
      */
     protected $city;
@@ -96,6 +100,7 @@ class Person
      * @Form\Options({"label": "State/Region"})
      * @Form\Filter({"name": "StringTrim"})
      * @Form\Filter({"name": "StripTags"})
+     * @Form\Filter({"name": "ToNull"})
      * @Form\Validator({"name": "StringLength", "options": {"max": "30"}})
      */
     protected $region;
@@ -109,6 +114,7 @@ class Person
      * @Form\Options({"label": "Postal Code"})
      * @Form\Filter({"name": "StringTrim"})
      * @Form\Filter({"name": "StripTags"})
+     * @Form\Filter({"name": "ToNull"})
      * @Form\Validator({"name": "StringLength", "options": {"max": "15"}})
      */
     protected $postalCode;
@@ -126,6 +132,7 @@ class Person
      *         "params": {"criteria": {}, "orderBy": {"name": "ASC"}}
      *     }
      * })
+     * @Form\Filter({"name": "ToNull"})
      * @Grid\Search(columnName="country.name")
      */
     protected $country;
@@ -137,6 +144,7 @@ class Person
      * @Form\Required(false)
      * @Form\Type("AceAdmin\Form\Element\Phone")
      * @Form\Options({"label": "Phone"})
+     * @Form\Filter({"name": "ToNull"})
      */
     protected $phone;
 

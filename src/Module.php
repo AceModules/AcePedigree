@@ -10,7 +10,7 @@ class Module
             'AssetManager',
             'DoctrineORMModule',
             'TwbBundle',
-            'AceTools',
+            'AceDbTools',
             'AceDatagrid',
         ];
     }

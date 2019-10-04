@@ -182,6 +182,15 @@ class Person
     }
 
     /**
+     * @return string
+     * @Grid\Header(label="Name", sort={"name"}, default=true)
+     */
+    public function getSelf()
+    {
+        return $this;
+    }
+
+    /**
      * @return int
      */
     public function getId()
@@ -191,19 +200,10 @@ class Person
 
     /**
      * @return string
-     * @Grid\Header(label="Name", sort={"name"}, default=true)
      */
     public function getName()
     {
         return $this->name;
-    }
-
-    /**
-     * @return string
-     */
-    public function getNameLink($renderer)
-    {
-        return '<a href="' . $renderer->url('ace-pedigree/persons/view', ['id' => $this->id]) . '">' . $this->name . '</a>';
     }
 
     /**
@@ -310,6 +310,14 @@ class Person
     public function setPostalCode($postalCode)
     {
         $this->postalCode = $postalCode;
+    }
+
+    /**
+     * @return string
+     */
+    public function getAddress()
+    {
+        return implode(', ', array_filter([$this->street, $this->city, $this->region, $this->postalCode]));
     }
 
     /**

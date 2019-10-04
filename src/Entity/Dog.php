@@ -70,6 +70,7 @@ class Dog
      * @Form\Filter({"name": "StripTags"})
      * @Form\Filter({"name": "ToNull"})
      * @Form\Validator({"name": "StringLength", "options": {"max": "15"}})
+     * @Grid\Search()
      */
     protected $callName;
 

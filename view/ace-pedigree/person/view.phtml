@@ -6,6 +6,72 @@
         'active' => true,
         'class'  => 'hidden-nav',
     ]); ?>
-<strong>Module:</strong>        AcePedigree &raquo;
-<strong>Controller:</strong>    Person &raquo;
-<strong>Action:</strong>        view
+<?php $this->headTitle($entity); ?>
+<h2 class="page-header"><?= $entity ?></h2>
+
+<div class="container">
+    <div class="row row-no-gutters">
+        <div class="col-sm-4">
+            <table class="table table-condensed table-hover">
+                <tbody>
+                    <tr>
+                        <th>Name</th>
+                        <td><?= $entity->getName() ?></td>
+                    </tr>
+                    <tr>
+                        <th>Email</th>
+                        <td><?= $entity->getEmail() ?></td>
+                    </tr>
+                    <tr>
+                        <th>Website</th>
+                        <td><?= $entity->getWebsite() ?></td>
+                    </tr>
+                    <tr>
+                        <th>Phone</th>
+                        <td><?= $entity->getPhone() ?></td>
+                    </tr>
+                    <tr>
+                        <th>Address</th>
+                        <td><?= $entity->getAddress() ?></td>
+                    </tr>
+                    <tr>
+                        <th>Country</th>
+                        <td><?= $entity->getCountry() ?></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <?php if (count($entity->getDogsBred())) : ?>
+            <div class="col-sm-4">
+                <table class="table table-condensed">
+                    <tbody>
+                        <tr>
+                            <th>Breeder Of</th>
+                            <td>
+                                <?php foreach ($entity->getDogsBred() as $dog) : ?>
+                                    <?= $this->entityLink($dog) ?><br />
+                                <?php endforeach; ?>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        <?php endif; ?>
+        <?php if (count($entity->getDogsOwned())) : ?>
+            <div class="col-sm-4">
+                <table class="table table-condensed">
+                    <tbody>
+                        <tr>
+                            <th>Owner Of</th>
+                            <td>
+                                <?php foreach ($entity->getDogsOwned() as $dog) : ?>
+                                    <?= $this->entityLink($dog) ?><br />
+                                <?php endforeach; ?>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        <?php endif; ?>
+    </div>
+</div>

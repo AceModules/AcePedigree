@@ -91,6 +91,18 @@ class PersonController extends AbstractActionController
      */
     public function viewAction()
     {
-        return [];
+        $repository = $this->entityManager->getRepository(Person::class);
+
+        $id = (int) $this->params()->fromRoute('id');
+        $entity = $repository->find($id);
+
+        if (!$entity) {
+            $this->getResponse()->setStatusCode(404);
+            return;
+        }
+
+        return [
+            'entity' => $entity,
+        ];
     }
 }

@@ -75,6 +75,9 @@ return [
                                 'type'    => Segment::class,
                                 'options' => [
                                     'route'    => '/:action',
+                                    'defaults' => [
+                                        'action'        => 'search',
+                                    ],
                                     'constraints' => [
                                         'action'        => '(search|check)',
                                     ],
@@ -132,6 +135,9 @@ return [
                                 'type'    => Segment::class,
                                 'options' => [
                                     'route'    => '/:action',
+                                    'defaults' => [
+                                        'action'        => 'search',
+                                    ],
                                     'constraints' => [
                                         'action'        => '(search|check)',
                                     ],

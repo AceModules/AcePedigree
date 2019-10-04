@@ -15,6 +15,6 @@ class PrintButton extends AbstractHelper
     {
         return '<a class="btn btn-primary" href="' .
             $this->view->url('ace-pedigree/dogs/view', ['action' => 'print', 'id' => $dog->getId()]) .
-            '" role="button"><span class="glyphicon glyphicon-print"></span>&nbsp; Print Friendly Pedigree</a>';
+            '" role="button" target="_blank"><span class="glyphicon glyphicon-print"></span>&nbsp; Print Friendly Pedigree</a>';
     }
 }

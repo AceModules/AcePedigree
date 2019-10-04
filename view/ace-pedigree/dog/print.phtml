@@ -20,7 +20,7 @@
         ->prependFile($this->basePath('js/jquery.min.js'))
     ?>
 
-    <body>
+    <body onload="window.print()">
         <div class="container">
             <h2 class="page-header"><?= $entity ?></h2>
             <?= $this->pedigree($entity, $maxGen) ?>

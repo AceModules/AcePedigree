@@ -20,11 +20,19 @@
                     </tr>
                     <tr>
                         <th>Email</th>
-                        <td><?= $entity->getEmail() ?></td>
+                        <td>
+                            <?php if ($entity->getEmail()) : ?>
+                                <a href="mailto:<?= $entity->getEmail() ?>" target="_blank"><?= $entity->getEmail() ?></a>
+                            <?php endif; ?>
+                        </td>
                     </tr>
                     <tr>
                         <th>Website</th>
-                        <td><?= $entity->getWebsite() ?></td>
+                        <td>
+                            <?php if ($entity->getWebsite()) : ?>
+                                <a href="<?= $entity->getWebsite() ?>" target="_blank"><?= $entity->getWebsite() ?></a>
+                            <?php endif; ?>
+                        </td>
                     </tr>
                     <tr>
                         <th>Phone</th>

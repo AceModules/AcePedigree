@@ -3,8 +3,13 @@
 namespace AcePedigree\Controller;
 
 use AcePedigree\Entity\Person;
+use AcePedigree\Form\PersonSearch;
+use AceDatagrid\DatagridManager;
 use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\Tools\Pagination\Paginator as ORMPaginator;
+use DoctrineORMModule\Paginator\Adapter\DoctrinePaginator as DoctrineAdapter;
 use Zend\Mvc\Controller\AbstractActionController;
+use Zend\Paginator\Paginator;
 use Zend\View\Model\JsonModel;
 
 class PersonController extends AbstractActionController
@@ -15,11 +20,17 @@ class PersonController extends AbstractActionController
     private $entityManager;
 
     /**
+     * @var DatagridManager
+     */
+    private $datagridManager;
+
+    /**
      * @param EntityManager $entityManager
      */
     public function __construct(EntityManager $entityManager)
     {
         $this->entityManager = $entityManager;
+        $this->datagridManager = new DatagridManager($entityManager);
     }
 
     /**
@@ -27,8 +38,33 @@ class PersonController extends AbstractActionController
      */
     public function indexAction()
     {
+        $datagrid = $this->datagridManager->get(Person::class);
+
+        $page = (int) $this->params()->fromQuery('page', 1);
+        $sort = $this->params()->fromQuery('sort');
+        $search = [];
+
+        $form = new PersonSearch();
+        $form->setData($this->getRequest()->getQuery());
+
+        if ($form->isValid()) {
+            $search = $form->getData();
+            $queryBuilder = $this->entityManager->getRepository(Person::class)
+                ->createSearchQueryBuilder($datagrid, $search, $sort);
+        } else {
+            $queryBuilder = $datagrid->createSearchQueryBuilder(null, $sort);
+        }
+
+        $paginator = new Paginator(new DoctrineAdapter(new ORMPaginator($queryBuilder)));
+        $paginator->setDefaultItemCountPerPage(20);
+        $paginator->setCurrentPageNumber($page);
+
         return [
-            'persons' => $this->entityManager->getRepository(Person::class)->findAll(),
+            'columns'  => $datagrid->getHeaderColumns(),
+            'result'   => $paginator,
+            'page'     => $page,
+            'sort'     => $sort,
+            'search'   => $search,
         ];
     }
 
@@ -37,7 +73,9 @@ class PersonController extends AbstractActionController
      */
     public function searchAction()
     {
-        return [];
+        return [
+            'form' => new PersonSearch(),
+        ];
     }
 
     /**

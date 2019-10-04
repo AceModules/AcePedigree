@@ -8,7 +8,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Zend\Form\Annotation as Form;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="AcePedigree\Entity\Repository\PersonRepository")
  * @ORM\Table(name="pedigree_person")
  * @Form\Name("person")
  * @Form\Hydrator("Zend\Hydrator\ClassMethods")

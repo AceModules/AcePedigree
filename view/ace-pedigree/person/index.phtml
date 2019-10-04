@@ -1,3 +1,45 @@
-<strong>Module:</strong>        AcePedigree &raquo;
-<strong>Controller:</strong>    Person &raquo;
-<strong>Action:</strong>        browse
+<?php $title = ($search ? 'Search' : 'Browse') . ' Persons'; ?>
+<?php $this->headTitle($title); ?>
+<h2 class="page-header"><?= $title ?></h2>
+
+<div class="table-responsive">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <?php foreach ($columns as $column) : ?>
+                    <?php if ($column['sortName']) : ?>
+                        <th><?= $this->sortControl($sort, $column['sortName'], $column['label'], $column['sortReverse'], $search + ['page' => $page]) ?></th>
+                    <?php else : ?>
+                        <th><?= $column['label'] ?></th>
+                    <?php endif; ?>
+                <?php endforeach; ?>
+            </tr>
+        </thead>
+        <tbody>
+            <?php if (!count($result)) : ?>
+                <tr>
+                    <td colspan="<?= count($columns) ?>" class="text-center">There are no persons to display.</td>
+                </tr>
+            <?php endif; ?>
+            <?php foreach ($result as $entity) : ?>
+                <tr>
+                    <?php foreach ($columns as $column) : ?>
+                        <?php $method = $column['method']; ?>
+                        <?php $value = $entity->$method(); ?>
+                        <?php if (is_object($value)) : ?>
+                            <td><?= $this->entityLink($value) ?></td>
+                        <?php elseif (is_bool($value) && $value) : ?>
+                            <td class="text-center"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></td>
+                        <?php else : ?>
+                            <td><?= $value ?></td>
+                        <?php endif; ?>
+                    <?php endforeach; ?>
+                </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
+</div>
+
+<?php if (count($result)) : ?>
+    <?= $this->paginationControl($result, 'sliding', 'partial/datagrid-paginator', ['query' => $search + ['page' => $page, 'sort' => $sort]]); ?>
+<?php endif; ?>

@@ -3,8 +3,8 @@
 namespace AcePedigree\Controller;
 
 use AcePedigree\Entity\Dog;
-use AceDatagrid\DatagridManager;
 use AcePedigree\Form\AdvancedSearch;
+use AceDatagrid\DatagridManager;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Tools\Pagination\Paginator as ORMPaginator;
 use DoctrineORMModule\Paginator\Adapter\DoctrinePaginator as DoctrineAdapter;

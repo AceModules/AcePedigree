@@ -1,8 +1,21 @@
-a,
-a:visited { text-decoration: none; }
+*,
+*:before,
+*:after,
+*:first-letter,
+p:first-line,
+div:first-line,
+blockquote:first-line,
+li:first-line {
+    background: transparent !important;
+    color: #000 !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+}
 
-a[href]:after,
-abbr[title]:after { content: ""; }
+@media print {
+    a[href]:after,
+    abbr[title]:after { content: ""; }
+}
 
 #maxGen {
     border: none;

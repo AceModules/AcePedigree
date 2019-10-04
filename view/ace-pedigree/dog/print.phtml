@@ -10,9 +10,9 @@
     ?>
 
     <?= $this->headLink()
-        ->prependStylesheet($this->basePath('css/print.css'), 'print, screen')
-        ->prependStylesheet($this->basePath('css/pedigree.css'), 'print, screen')
-        ->prependStylesheet($this->basePath('css/bootstrap.min.css'), 'print, screen')
+        ->prependStylesheet($this->basePath('css/print.css'), 'screen, print')
+        ->prependStylesheet($this->basePath('css/pedigree.css'), 'screen, print')
+        ->prependStylesheet($this->basePath('css/bootstrap.min.css'), 'screen, print')
     ?>
 
     <?= $this->headScript()

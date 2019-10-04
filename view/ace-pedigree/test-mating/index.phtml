@@ -1,5 +1,4 @@
 <?php $title = 'Test Mating' . ($entity->getSire() && $entity->getDam() ? ': ' . $entity->getSire() . ' x ' . $entity->getDam() : ''); ?>
-<?php $this->headLink()->appendStylesheet($this->basePath('css/pedigree.css'), 'screen, print'); ?>
 <?php $this->headTitle($title); ?>
 <?php $this->pedigree($entity, $maxGen); ?>
 <h2 class="page-header"><?= $title ?></h2>

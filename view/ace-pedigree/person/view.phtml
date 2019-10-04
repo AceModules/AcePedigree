@@ -1,9 +1,10 @@
 <?php $this->navigation('navigation')
     ->findOneBy('route', 'ace-pedigree/persons')
     ->addPage([
-        'label'  => 'Profile',
+        'label'  => 'View',
         'uri'    => '#',
-        'active' => 'true'
+        'active' => true,
+        'class'  => 'hidden-nav',
     ]); ?>
 <strong>Module:</strong>        AcePedigree &raquo;
 <strong>Controller:</strong>    Person &raquo;

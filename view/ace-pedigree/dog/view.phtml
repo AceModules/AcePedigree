@@ -2,9 +2,10 @@
 <?php $this->navigation('navigation')
     ->findOneBy('route', 'ace-pedigree/dogs')
     ->addPage([
-        'label'  => 'Profile',
+        'label'  => 'View',
         'uri'    => '#',
-        'active' => 'true'
+        'active' => true,
+        'class'  => 'hidden-nav',
     ]); ?>
 <?php $this->headTitle($entity); ?>
 <?php $this->pedigree($entity, $maxGen); ?>

@@ -17,7 +17,7 @@ class TestMatingButton extends AbstractHelper
             $param = $dog->getSex() == Dog::SEX_MALE ? 'sire' : 'dam';
             return '<a class="btn btn-primary" href="' .
                 $this->view->url('ace-pedigree/test-mating', [], ['query' => [$param => $dog->getId()]]) .
-                '" role="button">Test Mating</a>';
+                '" role="button"><span class="glyphicon glyphicon-random"></span>&nbsp; Test Mating</a>';
         }
     }
 }

@@ -11,6 +11,7 @@ use DoctrineORMModule\Paginator\Adapter\DoctrinePaginator as DoctrineAdapter;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\Paginator\Paginator;
 use Zend\View\Model\JsonModel;
+use Zend\View\Model\ViewModel;
 
 class DogController extends AbstractActionController
 {
@@ -132,10 +133,32 @@ class DogController extends AbstractActionController
     }
 
     /**
-     * @return array
+     * @return ViewModel
      */
     public function printAction()
     {
-        return [];
+        $viewModel = new ViewModel();
+        $viewModel->setTerminal(true);
+
+        $repository = $this->entityManager->getRepository(Dog::class);
+
+        $id = (int) $this->params()->fromRoute('id');
+        $entity = $repository->find($id);
+
+        if (!$entity) {
+            $this->getResponse()->setStatusCode(404);
+            return;
+        }
+
+        $maxGen = (int) $this->params()->fromQuery('maxGen', 3);
+        $maxGen = min(9, max(2, $maxGen));
+
+        $ancestors = $repository->findByDescendant($entity);
+
+        return $viewModel->setVariables([
+            'entity'    => $entity,
+            'ancestors' => $ancestors,
+            'maxGen'    => $maxGen,
+        ]);
     }
 }

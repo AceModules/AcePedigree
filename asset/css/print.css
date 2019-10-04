@@ -1,0 +1,23 @@
+a,
+a:visited { text-decoration: none; }
+
+a[href]:after,
+abbr[title]:after { content: ""; }
+
+#maxGen {
+    border: none;
+    padding: 6px 0;
+    display: inline-block;
+    width: auto;
+}
+
+.pedigree { border: 2px solid #ddd; }
+
+.pedigree td {
+    border-radius: 0;
+    border: 1px solid #eee;
+}
+
+.pedigree img { display: none; }
+
+.text-secondary { color: #000 !important; }

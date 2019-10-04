@@ -1,3 +1,31 @@
-<strong>Module:</strong>        AcePedigree &raquo;
-<strong>Controller:</strong>    Dog &raquo;
-<strong>Action:</strong>        print
+<?= $this->doctype() ?>
+
+<html lang="en">
+    <meta charset="utf-8">
+    <?= $this->headTitle($entity)->setAutoEscape(false) ?>
+
+    <?= $this->headMeta()
+        ->appendName('viewport', 'width=device-width, initial-scale=1.0')
+        ->appendHttpEquiv('X-UA-Compatible', 'IE=edge')
+    ?>
+
+    <?= $this->headLink()
+        ->prependStylesheet($this->basePath('css/print.css'), 'print, screen')
+        ->prependStylesheet($this->basePath('css/pedigree.css'), 'print, screen')
+        ->prependStylesheet($this->basePath('css/bootstrap.min.css'), 'print, screen')
+    ?>
+
+    <?= $this->headScript()
+        ->prependFile($this->basePath('js/bootstrap.min.js'))
+        ->prependFile($this->basePath('js/jquery.min.js'))
+    ?>
+
+    <body>
+        <div class="container">
+            <h2 class="page-header"><?= $entity ?></h2>
+            <?= $this->pedigree($entity, $maxGen) ?>
+            <?= $this->pedigree()->analysis() ?>
+        </div>
+    </body>
+
+</html>

@@ -2,12 +2,12 @@
 
 return [
     [
-        'label' => 'Ace Pedigree',
-        'route' => 'ace-pedigree',
-        'pages' => [
+        'label'  => 'Ace Pedigree',
+        'route'  => 'ace-pedigree',
+        'pages'  => [
             [
                 'label'  => 'Newest Entries',
-                'route'  => 'ace-pedigree/data',
+                'route'  => 'ace-pedigree',
                 'action' => 'recent',
             ],
             [
@@ -16,12 +16,8 @@ return [
                 'pages'  => [
                     [
                         'label'  => 'Search',
-                        'route'  => 'ace-pedigree/dogs/search',
-                    ],
-                    [
-                        'label'  => 'Test Mating',
-                        'route'  => 'ace-pedigree/data',
-                        'action' => 'test-mating',
+                        'route'  => 'ace-pedigree/dogs',
+                        'action' => 'search',
                     ],
                 ],
             ],
@@ -31,21 +27,25 @@ return [
                 'pages'  => [
                     [
                         'label'  => 'Search',
-                        'route'  => 'ace-pedigree/persons/search',
+                        'route'  => 'ace-pedigree/persons',
+                        'action' => 'search',
                     ],
                 ],
             ],
             [
                 'label'  => 'Statistics',
-                'route'  => 'ace-pedigree/data',
-                'action' => 'statistics',
+                'route'  => 'ace-pedigree/statistics',
                 'pages'  => [
                     [
-                        'label'  => 'Population Relationship Graph',
-                        'route'  => 'ace-pedigree/data',
-                        'action' => 'graph',
+                        'label'  => 'Population',
+                        'route'  => 'ace-pedigree/statistics',
+                        'action' => 'population',
                     ],
                 ],
+            ],
+            [
+                'label'  => 'Test Mating',
+                'route'  => 'ace-pedigree/test-mating',
             ],
         ],
     ],

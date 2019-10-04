@@ -2,12 +2,12 @@
 
 namespace AcePedigree\Controller;
 
-use AcePedigree\Entity\Person;
+use AcePedigree\Entity;
 use Doctrine\ORM\EntityManager;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\JsonModel;
 
-class PersonController extends AbstractActionController
+class StatisticsController extends AbstractActionController
 {
     /**
      * @var EntityManager
@@ -27,15 +27,13 @@ class PersonController extends AbstractActionController
      */
     public function indexAction()
     {
-        return [
-            'persons' => $this->entityManager->getRepository(Person::class)->findAll(),
-        ];
+        return [];
     }
 
     /**
      * @return array
      */
-    public function searchAction()
+    public function populationAction()
     {
         return [];
     }
@@ -43,16 +41,14 @@ class PersonController extends AbstractActionController
     /**
      * @return JsonModel
      */
-    public function suggestAction()
+    public function populationDataAction()
     {
-        return new JsonModel();
-    }
+        $repository = $this->entityManager->getRepository(Entity\Dog::class);
+        list($nodes, $links) = $repository->getForceDirectedKinshipData();
 
-    /**
-     * @return array
-     */
-    public function viewAction()
-    {
-        return [];
+        return new JsonModel([
+            'nodes' => $nodes,
+            'links' => $links,
+        ]);
     }
 }

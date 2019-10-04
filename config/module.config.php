@@ -19,10 +19,12 @@ return [
     ],
     'controllers' => [
         'factories' => [
-            Controller\IndexController::class  => DoctrineAwareFactory::class,
-            Controller\DogController::class    => DoctrineAwareFactory::class,
-            Controller\ImageController::class  => DoctrineAwareFactory::class,
-            Controller\PersonController::class => DoctrineAwareFactory::class,
+            Controller\IndexController::class      => DoctrineAwareFactory::class,
+            Controller\DogController::class        => DoctrineAwareFactory::class,
+            Controller\ImageController::class      => DoctrineAwareFactory::class,
+            Controller\PersonController::class     => DoctrineAwareFactory::class,
+            Controller\StatisticsController::class => DoctrineAwareFactory::class,
+            Controller\TestMatingController::class => DoctrineAwareFactory::class,
         ],
     ],
     'router' => [
@@ -38,22 +40,16 @@ return [
                 ],
                 'may_terminate' => true,
                 'child_routes' => [
-                    'data' => [
+                    'dogs' => [
                         'type'    => Segment::class,
                         'options' => [
-                            'route'    => '/:action',
-                            'constraints' => [
-                                'action'        => '(recent|statistics|graph|json|test-mating)',
-                            ],
-                        ],
-                    ],
-                    'dogs' => [
-                        'type'    => Literal::class,
-                        'options' => [
-                            'route'    => '/dogs',
+                            'route'    => '/dogs[/:action]',
                             'defaults' => [
                                 'controller'    => Controller\DogController::class,
                                 'action'        => 'index',
+                            ],
+                            'constraints' => [
+                                'action'        => '(search|suggest)',
                             ],
                         ],
                         'may_terminate' => true,
@@ -71,50 +67,51 @@ return [
                                     ],
                                 ],
                             ],
-                            'search' => [
+                        ],
+                    ],
+                    'images' => [
+                        'type'    => Literal::class,
+                        'options' => [
+                            'route'    => '/images',
+                            'defaults' => [
+                                'controller'    => Controller\ImageController::class,
+                            ],
+                        ],
+                        'may_terminate' => false,
+                        'child_routes' => [
+                            'view' => [
                                 'type'    => Segment::class,
                                 'options' => [
-                                    'route'    => '/:action',
+                                    'route'    => '/:id',
                                     'defaults' => [
-                                        'action'        => 'search',
+                                        'action'        => 'view',
                                     ],
                                     'constraints' => [
-                                        'action'        => '(search|check)',
+                                        'id'            => '[0-9]+',
+                                    ],
+                                ],
+                            ],
+                            'upload' => [
+                                'type'    => Literal::class,
+                                'options' => [
+                                    'route'    => '/upload',
+                                    'defaults' => [
+                                        'action'        => 'upload',
                                     ],
                                 ],
                             ],
                         ],
                     ],
-                    'images' => [
+                    'persons' => [
                         'type'    => Segment::class,
                         'options' => [
-                            'route'    => '/images/:id',
-                            'defaults' => [
-                                'controller'    => Controller\ImageController::class,
-                                'action'        => 'view',
-                            ],
-                            'constraints' => [
-                                'id'            => '[0-9]+',
-                            ],
-                        ],
-                    ],
-                    'upload' => [
-                        'type'    => Literal::class,
-                        'options' => [
-                            'route'    => '/images/upload',
-                            'defaults' => [
-                                'controller'    => Controller\ImageController::class,
-                                'action'        => 'upload',
-                            ],
-                        ],
-                    ],
-                    'persons' => [
-                        'type'    => Literal::class,
-                        'options' => [
-                            'route'    => '/persons',
+                            'route'    => '/persons[/:action]',
                             'defaults' => [
                                 'controller'    => Controller\PersonController::class,
                                 'action'        => 'index',
+                            ],
+                            'constraints' => [
+                                'action'        => '(search|suggest)',
                             ],
                         ],
                         'may_terminate' => true,
@@ -131,17 +128,29 @@ return [
                                     ],
                                 ],
                             ],
-                            'search' => [
-                                'type'    => Segment::class,
-                                'options' => [
-                                    'route'    => '/:action',
-                                    'defaults' => [
-                                        'action'        => 'search',
-                                    ],
-                                    'constraints' => [
-                                        'action'        => '(search|check)',
-                                    ],
-                                ],
+                        ],
+                    ],
+                    'statistics' => [
+                        'type'    => Segment::class,
+                        'options' => [
+                            'route'    => '/statistics[/:action]',
+                            'defaults' => [
+                                'controller'    => Controller\StatisticsController::class,
+                                'action'        => 'index',
+                            ],
+                            'constraints' => [
+                                // Weird ZF bug; population-data must come before population in order to match
+                                'action'        => '(population-data|population)',
+                            ],
+                        ],
+                    ],
+                    'test-mating' => [
+                        'type'    => Literal::class,
+                        'options' => [
+                            'route'    => '/test-mating',
+                            'defaults' => [
+                                'controller'    => Controller\TestMatingController::class,
+                                'action'        => 'index',
                             ],
                         ],
                     ],

@@ -10,5 +10,5 @@
 <div id="kinship-graph"></div>
 
 <script>
-    kinshipGraph($('#kinship-graph'), '<?= $this->url('ace-pedigree/data', ['action' => 'json']) ?>');
+    kinshipGraph($('#kinship-graph'), '<?= $this->url('ace-pedigree/statistics', ['action' => 'population-data']) ?>');
 </script>

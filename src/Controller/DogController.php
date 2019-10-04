@@ -10,6 +10,7 @@ use Doctrine\ORM\Tools\Pagination\Paginator as ORMPaginator;
 use DoctrineORMModule\Paginator\Adapter\DoctrinePaginator as DoctrineAdapter;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\Paginator\Paginator;
+use Zend\View\Model\JsonModel;
 
 class DogController extends AbstractActionController
 {
@@ -32,7 +33,9 @@ class DogController extends AbstractActionController
         $this->datagridManager = new DatagridManager($entityManager);
     }
 
-    // Browse dogs alphabetically
+    /**
+     * @return array
+     */
     public function indexAction()
     {
         $datagrid = $this->datagridManager->get(Dog::class);
@@ -65,7 +68,9 @@ class DogController extends AbstractActionController
         ];
     }
 
-    // Search dogs
+    /**
+     * @return array
+     */
     public function searchAction()
     {
         return [
@@ -73,13 +78,17 @@ class DogController extends AbstractActionController
         ];
     }
 
-    // Check for partial name match
-    public function checkAction()
+    /**
+     * @return JsonModel
+     */
+    public function suggestAction()
     {
-        return [];
+        return new JsonModel();
     }
 
-    // View dog details
+    /**
+     * @return array
+     */
     public function viewAction()
     {
         $repository = $this->entityManager->getRepository(Dog::class);
@@ -122,7 +131,9 @@ class DogController extends AbstractActionController
         ];
     }
 
-    // Print friendly pedigree
+    /**
+     * @return array
+     */
     public function printAction()
     {
         return [];

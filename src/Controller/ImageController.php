@@ -20,13 +20,17 @@ class ImageController extends AbstractActionController
         $this->entityManager = $entityManager;
     }
 
-    // Upload an image file
+    /**
+     * @return array
+     */
     public function uploadAction()
     {
         return [];
     }
 
-    // View an uploaded image file
+    /**
+     * @return array
+     */
     public function viewAction()
     {
         return [];

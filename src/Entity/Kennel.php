@@ -6,6 +6,7 @@ use AceDatagrid\Annotation as Grid;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Zend\Form\Annotation as Form;
 
 /**
@@ -18,6 +19,8 @@ use Zend\Form\Annotation as Form;
  */
 class Kennel
 {
+    use TimestampableEntity;
+
     /**
      * @var int
      *
@@ -50,6 +53,24 @@ class Kennel
      * @Form\Exclude()
      */
     protected $dogs;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(type="datetime")
+     * @Gedmo\Timestampable(on="create")
+     * @Form\Exclude()
+     */
+    protected $createdAt;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(type="datetime")
+     * @Gedmo\Timestampable(on="update")
+     * @Form\Exclude()
+     */
+    protected $updatedAt;
 
     /**
      * Constructor

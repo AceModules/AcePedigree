@@ -5,6 +5,7 @@ namespace AcePedigree;
 use AceDbTools\Factory\DoctrineAwareFactory;
 use Doctrine\ORM\Mapping\Driver\AnnotationDriver;
 use Gedmo\Loggable\LoggableListener;
+use Gedmo\Timestampable\TimestampableListener;
 use Zend\Router\Http\Literal;
 use Zend\Router\Http\Segment;
 use Zend\ServiceManager\Factory\InvokableFactory;
@@ -203,6 +204,7 @@ return [
                 'subscribers' => [
                     Entity\Subscriber\DogSubscriber::class,
                     LoggableListener::class,
+                    TimestampableListener::class,
                 ],
             ],
         ],

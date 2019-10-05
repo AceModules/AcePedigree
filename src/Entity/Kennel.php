@@ -5,11 +5,13 @@ namespace AcePedigree\Entity;
 use AceDatagrid\Annotation as Grid;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
+use Gedmo\Mapping\Annotation as Gedmo;
 use Zend\Form\Annotation as Form;
 
 /**
  * @ORM\Entity
  * @ORM\Table(name="pedigree_kennel")
+ * @Gedmo\Loggable(logEntryClass="LogEntry")
  * @Form\Name("kennel")
  * @Form\Hydrator("Zend\Hydrator\ClassMethods")
  * @Grid\Title(singular="Kennel", plural="Kennels")
@@ -30,6 +32,7 @@ class Kennel
      * @var string
      *
      * @ORM\Column(type="string", length=80)
+     * @Gedmo\Versioned
      * @Form\Required(true)
      * @Form\Type("Zend\Form\Element\Text")
      * @Form\Options({"label": "Name"})

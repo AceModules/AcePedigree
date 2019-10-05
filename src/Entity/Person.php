@@ -5,11 +5,13 @@ namespace AcePedigree\Entity;
 use AceDatagrid\Annotation as Grid;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
+use Gedmo\Mapping\Annotation as Gedmo;
 use Zend\Form\Annotation as Form;
 
 /**
  * @ORM\Entity(repositoryClass="AcePedigree\Entity\Repository\PersonRepository")
  * @ORM\Table(name="pedigree_person")
+ * @Gedmo\Loggable(logEntryClass="LogEntry")
  * @Form\Name("person")
  * @Form\Hydrator("Zend\Hydrator\ClassMethods")
  * @Grid\Title(singular="Person", plural="Persons")
@@ -30,6 +32,7 @@ class Person
      * @var string
      *
      * @ORM\Column(type="string", length=80)
+     * @Gedmo\Versioned
      * @Form\Required(true)
      * @Form\Type("Zend\Form\Element\Text")
      * @Form\Options({"label": "Name"})
@@ -45,6 +48,7 @@ class Person
      * @var string
      *
      * @ORM\Column(type="string", nullable=true)
+     * @Gedmo\Versioned
      * @Form\Required(false)
      * @Form\Type("Zend\Form\Element\Email")
      * @Form\Options({"label": "Email"})
@@ -56,6 +60,7 @@ class Person
      * @var string
      *
      * @ORM\Column(type="string", nullable=true)
+     * @Gedmo\Versioned
      * @Form\Required(false)
      * @Form\Type("Zend\Form\Element\Url")
      * @Form\Options({"label": "Website"})
@@ -67,6 +72,7 @@ class Person
      * @var string
      *
      * @ORM\Column(type="string", length=50, nullable=true)
+     * @Gedmo\Versioned
      * @Form\Required(false)
      * @Form\Type("Zend\Form\Element\Text")
      * @Form\Options({"label": "Street Address"})
@@ -81,6 +87,7 @@ class Person
      * @var string
      *
      * @ORM\Column(type="string", length=30, nullable=true)
+     * @Gedmo\Versioned
      * @Form\Required(false)
      * @Form\Type("Zend\Form\Element\Text")
      * @Form\Options({"label": "City"})
@@ -95,6 +102,7 @@ class Person
      * @var string
      *
      * @ORM\Column(type="string", length=30, nullable=true)
+     * @Gedmo\Versioned
      * @Form\Required(false)
      * @Form\Type("Zend\Form\Element\Text")
      * @Form\Options({"label": "State/Region"})
@@ -109,6 +117,7 @@ class Person
      * @var string
      *
      * @ORM\Column(type="string", length=15, nullable=true)
+     * @Gedmo\Versioned
      * @Form\Required(false)
      * @Form\Type("Zend\Form\Element\Text")
      * @Form\Options({"label": "Postal Code"})
@@ -124,6 +133,7 @@ class Person
      *
      * @ORM\ManyToOne(targetEntity="Country")
      * @ORM\JoinColumn(name="countryId", referencedColumnName="id", nullable=true)
+     * @Gedmo\Versioned
      * @Form\Required(false)
      * @Form\Type("AceAdmin\Form\Element\ObjectLiveSearch")
      * @Form\Options({"label": "Country", "empty_option": "Select a Country",
@@ -141,6 +151,7 @@ class Person
      * @var string
      *
      * @ORM\Column(type="string", length=20, nullable=true)
+     * @Gedmo\Versioned
      * @Form\Required(false)
      * @Form\Type("AceAdmin\Form\Element\Phone")
      * @Form\Options({"label": "Phone"})

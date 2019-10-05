@@ -4,11 +4,13 @@ namespace AcePedigree\Entity;
 
 use AceDatagrid\Annotation as Grid;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 use Zend\Form\Annotation as Form;
 
 /**
  * @ORM\Entity
  * @ORM\Table(name="pedigree_country")
+ * @Gedmo\Loggable(logEntryClass="LogEntry")
  * @Form\Name("country")
  * @Form\Hydrator("Zend\Hydrator\ClassMethods")
  * @Grid\Title(singular="Country", plural="Countries")
@@ -29,6 +31,7 @@ class Country
      * @var string
      *
      * @ORM\Column(type="string", length=80)
+     * @Gedmo\Versioned
      * @Form\Required(true)
      * @Form\Type("Zend\Form\Element\Text")
      * @Form\Options({"label": "Name"})

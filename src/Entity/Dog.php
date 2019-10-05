@@ -6,11 +6,13 @@ use AcePedigree\Entity\DTO\DogDTO;
 use AceDatagrid\Annotation as Grid;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
+use Gedmo\Mapping\Annotation as Gedmo;
 use Zend\Form\Annotation as Form;
 
 /**
  * @ORM\Entity(repositoryClass="AcePedigree\Entity\Repository\DogRepository")
  * @ORM\Table(name="pedigree_dog")
+ * @Gedmo\Loggable(logEntryClass="LogEntry")
  * @Grid\Title(singular="Dog", plural="Dogs")
  */
 class Dog
@@ -49,6 +51,7 @@ class Dog
      * @var string
      *
      * @ORM\Column(type="string", length=50)
+     * @Gedmo\Versioned
      * @Form\Required(true)
      * @Form\Type("Zend\Form\Element\Text")
      * @Form\Options({"label": "Registered Name"})
@@ -63,6 +66,7 @@ class Dog
      * @var string
      *
      * @ORM\Column(type="string", length=15, nullable=true)
+     * @Gedmo\Versioned
      * @Form\Required(false)
      * @Form\Type("Zend\Form\Element\Text")
      * @Form\Options({"label": "Call Name"})
@@ -78,6 +82,7 @@ class Dog
      * @var string
      *
      * @ORM\Column(type="string", length=80, nullable=true)
+     * @Gedmo\Versioned
      * @Form\Required(false)
      * @Form\Type("Zend\Form\Element\Text")
      * @Form\Options({"label": "Registration"})
@@ -94,6 +99,7 @@ class Dog
      * 
      * @ORM\ManyToOne(targetEntity="Kennel", inversedBy="dogs")
      * @ORM\JoinColumn(name="kennelId", referencedColumnName="id", nullable=true)
+     * @Gedmo\Versioned
      * @Form\Required(false)
      * @Form\Type("AceAdmin\Form\Element\ObjectLiveSearch")
      * @Form\Options({"label": "Kennel", "empty_option": "Select a Kennel",
@@ -112,6 +118,7 @@ class Dog
      * 
      * @ORM\ManyToOne(targetEntity="Dog")
      * @ORM\JoinColumn(name="sireId", referencedColumnName="id", nullable=true)
+     * @Gedmo\Versioned
      * @Form\Required(false)
      * @Form\Type("AceAdmin\Form\Element\ObjectLiveSearch")
      * @Form\Options({"label": "Sire", "empty_option": "Select a Dog",
@@ -129,6 +136,7 @@ class Dog
      * 
      * @ORM\ManyToOne(targetEntity="Dog")
      * @ORM\JoinColumn(name="damId", referencedColumnName="id", nullable=true)
+     * @Gedmo\Versioned
      * @Form\Required(false)
      * @Form\Type("AceAdmin\Form\Element\ObjectLiveSearch")
      * @Form\Options({"label": "Dam", "empty_option": "Select a Dog",
@@ -161,6 +169,7 @@ class Dog
      * @var int
      * 
      * @ORM\Column(type="integer")
+     * @Gedmo\Versioned
      * @Form\Required(true)
      * @Form\Type("Zend\Form\Element\Radio")
      * @Form\Options({"label": "Sex"})
@@ -219,6 +228,7 @@ class Dog
      * @var int
      *
      * @ORM\Column(type="integer", nullable=true)
+     * @Gedmo\Versioned
      * @Form\Required(false)
      * @Form\Type("Zend\Form\Element\Number")
      * @Form\Options({"label": "Birth Year"})
@@ -232,6 +242,7 @@ class Dog
      * @var int
      *
      * @ORM\Column(type="integer", nullable=true)
+     * @Gedmo\Versioned
      * @Form\Required(false)
      * @Form\Type("Zend\Form\Element\Select")
      * @Form\Options({"label": "Birth Month"})
@@ -258,6 +269,7 @@ class Dog
      * @var int
      *
      * @ORM\Column(type="integer", nullable=true)
+     * @Gedmo\Versioned
      * @Form\Required(false)
      * @Form\Type("Zend\Form\Element\Number")
      * @Form\Options({"label": "Birth Day"})
@@ -270,6 +282,7 @@ class Dog
      * @var int
      *
      * @ORM\Column(type="integer", nullable=true)
+     * @Gedmo\Versioned
      * @Form\Required(false)
      * @Form\Type("Zend\Form\Element\Number")
      * @Form\Options({"label": "Death Year"})
@@ -282,6 +295,7 @@ class Dog
      * @var int
      *
      * @ORM\Column(type="integer", nullable=true)
+     * @Gedmo\Versioned
      * @Form\Required(false)
      * @Form\Type("Zend\Form\Element\Select")
      * @Form\Options({"label": "Death Month"})
@@ -308,6 +322,7 @@ class Dog
      * @var int
      *
      * @ORM\Column(type="integer", nullable=true)
+     * @Gedmo\Versioned
      * @Form\Required(false)
      * @Form\Type("Zend\Form\Element\Number")
      * @Form\Options({"label": "Death Day"})
@@ -321,6 +336,7 @@ class Dog
      *
      * @ORM\ManyToOne(targetEntity="Country")
      * @ORM\JoinColumn(name="birthCountryId", referencedColumnName="id", nullable=true)
+     * @Gedmo\Versioned
      * @Form\Required(false)
      * @Form\Type("AceAdmin\Form\Element\ObjectLiveSearch")
      * @Form\Options({"label": "Land of Birth", "empty_option": "Select a Country",
@@ -339,6 +355,7 @@ class Dog
      *
      * @ORM\ManyToOne(targetEntity="Country")
      * @ORM\JoinColumn(name="homeCountryId", referencedColumnName="id", nullable=true)
+     * @Gedmo\Versioned
      * @Form\Required(false)
      * @Form\Type("AceAdmin\Form\Element\ObjectLiveSearch")
      * @Form\Options({"label": "Land of Standing", "empty_option": "Select a Country",
@@ -356,6 +373,7 @@ class Dog
      * @var float
      *
      * @ORM\Column(type="float", nullable=true)
+     * @Gedmo\Versioned
      * @Form\Required(false)
      * @Form\Type("Zend\Form\Element\Number")
      * @Form\Options({"label": "Height (Inches)"})
@@ -368,6 +386,7 @@ class Dog
      * @var float
      *
      * @ORM\Column(type="float", nullable=true)
+     * @Gedmo\Versioned
      * @Form\Required(false)
      * @Form\Type("Zend\Form\Element\Number")
      * @Form\Options({"label": "Weight (Pounds)"})
@@ -380,6 +399,7 @@ class Dog
      * @var string
      *
      * @ORM\Column(type="string", length=20, nullable=true)
+     * @Gedmo\Versioned
      * @Form\Required(false)
      * @Form\Type("Zend\Form\Element\Select")
      * @Form\Options({"label": "Color"})
@@ -399,6 +419,7 @@ class Dog
      * @var int
      *
      * @ORM\Column(type="integer", nullable=true)
+     * @Gedmo\Versioned
      * @Form\Required(false)
      * @Form\Type("Zend\Form\Element\Number")
      * @Form\Options({"label": "OFA Number"})
@@ -411,6 +432,7 @@ class Dog
      * @var string
      *
      * @ORM\Column(type="string", nullable=true)
+     * @Gedmo\Versioned
      * @Form\Required(false)
      * @Form\Type("Zend\Form\Element\Textarea")
      * @Form\Options({"label": "Features"})
@@ -423,6 +445,7 @@ class Dog
      * @var string
      *
      * @ORM\Column(type="string", nullable=true)
+     * @Gedmo\Versioned
      * @Form\Required(false)
      * @Form\Type("Zend\Form\Element\Textarea")
      * @Form\Options({"label": "Titles"})
@@ -435,6 +458,7 @@ class Dog
      * @var string
      *
      * @ORM\Column(type="text", nullable=true)
+     * @Gedmo\Versioned
      * @Form\Required(false)
      * @Form\Type("Zend\Form\Element\Textarea")
      * @Form\Options({"label": "Notes"})

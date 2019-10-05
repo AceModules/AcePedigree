@@ -98,37 +98,8 @@ class Kennel
     }
 
     /**
-     * @param Dog $dog
-     * @return boolean
-     */
-    public function hasDog(Dog $dog)
-    {
-        $this->dogs->contains($dog);
-    }
-
-    /**
-     * @param ArrayCollection $dogs
-     */
-    public function addDogs(ArrayCollection $dogs)
-    {
-        foreach ($dogs as $dog) {
-            $this->dogs->add($dog);
-        }
-    }
-
-    /**
-     * @param ArrayCollection $dogs
-     */
-    public function removeDogs(ArrayCollection $dogs)
-    {
-        foreach ($dogs as $dog) {
-            $this->dogs->removeElement($dog);
-        }
-    }
-
-    /**
      * @return int
-     * @Grid\Header(label="Dogs", sort={"count(dogs.id)"})
+     * @Grid\Header(label="Dogs", sort={"count(dogs.id)"}, reverse=true)
      */
     public function getDogsCount()
     {

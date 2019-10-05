@@ -40,6 +40,22 @@ class Country
     protected $name;
 
     /**
+     * @var ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="Dog", mappedBy="birthCountry")
+     * @Form\Exclude()
+     */
+    protected $dogsBorn;
+
+    /**
+     * @var ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="Dog", mappedBy="homeCountry")
+     * @Form\Exclude()
+     */
+    protected $dogsHome;
+
+    /**
      * @return string
      */
     public function __toString()
@@ -70,5 +86,39 @@ class Country
     public function setName($name)
     {
         $this->name = $name;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getDogsBorn()
+    {
+        return $this->dogsBorn;
+    }
+
+    /**
+     * @return int
+     * @Grid\Header(label="Dogs Born", sort={"count(dogsBorn.id), count(dogsHome.id)"}, reverse=true)
+     */
+    public function getDogsBornCount()
+    {
+        return count($this->dogsBorn);
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getDogsHome()
+    {
+        return $this->dogsHome;
+    }
+
+    /**
+     * @return int
+     * @Grid\Header(label="Dogs Standing", sort={"count(dogsHome.id), count(dogsBorn.id)"}, reverse=true)
+     */
+    public function getDogsHomeCount()
+    {
+        return count($this->dogsHome);
     }
 }

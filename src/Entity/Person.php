@@ -362,37 +362,8 @@ class Person
     }
 
     /**
-     * @param Dog $dog
-     * @return boolean
-     */
-    public function hasDogBred(Dog $dog)
-    {
-        $this->dogsBred->contains($dog);
-    }
-
-    /**
-     * @param ArrayCollection $dogs
-     */
-    public function addDogsBred(ArrayCollection $dogs)
-    {
-        foreach ($dogs as $dog) {
-            $this->dogsBred->add($dog);
-        }
-    }
-
-    /**
-     * @param ArrayCollection $dogs
-     */
-    public function removeDogsBred(ArrayCollection $dogs)
-    {
-        foreach ($dogs as $dog) {
-            $this->dogsBred->removeElement($dog);
-        }
-    }
-
-    /**
      * @return int
-     * @Grid\Header(label="Dogs Bred", sort={"count(dogsBred.id)"})
+     * @Grid\Header(label="Dogs Bred", sort={"count(dogsBred.id)"}, reverse=true)
      */
     public function getDogsBredCount()
     {
@@ -408,37 +379,8 @@ class Person
     }
 
     /**
-     * @param Dog $dog
-     * @return boolean
-     */
-    public function hasDogOwned(Dog $dog)
-    {
-        $this->dogsOwned->contains($dog);
-    }
-
-    /**
-     * @param ArrayCollection $dogs
-     */
-    public function addDogsOwned(ArrayCollection $dogs)
-    {
-        foreach ($dogs as $dog) {
-            $this->dogsOwned->add($dog);
-        }
-    }
-
-    /**
-     * @param ArrayCollection $dogs
-     */
-    public function removeDogsOwned(ArrayCollection $dogs)
-    {
-        foreach ($dogs as $dog) {
-            $this->dogsOwned->removeElement($dog);
-        }
-    }
-
-    /**
      * @return int
-     * @Grid\Header(label="Dogs Owned", sort={"count(dogsOwned.id)"})
+     * @Grid\Header(label="Dogs Owned", sort={"count(dogsOwned.id)"}, reverse=true)
      */
     public function getDogsOwnedCount()
     {

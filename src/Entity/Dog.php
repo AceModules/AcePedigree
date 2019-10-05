@@ -1029,33 +1029,4 @@ class Dog
     {
         return $this->images;
     }
-
-    /**
-     * @param Image $image
-     * @return boolean
-     */
-    public function hasImage(Image $image)
-    {
-        $this->images->contains($image);
-    }
-
-    /**
-     * @param ArrayCollection $images
-     */
-    public function addImages(ArrayCollection $images)
-    {
-        foreach ($images as $image) {
-            $this->images->add($image);
-        }
-    }
-
-    /**
-     * @param ArrayCollection $images
-     */
-    public function removeImages(ArrayCollection $images)
-    {
-        foreach ($images as $image) {
-            $this->images->removeElement($image);
-        }
-    }
 }

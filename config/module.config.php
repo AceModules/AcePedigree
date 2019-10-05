@@ -42,6 +42,15 @@ return [
                 ],
                 'may_terminate' => true,
                 'child_routes' => [
+                    'recent' => [
+                        'type'    => Literal::class,
+                        'options' => [
+                            'route'    => '/recent',
+                            'defaults' => [
+                                'action'        => 'recent',
+                            ],
+                        ],
+                    ],
                     'dogs' => [
                         'type'    => Segment::class,
                         'options' => [

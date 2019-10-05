@@ -6,9 +6,8 @@ return [
         'route'  => 'ace-pedigree',
         'pages'  => [
             [
-                'label'  => 'Newest Entries',
-                'route'  => 'ace-pedigree',
-                'action' => 'recent',
+                'label'  => 'Recent Updates',
+                'route'  => 'ace-pedigree/recent',
             ],
             [
                 'label'  => 'Dogs',

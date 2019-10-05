@@ -1,3 +1,51 @@
-<strong>Module:</strong>        AcePedigree &raquo;
-<strong>Controller:</strong>    Index &raquo;
-<strong>Action:</strong>        recent
+<?php $title = 'Recent Updates'; ?>
+<?php $this->headTitle($title); ?>
+<h2 class="page-header"><?= $title ?></h2>
+
+<div class="table-responsive">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Dog</th>
+                <th style="width: 15%">Updated</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php if (!count($dogs)) : ?>
+                <tr>
+                    <td colspan="2" class="text-center">There are no dogs to display.</td>
+                </tr>
+            <?php endif; ?>
+            <?php foreach ($dogs as $entity) : ?>
+                <tr>
+                    <td><?= $this->entityLink($entity) ?></td>
+                    <td><?= $entity->getUpdatedAt()->format('Y-m-d H:i:s') ?></td>
+                </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
+</div>
+
+<div class="table-responsive">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Person</th>
+                <th style="width: 15%">Updated</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php if (!count($persons)) : ?>
+                <tr>
+                    <td colspan="2" class="text-center">There are no persons to display.</td>
+                </tr>
+            <?php endif; ?>
+            <?php foreach ($persons as $entity) : ?>
+                <tr>
+                    <td><?= $this->entityLink($entity) ?></td>
+                    <td><?= $entity->getUpdatedAt()->format('Y-m-d H:i:s') ?></td>
+                </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
+</div>

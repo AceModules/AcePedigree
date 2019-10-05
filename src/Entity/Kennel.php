@@ -125,4 +125,13 @@ class Kennel
             $this->dogs->removeElement($dog);
         }
     }
+
+    /**
+     * @return int
+     * @Grid\Header(label="Dogs", sort={"count(dogs.id)"})
+     */
+    public function getDogsCount()
+    {
+        return count($this->dogs);
+    }
 }

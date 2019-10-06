@@ -62,6 +62,7 @@ class Dog
      * @Form\Filter({"name": "StripTags"})
      * @Form\Validator({"name": "StringLength", "options": {"max": "50"}})
      * @Grid\Search()
+     * @Grid\Suggest()
      */
     protected $name;
 
@@ -94,6 +95,7 @@ class Dog
      * @Form\Filter({"name": "ToNull"})
      * @Form\Validator({"name": "StringLength", "options": {"max": "80"}})
      * @Grid\Search()
+     * @Grid\Suggest()
      */
     protected $registration;
 
@@ -105,6 +107,7 @@ class Dog
      * @Gedmo\Versioned
      * @Form\Required(false)
      * @Form\Type("AceAdmin\Form\Element\ObjectLiveSearch")
+     * @Form\Attributes({"data-ajax-url": "/admin/kennels/suggest"})
      * @Form\Options({"label": "Kennel", "empty_option": "Select a Kennel",
      *     "find_method": {
      *         "name": "findBy",
@@ -124,6 +127,7 @@ class Dog
      * @Gedmo\Versioned
      * @Form\Required(false)
      * @Form\Type("AceAdmin\Form\Element\ObjectLiveSearch")
+     * @Form\Attributes({"data-ajax-url": "/admin/dogs/suggest"})
      * @Form\Options({"label": "Sire", "empty_option": "Select a Dog",
      *     "find_method": {
      *         "name": "findBy",
@@ -142,6 +146,7 @@ class Dog
      * @Gedmo\Versioned
      * @Form\Required(false)
      * @Form\Type("AceAdmin\Form\Element\ObjectLiveSearch")
+     * @Form\Attributes({"data-ajax-url": "/admin/dogs/suggest"})
      * @Form\Options({"label": "Dam", "empty_option": "Select a Dog",
      *     "find_method": {
      *         "name": "findBy",
@@ -193,6 +198,7 @@ class Dog
      * )
      * @Form\Required(false)
      * @Form\Type("AceAdmin\Form\Element\ObjectLiveSearch")
+     * @Form\Attributes({"data-ajax-url": "/admin/persons/suggest"})
      * @Form\Options({"label": "Breeders", "empty_option": "Select Breeders",
      *     "find_method": {
      *         "name": "findBy",
@@ -215,6 +221,7 @@ class Dog
      * )
      * @Form\Required(false)
      * @Form\Type("AceAdmin\Form\Element\ObjectLiveSearch")
+     * @Form\Attributes({"data-ajax-url": "/admin/persons/suggest"})
      * @Form\Options({"label": "Owners", "empty_option": "Select Owners",
      *     "find_method": {
      *         "name": "findBy",
@@ -342,6 +349,7 @@ class Dog
      * @Gedmo\Versioned
      * @Form\Required(false)
      * @Form\Type("AceAdmin\Form\Element\ObjectLiveSearch")
+     * @Form\Attributes({"data-ajax-url": "/admin/countries/suggest"})
      * @Form\Options({"label": "Land of Birth", "empty_option": "Select a Country",
      *     "find_method": {
      *         "name": "findBy",
@@ -361,6 +369,7 @@ class Dog
      * @Gedmo\Versioned
      * @Form\Required(false)
      * @Form\Type("AceAdmin\Form\Element\ObjectLiveSearch")
+     * @Form\Attributes({"data-ajax-url": "/admin/countries/suggest"})
      * @Form\Options({"label": "Land of Standing", "empty_option": "Select a Country",
      *     "find_method": {
      *         "name": "findBy",

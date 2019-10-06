@@ -43,6 +43,7 @@ class Kennel
      * @Form\Filter({"name": "StripTags"})
      * @Form\Validator({"name": "StringLength", "options": {"max": "80"}})
      * @Grid\Search()
+     * @Grid\Suggest()
      */
     protected $name;
 

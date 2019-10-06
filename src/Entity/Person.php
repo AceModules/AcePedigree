@@ -139,6 +139,7 @@ class Person
      * @Gedmo\Versioned
      * @Form\Required(false)
      * @Form\Type("AceAdmin\Form\Element\ObjectLiveSearch")
+     * @Form\Attributes({"data-ajax-url": "/admin/countries/suggest"})
      * @Form\Options({"label": "Country", "empty_option": "Select a Country",
      *     "find_method": {
      *         "name": "findBy",

@@ -127,7 +127,7 @@ class Dog
      * @Gedmo\Versioned
      * @Form\Required(false)
      * @Form\Type("AceAdmin\Form\Element\ObjectLiveSearch")
-     * @Form\Attributes({"data-ajax-url": "/admin/dogs/suggest"})
+     * @Form\Attributes({"data-ajax-url": "/admin/dogs/suggest?sex=1"})
      * @Form\Options({"label": "Sire", "empty_option": "Select a Dog",
      *     "find_method": {
      *         "name": "findBy",
@@ -146,7 +146,7 @@ class Dog
      * @Gedmo\Versioned
      * @Form\Required(false)
      * @Form\Type("AceAdmin\Form\Element\ObjectLiveSearch")
-     * @Form\Attributes({"data-ajax-url": "/admin/dogs/suggest"})
+     * @Form\Attributes({"data-ajax-url": "/admin/dogs/suggest?sex=2"})
      * @Form\Options({"label": "Dam", "empty_option": "Select a Dog",
      *     "find_method": {
      *         "name": "findBy",

@@ -2,7 +2,7 @@
 
 namespace AcePedigree\Entity;
 
-use AcePedigree\Entity\DTO\DogDTO;
+use AcePedigree\Entity\DTO\AnimalDTO;
 use AceDatagrid\Annotation as Grid;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -11,12 +11,12 @@ use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Zend\Form\Annotation as Form;
 
 /**
- * @ORM\Entity(repositoryClass="AcePedigree\Entity\Repository\DogRepository")
+ * @ORM\Entity(repositoryClass="AcePedigree\Entity\Repository\AnimalRepository")
  * @ORM\Table(name="pedigree_animal")
  * @Gedmo\Loggable(logEntryClass="LogEntry")
- * @Grid\Title(singular="Dog", plural="Dogs")
+ * @Grid\Title(singular="Animal", plural="Animals")
  */
-class Dog
+class Animal
 {
     const SEX_MALE = 1;
     const SEX_FEMALE = 2;
@@ -34,7 +34,7 @@ class Dog
     );
 
     /**
-     * @var DogDTO
+     * @var AnimalDTO
      *
      * @Form\Exclude()
      */
@@ -100,35 +100,35 @@ class Dog
     protected $registration;
 
     /**
-     * @var Kennel
+     * @var House
      * 
-     * @ORM\ManyToOne(targetEntity="Kennel", inversedBy="dogs")
+     * @ORM\ManyToOne(targetEntity="House", inversedBy="animals")
      * @ORM\JoinColumn(name="houseId", referencedColumnName="id", nullable=true)
      * @Gedmo\Versioned
      * @Form\Required(false)
      * @Form\Type("AceAdmin\Form\Element\ObjectLiveSearch")
-     * @Form\Attributes({"data-ajax-url": "/admin/kennels/suggest"})
-     * @Form\Options({"label": "Kennel", "empty_option": "Select a Kennel",
+     * @Form\Attributes({"data-ajax-url": "/admin/houses/suggest"})
+     * @Form\Options({"label": "House", "empty_option": "Select a House",
      *     "find_method": {
      *         "name": "findBy",
      *         "params": {"criteria": {}, "orderBy": {"name": "ASC"}}
      *     }
      * })
      * @Form\Filter({"name": "ToNull"})
-     * @Grid\Search(columnName="kennel.name")
+     * @Grid\Search(columnName="house.name")
      */
-    protected $kennel;
+    protected $house;
 
     /**
-     * @var Dog
+     * @var Animal
      * 
-     * @ORM\ManyToOne(targetEntity="Dog")
+     * @ORM\ManyToOne(targetEntity="Animal")
      * @ORM\JoinColumn(name="sireId", referencedColumnName="id", nullable=true)
      * @Gedmo\Versioned
      * @Form\Required(false)
      * @Form\Type("AceAdmin\Form\Element\ObjectLiveSearch")
-     * @Form\Attributes({"data-ajax-url": "/admin/dogs/suggest?sex=1"})
-     * @Form\Options({"label": "Sire", "empty_option": "Select a Dog",
+     * @Form\Attributes({"data-ajax-url": "/admin/animals/suggest?sex=1"})
+     * @Form\Options({"label": "Sire", "empty_option": "Select a Animal",
      *     "find_method": {
      *         "name": "findBy",
      *         "params": {"criteria": {"sex": 1}, "orderBy": {"name": "ASC"}}
@@ -139,15 +139,15 @@ class Dog
     protected $sire;
 
     /**
-     * @var Dog
+     * @var Animal
      * 
-     * @ORM\ManyToOne(targetEntity="Dog")
+     * @ORM\ManyToOne(targetEntity="Animal")
      * @ORM\JoinColumn(name="damId", referencedColumnName="id", nullable=true)
      * @Gedmo\Versioned
      * @Form\Required(false)
      * @Form\Type("AceAdmin\Form\Element\ObjectLiveSearch")
-     * @Form\Attributes({"data-ajax-url": "/admin/dogs/suggest?sex=2"})
-     * @Form\Options({"label": "Dam", "empty_option": "Select a Dog",
+     * @Form\Attributes({"data-ajax-url": "/admin/animals/suggest?sex=2"})
+     * @Form\Options({"label": "Dam", "empty_option": "Select a Animal",
      *     "find_method": {
      *         "name": "findBy",
      *         "params": {"criteria": {"sex": 2}, "orderBy": {"name": "ASC"}}
@@ -191,7 +191,7 @@ class Dog
     /**
      * @var ArrayCollection
      *
-     * @ORM\ManyToMany(targetEntity="Person", inversedBy="dogsBred")
+     * @ORM\ManyToMany(targetEntity="Person", inversedBy="animalsBred")
      * @ORM\JoinTable(name="pedigree_animal_breeder",
      *     joinColumns={@ORM\JoinColumn(name="animalId", referencedColumnName="id")},
      *     inverseJoinColumns={@ORM\JoinColumn(name="breederId", referencedColumnName="id")}
@@ -214,7 +214,7 @@ class Dog
     /**
      * @var ArrayCollection
      *
-     * @ORM\ManyToMany(targetEntity="Person", inversedBy="dogsOwned")
+     * @ORM\ManyToMany(targetEntity="Person", inversedBy="animalsOwned")
      * @ORM\JoinTable(name="pedigree_animal_owner",
      *     joinColumns={@ORM\JoinColumn(name="animalId", referencedColumnName="id")},
      *     inverseJoinColumns={@ORM\JoinColumn(name="ownerId", referencedColumnName="id")}
@@ -482,7 +482,7 @@ class Dog
     /**
      * @var ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="Image", mappedBy="dog")
+     * @ORM\OneToMany(targetEntity="Image", mappedBy="animal")
      * @Form\Exclude()
      */
     protected $images;
@@ -540,19 +540,19 @@ class Dog
     public function __call($method, $args)
     {
         if (!method_exists($this->getDTO(), $method)) {
-            throw new \BadMethodCallException('Call to undefined method ' . Dog::class . '::' . $method . '()');
+            throw new \BadMethodCallException('Call to undefined method ' . Animal::class . '::' . $method . '()');
         }
 
         return call_user_func_array([$this->getDTO(), $method], $args);
     }
 
     /**
-     * @return DogDTO
+     * @return AnimalDTO
      */
     public function getDTO()
     {
         if (!isset($this->dto)) {
-            $this->dto = new DogDTO($this);
+            $this->dto = new AnimalDTO($this);
         }
 
         return $this->dto;
@@ -624,23 +624,23 @@ class Dog
     }
 
     /**
-     * @return Kennel
+     * @return House
      */
-    public function getKennel()
+    public function getHouse()
     {
-        return $this->kennel;
+        return $this->house;
     }
 
     /**
-     * @param Kennel $kennel
+     * @param House $house
      */
-    public function setKennel(Kennel $kennel = null)
+    public function setHouse(House $house = null)
     {
-        $this->kennel = $kennel;
+        $this->house = $house;
     }
 
     /**
-     * @return Dog
+     * @return Animal
      * @Grid\Header(label="Sire", sort={"sire.name", "name"})
      */
     public function getSire()
@@ -649,12 +649,12 @@ class Dog
     }
 
     /**
-     * @param Dog $sire
+     * @param Animal $sire
      */
-    public function setSire(Dog $sire = null)
+    public function setSire(Animal $sire = null)
     {
         if ($sire && $sire->isDescendantOf($this->getDTO())) {
-            throw new \Exception(sprintf('Dog \'%s\' cannot be sire of his ancestor \'%s\'', $sire, $this));
+            throw new \Exception(sprintf('Animal \'%s\' cannot be sire of his ancestor \'%s\'', $sire, $this));
         }
 
         unset($this->dto);
@@ -662,7 +662,7 @@ class Dog
     }
 
     /**
-     * @return Dog
+     * @return Animal
      * @Grid\Header(label="Dam", sort={"dam.name", "name"})
      */
     public function getDam()
@@ -671,12 +671,12 @@ class Dog
     }
 
     /**
-     * @param Dog $dam
+     * @param Animal $dam
      */
-    public function setDam(Dog $dam = null)
+    public function setDam(Animal $dam = null)
     {
         if ($dam && $dam->isDescendantOf($this->getDTO())) {
-            throw new \Exception(sprintf('Dog \'%s\' cannot be dam of her ancestor \'%s\'', $dam, $this));
+            throw new \Exception(sprintf('Animal \'%s\' cannot be dam of her ancestor \'%s\'', $dam, $this));
         }
 
         unset($this->dto);

@@ -2,7 +2,7 @@
 
 namespace AcePedigree\Form;
 
-use AcePedigree\Entity\Dog;
+use AcePedigree\Entity\Animal;
 use Zend\Form\Element;
 use Zend\Form\Form;
 use Zend\InputFilter\Input;
@@ -16,7 +16,8 @@ class AdvancedSearch extends Form
         parent::__construct('advancedSearch');
 
         $this->setAttribute('method', 'GET');
-        $this->setAttribute('action', '/pedigree/dogs');
+        // TODO use a route rather than a hardcoded url
+        $this->setAttribute('action', '/pedigree/animals');
 
         $this->filter = new InputFilter();
 
@@ -30,12 +31,12 @@ class AdvancedSearch extends Form
 
         // Breeders
         // Owners
-        // Kennel
+        // House
         // Sire
         // Dam
 
         $sex = new Element\Select('sex');
-        $sex->setValueOptions([Dog::SEX_MALE => 'Male', Dog::SEX_FEMALE => 'Female']);
+        $sex->setValueOptions([Animal::SEX_MALE => 'Male', Animal::SEX_FEMALE => 'Female']);
         $sex->setEmptyOption('Select a Sex');
         $this->add($sex);
 

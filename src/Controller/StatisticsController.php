@@ -43,7 +43,7 @@ class StatisticsController extends AbstractActionController
      */
     public function populationDataAction()
     {
-        $repository = $this->entityManager->getRepository(Entity\Dog::class);
+        $repository = $this->entityManager->getRepository(Entity\Animal::class);
         list($nodes, $links) = $repository->getForceDirectedKinshipData();
 
         return new JsonModel([

@@ -8,25 +8,25 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity(readOnly=true)
  * @ORM\Table(name="pedigree_animal_kinship")
  */
-class DogKinship
+class AnimalKinship
 {
     /**
-     * @var Dog
+     * @var Animal
      *
      * @ORM\Id
-     * @ORM\ManyToOne(targetEntity="Dog")
-     * @ORM\JoinColumn(name="dog1Id", referencedColumnName="id", onDelete="CASCADE")
+     * @ORM\ManyToOne(targetEntity="Animal")
+     * @ORM\JoinColumn(name="animal1Id", referencedColumnName="id", onDelete="CASCADE")
      */
-    protected $dog1;
+    protected $animal1;
 
     /**
-     * @var Dog
+     * @var Animal
      *
      * @ORM\Id
-     * @ORM\ManyToOne(targetEntity="Dog")
-     * @ORM\JoinColumn(name="dog2Id", referencedColumnName="id", onDelete="CASCADE")
+     * @ORM\ManyToOne(targetEntity="Animal")
+     * @ORM\JoinColumn(name="animal2Id", referencedColumnName="id", onDelete="CASCADE")
      */
-    protected $dog2;
+    protected $animal2;
 
     /**
      * @var float
@@ -39,19 +39,19 @@ class DogKinship
     { }
 
     /**
-     * @return Dog
+     * @return Animal
      */
-    public function getDog1()
+    public function getAnimal1()
     {
-        return $this->dog1;
+        return $this->animal1;
     }
 
     /**
-     * @return Dog
+     * @return Animal
      */
-    public function getDog2()
+    public function getAnimal2()
     {
-        return $this->dog2;
+        return $this->animal2;
     }
 
     /**

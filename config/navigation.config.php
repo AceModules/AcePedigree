@@ -10,12 +10,12 @@ return [
                 'route'  => 'ace-pedigree/recent',
             ],
             [
-                'label'  => 'Dogs',
-                'route'  => 'ace-pedigree/dogs',
+                'label'  => 'Animals',
+                'route'  => 'ace-pedigree/animals',
                 'pages'  => [
                     [
                         'label'  => 'Search',
-                        'route'  => 'ace-pedigree/dogs',
+                        'route'  => 'ace-pedigree/animals',
                         'action' => 'search',
                     ],
                 ],

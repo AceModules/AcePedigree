@@ -14,15 +14,15 @@ return [
     'ace_admin' => [
         'entities' => [
             'countries' => Entity\Country::class,
-            'dogs'      => Entity\Dog::class,
-            'kennels'   => Entity\Kennel::class,
+            'animals'   => Entity\Animal::class,
+            'houses'    => Entity\House::class,
             'persons'   => Entity\Person::class,
         ],
     ],
     'controllers' => [
         'factories' => [
             Controller\IndexController::class      => DoctrineAwareFactory::class,
-            Controller\DogController::class        => DoctrineAwareFactory::class,
+            Controller\AnimalController::class     => DoctrineAwareFactory::class,
             Controller\ImageController::class      => DoctrineAwareFactory::class,
             Controller\PersonController::class     => DoctrineAwareFactory::class,
             Controller\StatisticsController::class => DoctrineAwareFactory::class,
@@ -51,12 +51,12 @@ return [
                             ],
                         ],
                     ],
-                    'dogs' => [
+                    'animals' => [
                         'type'    => Segment::class,
                         'options' => [
-                            'route'    => '/dogs[/:action]',
+                            'route'    => '/animals[/:action]',
                             'defaults' => [
-                                'controller'    => Controller\DogController::class,
+                                'controller'    => Controller\AnimalController::class,
                                 'action'        => 'index',
                             ],
                             'constraints' => [
@@ -204,14 +204,14 @@ return [
     ],
     'service_manager' => [
         'factories' => [
-            Entity\Subscriber\DogSubscriber::class => InvokableFactory::class,
+            Entity\Subscriber\AnimalSubscriber::class => InvokableFactory::class,
         ],
     ],
     'doctrine' => [
         'eventmanager' => [
             'orm_default' => [
                 'subscribers' => [
-                    Entity\Subscriber\DogSubscriber::class,
+                    Entity\Subscriber\AnimalSubscriber::class,
                     LoggableListener::class,
                     TimestampableListener::class,
                 ],

@@ -6,17 +6,17 @@
     <table class="table table-striped">
         <thead>
             <tr>
-                <th>Dog</th>
+                <th>Animal</th>
                 <th style="width: 15%">Updated</th>
             </tr>
         </thead>
         <tbody>
-            <?php if (!count($dogs)) : ?>
+            <?php if (!count($animals)) : ?>
                 <tr>
-                    <td colspan="2" class="text-center">There are no dogs to display.</td>
+                    <td colspan="2" class="text-center">There are no animals to display.</td>
                 </tr>
             <?php endif; ?>
-            <?php foreach ($dogs as $entity) : ?>
+            <?php foreach ($animals as $entity) : ?>
                 <tr>
                     <td><?= $this->entityLink($entity) ?></td>
                     <td><?= $entity->getUpdatedAt()->format('Y-m-d H:i:s') ?></td>

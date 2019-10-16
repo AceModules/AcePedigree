@@ -20,30 +20,30 @@ class PersonRepository extends EntityRepository
         $queryBuilder = $datagrid->createSearchQueryBuilder(null, $sortParam);
         $searchParams = array_filter($searchParams);
 
-        if (isset($searchParams['minDogsBred']) || isset($searchParams['maxDogsBred'])) {
-            $queryBuilder->leftJoin('entity.dogsBred', 'dogsBred')->groupBy('entity.id');
+        if (isset($searchParams['minBred']) || isset($searchParams['maxBred'])) {
+            $queryBuilder->leftJoin('entity.animalsBred', 'animalsBred')->groupBy('entity.id');
         }
 
-        if (isset($searchParams['minDogsOwned']) || isset($searchParams['maxDogsOwned'])) {
-            $queryBuilder->leftJoin('entity.dogsOwned', 'dogsOwned')->groupBy('entity.id');
+        if (isset($searchParams['minOwned']) || isset($searchParams['maxOwned'])) {
+            $queryBuilder->leftJoin('entity.animalsOwned', 'animalsOwned')->groupBy('entity.id');
         }
 
         foreach ($searchParams as $property => $searchParam) {
             switch ($property) {
-                case 'minDogsBred':
-                    $queryBuilder->andHaving($queryBuilder->expr()->gte('count(dogsBred.id)', $searchParam));
+                case 'minBred':
+                    $queryBuilder->andHaving($queryBuilder->expr()->gte('count(animalsBred.id)', $searchParam));
                     break;
 
-                case 'maxDogsBred':
-                    $queryBuilder->andHaving($queryBuilder->expr()->lte('count(dogsBred.id)', $searchParam));
+                case 'maxBred':
+                    $queryBuilder->andHaving($queryBuilder->expr()->lte('count(animalsBred.id)', $searchParam));
                     break;
 
-                case 'minDogsOwned':
-                    $queryBuilder->andHaving($queryBuilder->expr()->gte('count(dogsOwned.id)', $searchParam));
+                case 'minOwned':
+                    $queryBuilder->andHaving($queryBuilder->expr()->gte('count(animalsOwned.id)', $searchParam));
                     break;
 
-                case 'maxDogsOwned':
-                    $queryBuilder->andHaving($queryBuilder->expr()->lte('count(dogsOwned.id)', $searchParam));
+                case 'maxOwned':
+                    $queryBuilder->andHaving($queryBuilder->expr()->lte('count(animalsOwned.id)', $searchParam));
                     break;
 
                 default:

@@ -2,21 +2,21 @@
 
 namespace AcePedigree\View\Helper;
 
-use AcePedigree\Entity\Dog;
+use AcePedigree\Entity\Animal;
 use Zend\View\Helper\AbstractHelper;
 
 class TestMatingButton extends AbstractHelper
 {
     /**
-     * @param Dog $dog
+     * @param Animal $animal
      * @return string
      */
-    public function __invoke(Dog $dog)
+    public function __invoke(Animal $animal)
     {
-        if ($dog->getId() && ($dog->getSex() == Dog::SEX_MALE || $dog->getSex() == Dog::SEX_FEMALE)) {
-            $param = $dog->getSex() == Dog::SEX_MALE ? 'sire' : 'dam';
+        if ($animal->getId() && ($animal->getSex() == Animal::SEX_MALE || $animal->getSex() == Animal::SEX_FEMALE)) {
+            $param = $animal->getSex() == Animal::SEX_MALE ? 'sire' : 'dam';
             return '<a class="btn btn-primary" href="' .
-                $this->view->url('ace-pedigree/test-mating', [], ['query' => [$param => $dog->getId()]]) .
+                $this->view->url('ace-pedigree/test-mating', [], ['query' => [$param => $animal->getId()]]) .
                 '" role="button"><span class="glyphicon glyphicon-random"></span>&nbsp; Test Mating</a>';
         }
     }

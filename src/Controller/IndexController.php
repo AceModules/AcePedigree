@@ -34,11 +34,11 @@ class IndexController extends AbstractActionController
      */
     public function recentAction()
     {
-        $dogs = $this->entityManager->getRepository(Entity\Dog::class)->findBy([], ['updatedAt' => 'DESC'], 10);
+        $animals = $this->entityManager->getRepository(Entity\Animal::class)->findBy([], ['updatedAt' => 'DESC'], 10);
         $persons = $this->entityManager->getRepository(Entity\Person::class)->findBy([], ['updatedAt' => 'DESC'], 10);
 
         return [
-            'dogs' => $dogs,
+            'animals' => $animals,
             'persons' => $persons,
         ];
     }

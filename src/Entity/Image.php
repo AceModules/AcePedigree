@@ -20,12 +20,12 @@ class Image
     protected $id;
 
     /**
-     * @var Dog
+     * @var Animal
      *
-     * @ORM\ManyToOne(targetEntity="Dog", inversedBy="images")
+     * @ORM\ManyToOne(targetEntity="Animal", inversedBy="images")
      * @ORM\JoinColumn(name="animalId", referencedColumnName="id")
      */
-    protected $dog;
+    protected $animal;
 
     /**
      * @var string
@@ -71,19 +71,19 @@ class Image
     }
 
     /**
-     * @return Dog
+     * @return Animal
      */
-    public function getDog()
+    public function getAnimal()
     {
-        return $this->dog;
+        return $this->animal;
     }
 
     /**
-     * @param Dog $dog
+     * @param Animal $animal
      */
-    public function setDog(Dog $dog)
+    public function setAnimal(Animal $animal)
     {
-        $this->dog = $dog;
+        $this->animal = $animal;
     }
 
     /**

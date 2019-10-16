@@ -2,19 +2,19 @@
 
 namespace AcePedigree\View\Helper;
 
-use AcePedigree\Entity\Dog;
+use AcePedigree\Entity\Animal;
 use Zend\View\Helper\AbstractHelper;
 
 class PrintButton extends AbstractHelper
 {
     /**
-     * @param Dog $dog
+     * @param Animal $animal
      * @return string
      */
-    public function __invoke(Dog $dog)
+    public function __invoke(Animal $animal)
     {
         return '<a class="btn btn-primary" href="' .
-            $this->view->url('ace-pedigree/dogs/view', ['action' => 'print', 'id' => $dog->getId()]) .
+            $this->view->url('ace-pedigree/animals/view', ['action' => 'print', 'id' => $animal->getId()]) .
             '" role="button" target="_blank"><span class="glyphicon glyphicon-print"></span>&nbsp; Print Friendly Pedigree</a>';
     }
 }

@@ -32,37 +32,37 @@ class PersonSearch extends Form
 
         // Country
 
-        $minDogsBred = new Element\Number('minDogsBred');
-        $minDogsBred->setAttribute('placeholder', 'Min. Dogs Bred');
-        $this->add($minDogsBred);
+        $minBred = new Element\Number('minBred');
+        $minBred->setAttribute('placeholder', 'Min. Animals Bred');
+        $this->add($minBred);
 
-        $minDogsBredFilter = new Input('minDogsBred');
-        $minDogsBredFilter->setRequired(false);
-        $this->filter->add($minDogsBredFilter);
+        $minBredFilter = new Input('minBred');
+        $minBredFilter->setRequired(false);
+        $this->filter->add($minBredFilter);
 
-        $maxDogsBred = new Element\Number('maxDogsBred');
-        $maxDogsBred->setAttribute('placeholder', 'Max. Dogs Bred');
-        $this->add($maxDogsBred);
+        $maxBred = new Element\Number('maxBred');
+        $maxBred->setAttribute('placeholder', 'Max. Animals Bred');
+        $this->add($maxBred);
 
-        $maxDogsBredFilter = new Input('maxDogsBred');
-        $maxDogsBredFilter->setRequired(false);
-        $this->filter->add($maxDogsBredFilter);
+        $maxBredFilter = new Input('maxBred');
+        $maxBredFilter->setRequired(false);
+        $this->filter->add($maxBredFilter);
 
-        $minDogsOwned = new Element\Number('minDogsOwned');
-        $minDogsOwned->setAttribute('placeholder', 'Min. Dogs Owned');
-        $this->add($minDogsOwned);
+        $minOwned = new Element\Number('minOwned');
+        $minOwned->setAttribute('placeholder', 'Min. Animals Owned');
+        $this->add($minOwned);
 
-        $minDogsOwnedFilter = new Input('minDogsOwned');
-        $minDogsOwnedFilter->setRequired(false);
-        $this->filter->add($minDogsOwnedFilter);
+        $minOwnedFilter = new Input('minOwned');
+        $minOwnedFilter->setRequired(false);
+        $this->filter->add($minOwnedFilter);
 
-        $maxDogsOwned = new Element\Number('maxDogsOwned');
-        $maxDogsOwned->setAttribute('placeholder', 'Max. Dogs Owned');
-        $this->add($maxDogsOwned);
+        $maxOwned = new Element\Number('maxOwned');
+        $maxOwned->setAttribute('placeholder', 'Max. Animals Owned');
+        $this->add($maxOwned);
 
-        $maxDogsOwnedFilter = new Input('maxDogsOwned');
-        $maxDogsOwnedFilter->setRequired(false);
-        $this->filter->add($maxDogsOwnedFilter);
+        $maxOwnedFilter = new Input('maxOwned');
+        $maxOwnedFilter->setRequired(false);
+        $this->filter->add($maxOwnedFilter);
 
         $buttons = new Form('buttons');
         $buttons->setOption('twb-layout', 'inline');

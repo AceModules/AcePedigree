@@ -2,9 +2,9 @@
 
 namespace AcePedigree\Entity\DTO;
 
-use AcePedigree\Entity\Dog;
+use AcePedigree\Entity\Animal;
 
-class DogDTO
+class AnimalDTO
 {
     /**
      * @var int
@@ -12,12 +12,12 @@ class DogDTO
     protected $id;
 
     /**
-     * @var DogDTO
+     * @var AnimalDTO
      */
     protected $sire;
 
     /**
-     * @var DogDTO
+     * @var AnimalDTO
      */
     protected $dam;
 
@@ -42,21 +42,21 @@ class DogDTO
     protected $lastCompleteGen = 0;
 
     /**
-     * @var Dog
+     * @var Animal
      */
     protected $entity;
 
-    public function __construct(Dog $dog)
+    public function __construct(Animal $animal)
     {
-        $this->id = $dog->getId();
-        $this->entity = $dog;
+        $this->id = $animal->getId();
+        $this->entity = $animal;
 
-        if ($dog->getSire()) {
-            $this->sire = $this->addParent($dog->getSire(), 'sire');
+        if ($animal->getSire()) {
+            $this->sire = $this->addParent($animal->getSire(), 'sire');
         }
 
-        if ($dog->getDam()) {
-            $this->dam = $this->addParent($dog->getDam(), 'dam');
+        if ($animal->getDam()) {
+            $this->dam = $this->addParent($animal->getDam(), 'dam');
         }
 
         if ($this->sire && $this->dam) {
@@ -81,7 +81,7 @@ class DogDTO
     }
 
     /**
-     * @return DogDTO
+     * @return AnimalDTO
      */
     public function getSire()
     {
@@ -89,7 +89,7 @@ class DogDTO
     }
 
     /**
-     * @return DogDTO
+     * @return AnimalDTO
      */
     public function getDam()
     {
@@ -129,7 +129,7 @@ class DogDTO
     }
 
     /**
-     * @return Dog
+     * @return Animal
      */
     public function getEntity()
     {
@@ -170,10 +170,10 @@ class DogDTO
     }
 
     /**
-     * @param DogDTO $dto
+     * @param AnimalDTO $dto
      * @return float
      */
-    public function getConsanguinityWith(DogDTO $dto)
+    public function getConsanguinityWith(AnimalDTO $dto)
     {
         if ($dto == $this) {
             return 1;
@@ -191,10 +191,10 @@ class DogDTO
     }
 
     /**
-     * @param DogDTO $dto
+     * @param AnimalDTO $dto
      * @return float
      */
-    public function getCovarianceWith(DogDTO $dto)
+    public function getCovarianceWith(AnimalDTO $dto)
     {
         if ($dto == $this) {
             return 1 + (0.5 *
@@ -214,10 +214,10 @@ class DogDTO
     }
 
     /**
-     * @param DogDTO $dto
+     * @param AnimalDTO $dto
      * @return bool
      */
-    public function isDescendantOf(DogDTO $dto)
+    public function isDescendantOf(AnimalDTO $dto)
     {
         if ($dto == $this) {
             return true;
@@ -227,10 +227,10 @@ class DogDTO
     }
 
     /**
-     * @param DogDTO $dto
+     * @param AnimalDTO $dto
      * @return float
      */
-    public function getInbreedingContributionFrom(DogDTO $dto)
+    public function getInbreedingContributionFrom(AnimalDTO $dto)
     {
         if (!isset($this->ancestorPaths[$dto->getId()]['sire']) || !isset($this->ancestorPaths[$dto->getId()]['dam'])) {
             return 0;
@@ -252,7 +252,7 @@ class DogDTO
     /**
      * @return array
      */
-    public function getGenerationTotalsFor(DogDTO $dto)
+    public function getGenerationTotalsFor(AnimalDTO $dto)
     {
         if (!isset($this->ancestorPaths[$dto->getId()])) {
             return [];
@@ -274,19 +274,19 @@ class DogDTO
     /**
      * @return int
      */
-    public function getShortestPathTo(DogDTO $dto)
+    public function getShortestPathTo(AnimalDTO $dto)
     {
         return min(array_keys($this->getGenerationTotalsFor($dto)));
     }
 
     /**
-     * @param Dog $dog
+     * @param Animal $animal
      * @param string $line
-     * @return DogDTO
+     * @return AnimalDTO
      */
-    private function addParent(Dog $dog, $line)
+    private function addParent(Animal $animal, $line)
     {
-        $parent = $dog->getDTO();
+        $parent = $animal->getDTO();
 
         $this->totalAncestors += 1 + $parent->getTotalAncestors();
 

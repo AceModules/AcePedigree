@@ -2,7 +2,7 @@
 
 namespace AcePedigree\Controller;
 
-use AcePedigree\Entity\Dog;
+use AcePedigree\Entity\Animal;
 use AcePedigree\Form\AdvancedSearch;
 use AceDatagrid\DatagridManager;
 use Doctrine\ORM\EntityManager;
@@ -13,7 +13,7 @@ use Zend\Paginator\Paginator;
 use Zend\View\Model\JsonModel;
 use Zend\View\Model\ViewModel;
 
-class DogController extends AbstractActionController
+class AnimalController extends AbstractActionController
 {
     /**
      * @var EntityManager
@@ -39,7 +39,7 @@ class DogController extends AbstractActionController
      */
     public function indexAction()
     {
-        $datagrid = $this->datagridManager->get(Dog::class);
+        $datagrid = $this->datagridManager->get(Animal::class);
 
         $page = (int) $this->params()->fromQuery('page', 1);
         $sort = $this->params()->fromQuery('sort');
@@ -50,7 +50,7 @@ class DogController extends AbstractActionController
 
         if ($form->isValid()) {
             $search = $form->getData();
-            $queryBuilder = $this->entityManager->getRepository(Dog::class)
+            $queryBuilder = $this->entityManager->getRepository(Animal::class)
                 ->createSearchQueryBuilder($datagrid, $search, $sort);
         } else {
             $queryBuilder = $datagrid->createSearchQueryBuilder(null, $sort);
@@ -92,7 +92,7 @@ class DogController extends AbstractActionController
      */
     public function viewAction()
     {
-        $repository = $this->entityManager->getRepository(Dog::class);
+        $repository = $this->entityManager->getRepository(Animal::class);
 
         $id = (int) $this->params()->fromRoute('id');
         $entity = $repository->find($id);
@@ -140,7 +140,7 @@ class DogController extends AbstractActionController
         $viewModel = new ViewModel();
         $viewModel->setTerminal(true);
 
-        $repository = $this->entityManager->getRepository(Dog::class);
+        $repository = $this->entityManager->getRepository(Animal::class);
 
         $id = (int) $this->params()->fromRoute('id');
         $entity = $repository->find($id);

@@ -1,5 +1,5 @@
 <?php $this->navigation('navigation')
-    ->findOneBy('route', 'ace-pedigree/dogs')
+    ->findOneBy('route', 'ace-pedigree/animals')
     ->addPage([
         'label'  => 'View',
         'uri'    => '#',
@@ -43,8 +43,8 @@
                         </td>
                     </tr>
                     <tr>
-                        <th>Kennel</th>
-                        <td><?= $entity->getKennel() ?></td>
+                        <th>House</th>
+                        <td><?= $entity->getHouse() ?></td>
                     </tr>
                     <tr>
                         <th>Sire</th>
@@ -99,8 +99,8 @@
                     <tr>
                         <th>Offspring</th>
                         <td>
-                            <?php foreach ($offspring as $dog) : ?>
-                            <?= $this->entityLink($dog) ?><br />
+                            <?php foreach ($offspring as $animal) : ?>
+                            <?= $this->entityLink($animal) ?><br />
                             <?php endforeach; ?>
                         </td>
                     </tr>
@@ -129,8 +129,8 @@
                     <tr>
                         <th>Full Siblings</th>
                         <td>
-                            <?php foreach ($fullSiblings as $dog) : ?>
-                            <?= $this->entityLink($dog) ?><br />
+                            <?php foreach ($fullSiblings as $animal) : ?>
+                            <?= $this->entityLink($animal) ?><br />
                             <?php endforeach; ?>
                         </td>
                     </tr>
@@ -140,8 +140,8 @@
                     <tr>
                         <th>Half Siblings (Sire)</th>
                         <td>
-                            <?php foreach ($sireHalfSiblings as $dog) : ?>
-                            <?= $this->entityLink($dog) ?><br />
+                            <?php foreach ($sireHalfSiblings as $animal) : ?>
+                            <?= $this->entityLink($animal) ?><br />
                             <?php endforeach; ?>
                         </td>
                     </tr>
@@ -151,8 +151,8 @@
                     <tr>
                         <th>Half Siblings (Dam)</th>
                         <td>
-                            <?php foreach ($damHalfSiblings as $dog) : ?>
-                            <?= $this->entityLink($dog) ?><br />
+                            <?php foreach ($damHalfSiblings as $animal) : ?>
+                            <?= $this->entityLink($animal) ?><br />
                             <?php endforeach; ?>
                         </td>
                     </tr>

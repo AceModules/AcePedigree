@@ -1,12 +1,12 @@
 <h3>Analysis</h3>
 <div class="container">
-    Coefficient of Inbreeding (COI): <?= round(100 * $dog->getInbreedingCoefficient(), 2) ?>%<br />
-    Relationionship Coefficient of Sire and Dam (RC): <?= round(100 * $dog->getCoefficientOfRelationship(), 2) ?>%<br />
-    Ancestor Loss (AVK): <?= round(100 * $dog->getAncestorLoss(), 2) ?>%<br />
-    Mean Kinship with Population (MK): <?= round(100 * $dog->getAverageCovariance(), 2) ?>%<br />
+    Coefficient of Inbreeding (COI): <?= round(100 * $animal->getInbreedingCoefficient(), 2) ?>%<br />
+    Relationionship Coefficient of Sire and Dam (RC): <?= round(100 * $animal->getCoefficientOfRelationship(), 2) ?>%<br />
+    Ancestor Loss (AVK): <?= round(100 * $animal->getAncestorLoss(), 2) ?>%<br />
+    Mean Kinship with Population (MK): <?= round(100 * $animal->getAverageCovariance(), 2) ?>%<br />
 
-    <small class="text-<?= $dog->getLastCompleteGen() < $maxGen ? 'danger' : 'success'; ?>">
-        <i>Calculations based on <?= $dog->getLastCompleteGen() ?> complete generation(s) of <?= $maxGen ?> requested.</i>
+    <small class="text-<?= $animal->getLastCompleteGen() < $maxGen ? 'danger' : 'success'; ?>">
+        <i>Calculations based on <?= $animal->getLastCompleteGen() ?> complete generation(s) of <?= $maxGen ?> requested.</i>
     </small><br />
 
     <br />
@@ -26,22 +26,22 @@
             </tr>
         </thead>
         <tbody>
-            <?php if (!count($dog->getUniqueAncestors())) : ?>
+            <?php if (!count($animal->getUniqueAncestors())) : ?>
                 <tr>
                     <td colspan="<?= 6 + $maxGen ?>" class="text-center">There are no ancestors to display.</td>
                 </tr>
             <?php endif; ?>
-            <?php foreach ($dog->getUniqueAncestors() as $ancestor) : ?>
-                <?php if ($dog->getShortestPathTo($ancestor) > $maxGen) : continue; endif; ?>
+            <?php foreach ($animal->getUniqueAncestors() as $ancestor) : ?>
+                <?php if ($animal->getShortestPathTo($ancestor) > $maxGen) : continue; endif; ?>
                 <tr>
                     <td class="text-left"><?= $this->entityLink($ancestor->getEntity()) ?></td>
                     <td><?= $ancestor->getEntity()->getSexDisplay() ?></td>
                     <?= $ancestor->getInbreedingCoefficient() ? '<td>' : '<td class="text-secondary">' ?><?= round(100 * $ancestor->getInbreedingCoefficient(), 2) ?>%</td>
-                    <?= 0 > 1 ? '<td>' : '<td class="text-secondary">' ?><?= round(100 * $dog->getConsanguinityWith($ancestor), 2) ?>%</td>
-                    <?= $dog->getInbreedingContributionFrom($ancestor) ? '<td>' : '<td class="text-secondary">' ?><?= round(100 * $dog->getInbreedingContributionFrom($ancestor), 2) ?>%</td>
-                    <td><?= array_sum($dog->getGenerationTotalsFor($ancestor)) ?></td>
+                    <?= 0 > 1 ? '<td>' : '<td class="text-secondary">' ?><?= round(100 * $animal->getConsanguinityWith($ancestor), 2) ?>%</td>
+                    <?= $animal->getInbreedingContributionFrom($ancestor) ? '<td>' : '<td class="text-secondary">' ?><?= round(100 * $animal->getInbreedingContributionFrom($ancestor), 2) ?>%</td>
+                    <td><?= array_sum($animal->getGenerationTotalsFor($ancestor)) ?></td>
                     <?php for ($gen = 1; $gen <= $maxGen; $gen++) : ?>
-                        <td><?= $dog->getGenerationTotalsFor($ancestor)[$gen] ?? 0 ?></td>
+                        <td><?= $animal->getGenerationTotalsFor($ancestor)[$gen] ?? 0 ?></td>
                     <?php endfor; ?>
                 </tr>
             <?php endforeach; ?>

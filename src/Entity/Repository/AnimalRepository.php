@@ -2,112 +2,112 @@
 
 namespace AcePedigree\Entity\Repository;
 
-use AcePedigree\Entity\Dog;
+use AcePedigree\Entity\Animal;
 use AceDatagrid\Datagrid;
-use AcePedigree\Entity\DogKinship;
+use AcePedigree\Entity\AnimalKinship;
 use Doctrine\DBAL\Connection;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\ORM\Query\ResultSetMappingBuilder;
 
-class DogRepository extends EntityRepository
+class AnimalRepository extends EntityRepository
 {
     /**
-     * @param Dog $dog
+     * @param Animal $animal
      * @return array|null
      */
-    function findByParent(Dog $dog)
+    function findByParent(Animal $animal)
     {
         return $this->getEntityManager()
             ->createQueryBuilder()
             ->select('d')
-            ->from(Dog::class, 'd')
-            ->where('d.sire = :dog')
-            ->orWhere('d.dam = :dog')
+            ->from(Animal::class, 'd')
+            ->where('d.sire = :animal')
+            ->orWhere('d.dam = :animal')
             ->orderBy('d.name', 'ASC')
-            ->setParameter('dog', $dog)
+            ->setParameter('animal', $animal)
             ->getQuery()
             ->getResult();
     }
 
     /**
-     * @param Dog $dog
+     * @param Animal $animal
      * @return array|null
      */
-    function findBySibling(Dog $dog)
+    function findBySibling(Animal $animal)
     {
         return $this->getEntityManager()
             ->createQueryBuilder()
             ->select('d')
-            ->from(Dog::class, 'd')
-            ->where('d.id != :dog')
+            ->from(Animal::class, 'd')
+            ->where('d.id != :animal')
             ->andWhere('d.sire = :sire OR d.dam = :dam')
             ->orderBy('d.name', 'ASC')
-            ->setParameter('dog', $dog)
-            ->setParameter('sire', $dog->getSire())
-            ->setParameter('dam', $dog->getDam())
+            ->setParameter('animal', $animal)
+            ->setParameter('sire', $animal->getSire())
+            ->setParameter('dam', $animal->getDam())
             ->getQuery()
             ->getResult();
     }
 
     /**
-     * @param Dog $dog
+     * @param Animal $animal
      * @return array|null
      */
-    function findByDescendant(Dog $dog)
+    function findByDescendant(Animal $animal)
     {
         $sql = 'WITH RECURSIVE cte AS (' .
-            'SELECT x.* FROM pedigree_animal x WHERE x.id = :dog UNION ' .
+            'SELECT x.* FROM pedigree_animal x WHERE x.id = :animal UNION ' .
             'SELECT a.* FROM pedigree_animal a JOIN cte ON a.id = cte.sireId OR a.id = cte.damId' .
             ') SELECT cte.* FROM cte;';
 
         $rsm = new ResultSetMappingBuilder($this->getEntityManager());
-        $rsm->addRootEntityFromClassMetadata(Dog::class, 'cte');
+        $rsm->addRootEntityFromClassMetadata(Animal::class, 'cte');
 
         return $this->getEntityManager()
             ->createNativeQuery($sql, $rsm)
-            ->setParameter('dog', $dog)
+            ->setParameter('animal', $animal)
             ->getResult();
     }
 
     /**
-     * @param Dog $dog
+     * @param Animal $animal
      * @return array|null
      */
-    function findByAncestor(Dog $dog)
+    function findByAncestor(Animal $animal)
     {
         $sql = 'WITH RECURSIVE cte AS (' .
-            'SELECT x.* FROM pedigree_animal x WHERE x.id = :dog UNION ' .
+            'SELECT x.* FROM pedigree_animal x WHERE x.id = :animal UNION ' .
             'SELECT d.* FROM pedigree_animal d JOIN cte ON d.sireId = cte.id OR d.damId = cte.id' .
             ') SELECT cte.* FROM cte;';
 
         $rsm = new ResultSetMappingBuilder($this->getEntityManager());
-        $rsm->addRootEntityFromClassMetadata(Dog::class, 'cte');
+        $rsm->addRootEntityFromClassMetadata(Animal::class, 'cte');
 
         return $this->getEntityManager()
             ->createNativeQuery($sql, $rsm)
-            ->setParameter('dog', $dog)
+            ->setParameter('animal', $animal)
             ->getResult();
     }
 
     /**
-     * @param Dog $dog
+     * @param Animal $animal
      * @return array|null
      */
-    function findByRelative(Dog $dog)
+    function findByRelative(Animal $animal)
     {
         $sql = 'WITH RECURSIVE cte AS (' .
-            'SELECT x.*, 1 AS isAncestor FROM pedigree_animal x WHERE x.id = :dog UNION ' .
+            'SELECT x.*, 1 AS isAncestor FROM pedigree_animal x WHERE x.id = :animal UNION ' .
             'SELECT a.*, 1 AS isAncestor FROM pedigree_animal a JOIN cte ON (a.id = cte.sireId OR a.id = cte.damId) AND cte.isAncestor = 1 UNION ' .
             'SELECT d.*, 0 AS isAncestor FROM pedigree_animal d JOIN cte ON d.sireId = cte.id OR d.damId = cte.id' .
             ') SELECT DISTINCT r.* FROM cte JOIN pedigree_animal r ON r.id = cte.id;';
 
         $rsm = new ResultSetMappingBuilder($this->getEntityManager());
-        $rsm->addRootEntityFromClassMetadata(Dog::class, 'cte');
+        $rsm->addRootEntityFromClassMetadata(Animal::class, 'cte');
 
         return $this->getEntityManager()
             ->createNativeQuery($sql, $rsm)
-            ->setParameter('dog', $dog)
+            ->setParameter('animal', $animal)
             ->getResult();
     }
 
@@ -161,7 +161,7 @@ class DogRepository extends EntityRepository
                     break;
 
                 default:
-                    $metadata = $this->getEntityManager()->getClassMetadata(Dog::class);
+                    $metadata = $this->getEntityManager()->getClassMetadata(Animal::class);
                     $reflection = $metadata->getReflectionClass();
 
                     if ($reflection->hasProperty($property)) {
@@ -182,18 +182,18 @@ class DogRepository extends EntityRepository
     }
 
     /**
-     * @param Dog $dog
+     * @param Animal $animal
      */
-    public function updateAncestry(Dog $dog)
+    public function updateAncestry(Animal $animal)
     {
         $this->getEntityManager()
             ->getConnection()
             ->executeQuery(
-                'DELETE FROM pedigree_animal_kinship WHERE dog1Id = :dog OR dog2Id = :dog',
-                [':dog' => $dog->getId()]
+                'DELETE FROM pedigree_animal_kinship WHERE animal1Id = :animal OR animal2Id = :animal',
+                [':animal' => $animal->getId()]
             );
 
-        $relatives = $this->getEntityManager()->getRepository(Dog::class)->findByRelative($dog);
+        $relatives = $this->getEntityManager()->getRepository(Animal::class)->findByRelative($animal);
         $placeholders = [];
         $values = [];
         $types = [];
@@ -201,9 +201,9 @@ class DogRepository extends EntityRepository
         foreach ($relatives as $relative) {
             $placeholders[] = '(?)';
             $values[] = [
-                min($dog->getId(), $relative->getId()),
-                max($dog->getId(), $relative->getId()),
-                $dog->getCovarianceWith($relative->getDTO()),
+                min($animal->getId(), $relative->getId()),
+                max($animal->getId(), $relative->getId()),
+                $animal->getCovarianceWith($relative->getDTO()),
             ];
             $types[] = Connection::PARAM_STR_ARRAY;
         }
@@ -211,7 +211,7 @@ class DogRepository extends EntityRepository
         $this->getEntityManager()
             ->getConnection()
             ->executeQuery(
-                'INSERT INTO pedigree_animal_kinship (dog1Id, dog2Id, covariance) VALUES ' . implode(', ', $placeholders),
+                'INSERT INTO pedigree_animal_kinship (animal1Id, animal2Id, covariance) VALUES ' . implode(', ', $placeholders),
                 $values,
                 $types
             );
@@ -230,15 +230,15 @@ class DogRepository extends EntityRepository
         $nodes = $this->getEntityManager()
             ->createQueryBuilder()
             ->select('d.id, d.name, d.averageCovariance AS value')
-            ->from(Dog::class, 'd')
+            ->from(Animal::class, 'd')
             ->getQuery()
             ->getArrayResult();
 
         $links = $this->getEntityManager()
             ->createQueryBuilder()
-            ->select('IDENTITY(k.dog1) AS source, IDENTITY(k.dog2) AS target, 1 - k.covariance AS distance')
-            ->from(DogKinship::class, 'k')
-            ->where('k.dog1 != k.dog2')
+            ->select('IDENTITY(k.animal1) AS source, IDENTITY(k.animal2) AS target, 1 - k.covariance AS distance')
+            ->from(AnimalKinship::class, 'k')
+            ->where('k.animal1 != k.animal2')
             ->getQuery()
             ->getArrayResult();
 

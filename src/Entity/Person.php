@@ -166,18 +166,18 @@ class Person
     /**
      * @var ArrayCollection
      *
-     * @ORM\ManyToMany(targetEntity="Dog", mappedBy="breeders")
+     * @ORM\ManyToMany(targetEntity="Animal", mappedBy="breeders")
      * @Form\Exclude()
      */
-    protected $dogsBred;
+    protected $animalsBred;
 
     /**
      * @var ArrayCollection
      *
-     * @ORM\ManyToMany(targetEntity="Dog", mappedBy="owners")
+     * @ORM\ManyToMany(targetEntity="Animal", mappedBy="owners")
      * @Form\Exclude()
      */
-    protected $dogsOwned;
+    protected $animalsOwned;
 
     /**
      * @var \DateTime
@@ -202,8 +202,8 @@ class Person
      */
     public function __construct()
     {
-        $this->dogsBred = new ArrayCollection();
-        $this->dogsOwned = new ArrayCollection();
+        $this->animalsBred = new ArrayCollection();
+        $this->animalsOwned = new ArrayCollection();
     }
 
     /**
@@ -389,34 +389,34 @@ class Person
     /**
      * @return ArrayCollection
      */
-    public function getDogsBred()
+    public function getAnimalsBred()
     {
-        return $this->dogsBred;
+        return $this->animalsBred;
     }
 
     /**
      * @return int
-     * @Grid\Header(label="Dogs Bred", sort={"count(dogsBred.id)"}, reverse=true)
+     * @Grid\Header(label="Animals Bred", sort={"count(animalsBred.id)"}, reverse=true)
      */
-    public function getDogsBredCount()
+    public function getAnimalsBredCount()
     {
-        return count($this->dogsBred);
+        return count($this->animalsBred);
     }
 
     /**
      * @return ArrayCollection
      */
-    public function getDogsOwned()
+    public function getAnimalsOwned()
     {
-        return $this->dogsOwned;
+        return $this->animalsOwned;
     }
 
     /**
      * @return int
-     * @Grid\Header(label="Dogs Owned", sort={"count(dogsOwned.id)"}, reverse=true)
+     * @Grid\Header(label="Animals Owned", sort={"count(animalsOwned.id)"}, reverse=true)
      */
-    public function getDogsOwnedCount()
+    public function getAnimalsOwnedCount()
     {
-        return count($this->dogsOwned);
+        return count($this->animalsOwned);
     }
 }

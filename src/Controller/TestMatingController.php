@@ -26,9 +26,9 @@ class TestMatingController extends AbstractActionController
      */
     public function indexAction()
     {
-        $repository = $this->entityManager->getRepository(Entity\Dog::class);
+        $repository = $this->entityManager->getRepository(Entity\Animal::class);
 
-        $entity = new Entity\Dog();
+        $entity = new Entity\Animal();
         $entity->setName('Future Offspring');
 
         $maxGen = (int) $this->params()->fromQuery('maxGen', 3);
@@ -37,7 +37,7 @@ class TestMatingController extends AbstractActionController
         $sireId = (int) $this->params()->fromQuery('sire');
         $sire = $repository->find($sireId);
 
-        if ($sire && $sire->getSex() == Entity\Dog::SEX_MALE) {
+        if ($sire && $sire->getSex() == Entity\Animal::SEX_MALE) {
             $entity->setSire($sire);
             $repository->findByDescendant($sire, $maxGen - 1);
         }
@@ -45,7 +45,7 @@ class TestMatingController extends AbstractActionController
         $damId = (int) $this->params()->fromQuery('dam');
         $dam = $repository->find($damId);
 
-        if ($dam && $dam->getSex() == Entity\Dog::SEX_FEMALE) {
+        if ($dam && $dam->getSex() == Entity\Animal::SEX_FEMALE) {
             $entity->setDam($dam);
             $repository->findByDescendant($dam, $maxGen - 1);
         }

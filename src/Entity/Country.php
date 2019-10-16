@@ -46,18 +46,18 @@ class Country
     /**
      * @var ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="Dog", mappedBy="birthCountry")
+     * @ORM\OneToMany(targetEntity="Animal", mappedBy="birthCountry")
      * @Form\Exclude()
      */
-    protected $dogsBorn;
+    protected $animalsBorn;
 
     /**
      * @var ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="Dog", mappedBy="homeCountry")
+     * @ORM\OneToMany(targetEntity="Animal", mappedBy="homeCountry")
      * @Form\Exclude()
      */
-    protected $dogsHome;
+    protected $animalsHome;
 
     /**
      * @return string
@@ -95,34 +95,34 @@ class Country
     /**
      * @return ArrayCollection
      */
-    public function getDogsBorn()
+    public function getAnimalsBorn()
     {
-        return $this->dogsBorn;
+        return $this->animalsBorn;
     }
 
     /**
      * @return int
-     * @Grid\Header(label="Dogs Born", sort={"count(dogsBorn.id), count(dogsHome.id)"}, reverse=true)
+     * @Grid\Header(label="Animals Born", sort={"count(animalsBorn.id), count(animalsHome.id)"}, reverse=true)
      */
-    public function getDogsBornCount()
+    public function getAnimalsBornCount()
     {
-        return count($this->dogsBorn);
+        return count($this->animalsBorn);
     }
 
     /**
      * @return ArrayCollection
      */
-    public function getDogsHome()
+    public function getAnimalsHome()
     {
-        return $this->dogsHome;
+        return $this->animalsHome;
     }
 
     /**
      * @return int
-     * @Grid\Header(label="Dogs Standing", sort={"count(dogsHome.id), count(dogsBorn.id)"}, reverse=true)
+     * @Grid\Header(label="Animals Standing", sort={"count(animalsHome.id), count(animalsBorn.id)"}, reverse=true)
      */
-    public function getDogsHomeCount()
+    public function getAnimalsHomeCount()
     {
-        return count($this->dogsHome);
+        return count($this->animalsHome);
     }
 }

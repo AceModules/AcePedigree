@@ -1,35 +1,35 @@
 <td class="gen-<?= $gen ?>" rowspan="<?= 1 << ($maxGen - $gen) ?>">
-    <?php if ($dog) : ?>
+    <?php if ($animal) : ?>
 
-    <?php if ($dog->getTitles()) : ?>
-    <div class="small text-success text-capitalize"><?= $dog->getTitles() ?></div>
+    <?php if ($animal->getTitles()) : ?>
+    <div class="small text-success text-capitalize"><?= $animal->getTitles() ?></div>
     <?php endif; ?>
 
-    <b><?= $this->entityLink($dog) ?></b>
+    <b><?= $this->entityLink($animal) ?></b>
 
-    <?php if ($dog->getColor()) : ?>
-    <div class="small text-muted"><?= $dog->getColor() ?></div>
+    <?php if ($animal->getColor()) : ?>
+    <div class="small text-muted"><?= $animal->getColor() ?></div>
     <?php endif; ?>
 
-    <?php if ($dog->getBirthCountry() || $dog->getHomeCountry()) : ?>
+    <?php if ($animal->getBirthCountry() || $animal->getHomeCountry()) : ?>
     <div class="small text-muted">
-        <?= $dog->getBirthCountry() ?>
-        <?php if ($dog->getHomeCountry() && $dog->getHomeCountry() != $dog->getBirthCountry()) : ?>
-        &xrarr; <?= $dog->getHomeCountry() ?>
+        <?= $animal->getBirthCountry() ?>
+        <?php if ($animal->getHomeCountry() && $animal->getHomeCountry() != $animal->getBirthCountry()) : ?>
+        &xrarr; <?= $animal->getHomeCountry() ?>
         <?php endif; ?>
     </div>
     <?php endif; ?>
 
-    <?php if ($dog->getBirthYear()) : ?>
-    <div class="small text-muted"><?= $dog->getBirthYear() ?></div>
+    <?php if ($animal->getBirthYear()) : ?>
+    <div class="small text-muted"><?= $animal->getBirthYear() ?></div>
     <?php endif; ?>
 
     <?php endif; ?>
 </td>
 
 <?php if ($gen < $maxGen) : ?>
-<?= $this->partial('partial/pedigree-cell', ['dog' => ($dog ? $dog->getSire() : null), 'gen' => $gen + 1, 'maxGen' => $maxGen, 'n' => $n + 1]); ?>
-<?= $this->partial('partial/pedigree-cell', ['dog' => ($dog ? $dog->getDam() : null), 'gen' => $gen + 1, 'maxGen' => $maxGen, 'n' => $n + (1 << ($maxGen - $gen))]); ?>
+<?= $this->partial('partial/pedigree-cell', ['animal' => ($animal ? $animal->getSire() : null), 'gen' => $gen + 1, 'maxGen' => $maxGen, 'n' => $n + 1]); ?>
+<?= $this->partial('partial/pedigree-cell', ['animal' => ($animal ? $animal->getDam() : null), 'gen' => $gen + 1, 'maxGen' => $maxGen, 'n' => $n + (1 << ($maxGen - $gen))]); ?>
 <?php elseif ($n < (2 << $maxGen) - 1): ?>
 </tr>
 <tr>

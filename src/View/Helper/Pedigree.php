@@ -2,14 +2,14 @@
 
 namespace AcePedigree\View\Helper;
 
-use AcePedigree\Entity\DTO\DogDTO;
-use AcePedigree\Entity\Dog;
+use AcePedigree\Entity\DTO\AnimalDTO;
+use AcePedigree\Entity\Animal;
 use Zend\View\Helper\AbstractHelper;
 
 class Pedigree extends AbstractHelper
 {
     /**
-     * @var DogDTO
+     * @var AnimalDTO
      */
     protected $dto;
 
@@ -19,14 +19,14 @@ class Pedigree extends AbstractHelper
     protected $maxGen;
 
     /**
-     * @param Dog $dog
+     * @param Animal $animal
      * @param int $maxGen
      * @return string
      */
-    public function __invoke(Dog $dog = null, $maxGen = 3)
+    public function __invoke(Animal $animal = null, $maxGen = 3)
     {
-        if ($dog !== null) {
-            $this->dto = $dog->getDTO();
+        if ($animal !== null) {
+            $this->dto = $animal->getDTO();
             $this->maxGen = $maxGen;
         }
 
@@ -38,7 +38,7 @@ class Pedigree extends AbstractHelper
      */
     public function __toString()
     {
-        return $this->view->partial('partial/pedigree-table', ['dog' => $this->dto->getEntity(), 'maxGen' => $this->maxGen]);
+        return $this->view->partial('partial/pedigree-table', ['animal' => $this->dto->getEntity(), 'maxGen' => $this->maxGen]);
     }
 
     /**
@@ -46,6 +46,6 @@ class Pedigree extends AbstractHelper
      */
     public function analysis()
     {
-        return $this->view->partial('partial/pedigree-analysis', ['dog' => $this->dto->getEntity(), 'maxGen' => $this->maxGen]);
+        return $this->view->partial('partial/pedigree-analysis', ['animal' => $this->dto->getEntity(), 'maxGen' => $this->maxGen]);
     }
 }

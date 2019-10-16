@@ -4,11 +4,11 @@
 <h3>Pedigree</h3>
 <div class="container">
     <form class="form-inline">
-        <?php if (!$dog->getId() && $dog->getSire()) : ?>
-            <input type="hidden" name="sire" value="<?= $dog->getSire()->getId() ?>" />
+        <?php if (!$animal->getId() && $animal->getSire()) : ?>
+            <input type="hidden" name="sire" value="<?= $animal->getSire()->getId() ?>" />
         <?php endif; ?>
-        <?php if (!$dog->getId() && $dog->getDam()) : ?>
-            <input type="hidden" name="dam" value="<?= $dog->getDam()->getId() ?>" />
+        <?php if (!$animal->getId() && $animal->getDam()) : ?>
+            <input type="hidden" name="dam" value="<?= $animal->getDam()->getId() ?>" />
         <?php endif; ?>
         Displaying <select class="form-control" id="maxGen" name="maxGen">
             <option>2</option>
@@ -23,7 +23,7 @@
     </form>
     <table class="pedigree max-gen-<?= $maxGen ?>">
         <tr>
-            <?= $this->partial('partial/pedigree-cell', ['dog' => $dog, 'gen' => 0, 'maxGen' => $maxGen, 'n' => 1]); ?>
+            <?= $this->partial('partial/pedigree-cell', ['animal' => $animal, 'gen' => 0, 'maxGen' => $maxGen, 'n' => 1]); ?>
         </tr>
     </table>
 </div>

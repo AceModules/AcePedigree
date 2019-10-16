@@ -13,11 +13,11 @@ use Zend\Form\Annotation as Form;
  * @ORM\Entity
  * @ORM\Table(name="pedigree_house")
  * @Gedmo\Loggable(logEntryClass="LogEntry")
- * @Form\Name("kennel")
+ * @Form\Name("house")
  * @Form\Hydrator("Zend\Hydrator\ClassMethods")
- * @Grid\Title(singular="Kennel", plural="Kennels")
+ * @Grid\Title(singular="House", plural="Houses")
  */
-class Kennel
+class House
 {
     use TimestampableEntity;
 
@@ -50,10 +50,10 @@ class Kennel
     /**
      * @var ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="Dog", mappedBy="kennel")
+     * @ORM\OneToMany(targetEntity="Animal", mappedBy="house")
      * @Form\Exclude()
      */
-    protected $dogs;
+    protected $animals;
 
     /**
      * @var \DateTime
@@ -78,7 +78,7 @@ class Kennel
      */
     public function __construct()
     {
-        $this->dogs = new ArrayCollection();
+        $this->animals = new ArrayCollection();
     }
 
     /**
@@ -99,7 +99,7 @@ class Kennel
 
     /**
      * @return string
-     * @Grid\Header(label="Kennel", sort={"name"}, default=true)
+     * @Grid\Header(label="House", sort={"name"}, default=true)
      */
     public function getName()
     {
@@ -117,17 +117,17 @@ class Kennel
     /**
      * @return ArrayCollection
      */
-    public function getDogs()
+    public function getAnimals()
     {
-        return $this->dogs;
+        return $this->animals;
     }
 
     /**
      * @return int
-     * @Grid\Header(label="Dogs", sort={"count(dogs.id)"}, reverse=true)
+     * @Grid\Header(label="Animals", sort={"count(animals.id)"}, reverse=true)
      */
-    public function getDogsCount()
+    public function getAnimalsCount()
     {
-        return count($this->dogs);
+        return count($this->animals);
     }
 }

@@ -1,5 +1,7 @@
 <?php
 
+namespace AcePedigree;
+
 return [
     [
         'label'  => 'Ace Pedigree',
@@ -10,7 +12,7 @@ return [
                 'route'  => 'ace-pedigree/recent',
             ],
             [
-                'label'  => PEDIGREE_ANIMAL_PLURAL,
+                'label'  => ANIMAL_PLURAL,
                 'route'  => 'ace-pedigree/animals',
                 'pages'  => [
                     [

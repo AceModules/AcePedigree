@@ -10,20 +10,20 @@ use Zend\Router\Http\Literal;
 use Zend\Router\Http\Segment;
 use Zend\ServiceManager\Factory\InvokableFactory;
 
-if (!defined('PEDIGREE_ANIMAL_SINGULAR')) {
-    define('PEDIGREE_ANIMAL_SINGULAR', 'Animal');
+if (!defined('AcePedigree\ANIMAL_SINGULAR')) {
+    define('AcePedigree\ANIMAL_SINGULAR', 'Animal');
 }
 
-if (!defined('PEDIGREE_ANIMAL_PLURAL')) {
-    define('PEDIGREE_ANIMAL_PLURAL', 'Animals');
+if (!defined('AcePedigree\ANIMAL_PLURAL')) {
+    define('AcePedigree\ANIMAL_PLURAL', 'Animals');
 }
 
-if (!defined('PEDIGREE_HOUSE_SINGULAR')) {
-    define('PEDIGREE_HOUSE_SINGULAR', 'House');
+if (!defined('AcePedigree\HOUSE_SINGULAR')) {
+    define('AcePedigree\HOUSE_SINGULAR', 'House');
 }
 
-if (!defined('PEDIGREE_HOUSE_PLURAL')) {
-    define('PEDIGREE_HOUSE_PLURAL', 'Houses');
+if (!defined('AcePedigree\HOUSE_PLURAL')) {
+    define('AcePedigree\HOUSE_PLURAL', 'Houses');
 }
 
 return [
@@ -31,8 +31,8 @@ return [
         'entities' => [
             'countries' => Entity\Country::class,
             'persons'   => Entity\Person::class,
-            strtolower(PEDIGREE_ANIMAL_PLURAL) => Entity\Animal::class,
-            strtolower(PEDIGREE_HOUSE_PLURAL)  => Entity\House::class,
+            strtolower(ANIMAL_PLURAL) => Entity\Animal::class,
+            strtolower(HOUSE_PLURAL)  => Entity\House::class,
         ],
     ],
     'controllers' => [
@@ -70,7 +70,7 @@ return [
                     'animals' => [
                         'type'    => Segment::class,
                         'options' => [
-                            'route'    => '/' . strtolower(PEDIGREE_ANIMAL_PLURAL) . '[/:action]',
+                            'route'    => '/' . strtolower(ANIMAL_PLURAL) . '[/:action]',
                             'defaults' => [
                                 'controller'    => Controller\AnimalController::class,
                                 'action'        => 'index',

@@ -15,7 +15,7 @@ use Zend\Form\Annotation as Form;
  * @Gedmo\Loggable(logEntryClass="LogEntry")
  * @Form\Name("house")
  * @Form\Hydrator("Zend\Hydrator\ClassMethods")
- * @Grid\Title(singular=PEDIGREE_HOUSE_SINGULAR, plural=PEDIGREE_HOUSE_PLURAL)
+ * @Grid\Title(singular=AcePedigree\HOUSE_SINGULAR, plural=AcePedigree\HOUSE_PLURAL)
  */
 class House
 {
@@ -99,7 +99,7 @@ class House
 
     /**
      * @return string
-     * @Grid\Header(label="House", sort={"name"}, default=true)
+     * @Grid\Header(label=AcePedigree\HOUSE_SINGULAR, sort={"name"}, default=true)
      */
     public function getName()
     {

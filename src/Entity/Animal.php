@@ -14,7 +14,7 @@ use Zend\Form\Annotation as Form;
  * @ORM\Entity(repositoryClass="AcePedigree\Entity\Repository\AnimalRepository")
  * @ORM\Table(name="pedigree_animal")
  * @Gedmo\Loggable(logEntryClass="LogEntry")
- * @Grid\Title(singular=PEDIGREE_ANIMAL_SINGULAR, plural=PEDIGREE_ANIMAL_PLURAL)
+ * @Grid\Title(singular=AcePedigree\ANIMAL_SINGULAR, plural=AcePedigree\ANIMAL_PLURAL)
  */
 class Animal
 {
@@ -108,7 +108,7 @@ class Animal
      * @Form\Required(false)
      * @Form\Type("AceAdmin\Form\Element\ObjectLiveSearch")
      * @Form\Attributes({"data-ajax-url": "/admin/houses/suggest"})
-     * @Form\Options({"label": "House", "empty_option": "Select a House",
+     * @Form\Options({"label": AcePedigree\HOUSE_SINGULAR, "empty_option": "Select a House",
      *     "find_method": {
      *         "name": "findBy",
      *         "params": {"criteria": {}, "orderBy": {"name": "ASC"}}

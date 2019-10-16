@@ -15,8 +15,8 @@ return [
         'entities' => [
             'countries' => Entity\Country::class,
             'persons'   => Entity\Person::class,
-            strtolower(ANIMAL_PLURAL) => Entity\Animal::class,
-            strtolower(HOUSE_PLURAL)  => Entity\House::class,
+            strtolower(str_replace(' ', '-', ANIMAL_PLURAL)) => Entity\Animal::class,
+            strtolower(str_replace(' ', '-', HOUSE_PLURAL))  => Entity\House::class,
         ],
     ],
     'controllers' => [
@@ -54,7 +54,7 @@ return [
                     'animals' => [
                         'type'    => Segment::class,
                         'options' => [
-                            'route'    => '/' . strtolower(ANIMAL_PLURAL) . '[/:action]',
+                            'route'    => '/' . strtolower(str_replace(' ', '-', ANIMAL_PLURAL)) . '[/:action]',
                             'defaults' => [
                                 'controller'    => Controller\AnimalController::class,
                                 'action'        => 'index',

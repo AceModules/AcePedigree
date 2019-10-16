@@ -21,6 +21,9 @@ class Animal
     const SEX_MALE = 1;
     const SEX_FEMALE = 2;
 
+    const SELECT_HOUSE = 'Select a ' . \AcePedigree\HOUSE_SINGULAR;
+    const SELECT_ANIMAL = 'Select a ' . \AcePedigree\ANIMAL_SINGULAR;
+
     use TimestampableEntity;
 
     /**
@@ -107,7 +110,7 @@ class Animal
      * @Gedmo\Versioned
      * @Form\Required(false)
      * @Form\Type("AceAdmin\Form\Element\ObjectLiveSearch")
-     * @Form\Options({"label": AcePedigree\HOUSE_SINGULAR, "empty_option": AcePedigree\HOUSE_SELECT,
+     * @Form\Options({"label": AcePedigree\HOUSE_SINGULAR, "empty_option": AcePedigree\Entity\Animal::SELECT_HOUSE,
      *     "find_method": {
      *         "name": "findBy",
      *         "params": {"criteria": {}, "orderBy": {"name": "ASC"}}
@@ -130,7 +133,7 @@ class Animal
      * @Gedmo\Versioned
      * @Form\Required(false)
      * @Form\Type("AceAdmin\Form\Element\ObjectLiveSearch")
-     * @Form\Options({"label": "Sire", "empty_option": AcePedigree\ANIMAL_SELECT,
+     * @Form\Options({"label": "Sire", "empty_option": AcePedigree\Entity\Animal::SELECT_ANIMAL,
      *     "find_method": {
      *         "name": "findBy",
      *         "params": {"criteria": {"sex": 1}, "orderBy": {"name": "ASC"}}
@@ -153,7 +156,7 @@ class Animal
      * @Gedmo\Versioned
      * @Form\Required(false)
      * @Form\Type("AceAdmin\Form\Element\ObjectLiveSearch")
-     * @Form\Options({"label": "Dam", "empty_option": AcePedigree\ANIMAL_SELECT,
+     * @Form\Options({"label": "Dam", "empty_option": AcePedigree\Entity\Animal::SELECT_ANIMAL,
      *     "find_method": {
      *         "name": "findBy",
      *         "params": {"criteria": {"sex": 2}, "orderBy": {"name": "ASC"}}

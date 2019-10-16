@@ -10,25 +10,6 @@ use Zend\Router\Http\Literal;
 use Zend\Router\Http\Segment;
 use Zend\ServiceManager\Factory\InvokableFactory;
 
-if (!defined('AcePedigree\ANIMAL_SINGULAR')) {
-    define('AcePedigree\ANIMAL_SINGULAR', 'Animal');
-}
-
-if (!defined('AcePedigree\ANIMAL_PLURAL')) {
-    define('AcePedigree\ANIMAL_PLURAL', 'Animals');
-}
-
-if (!defined('AcePedigree\HOUSE_SINGULAR')) {
-    define('AcePedigree\HOUSE_SINGULAR', 'House');
-}
-
-if (!defined('AcePedigree\HOUSE_PLURAL')) {
-    define('AcePedigree\HOUSE_PLURAL', 'Houses');
-}
-
-define('AcePedigree\ANIMAL_SELECT', 'Select a ' . ANIMAL_SINGULAR);
-define('AcePedigree\HOUSE_SELECT', 'Select a ' . HOUSE_SINGULAR);
-
 return [
     'ace_admin' => [
         'entities' => [

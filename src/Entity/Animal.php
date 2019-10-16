@@ -438,13 +438,7 @@ class Animal
      * @Form\Required(false)
      * @Form\Type("Zend\Form\Element\Select")
      * @Form\Options({"label": "Color"})
-     * @Form\Attributes({"options": {
-     *      "": "",
-     *      "Red": "Red",
-     *      "Brindle": "Brindle",
-     *      "White": "White",
-     *      "Other": "Other",
-     * }})
+     * @Form\Attributes({"options": AcePedigree\ANIMAL_COLORS})
      * @Form\Filter({"name": "ToNull"})
      * @Grid\Search()
      */

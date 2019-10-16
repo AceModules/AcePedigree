@@ -26,6 +26,9 @@ if (!defined('AcePedigree\HOUSE_PLURAL')) {
     define('AcePedigree\HOUSE_PLURAL', 'Houses');
 }
 
+define('AcePedigree\ANIMAL_SELECT', 'Select a ' . ANIMAL_SINGULAR);
+define('AcePedigree\HOUSE_SELECT', 'Select a ' . HOUSE_SINGULAR);
+
 return [
     'ace_admin' => [
         'entities' => [

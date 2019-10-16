@@ -108,7 +108,7 @@ class Animal
      * @Form\Required(false)
      * @Form\Type("AceAdmin\Form\Element\ObjectLiveSearch")
      * @Form\Attributes({"data-ajax-url": "/admin/houses/suggest"})
-     * @Form\Options({"label": AcePedigree\HOUSE_SINGULAR, "empty_option": "Select a House",
+     * @Form\Options({"label": AcePedigree\HOUSE_SINGULAR, "empty_option": AcePedigree\HOUSE_SELECT,
      *     "find_method": {
      *         "name": "findBy",
      *         "params": {"criteria": {}, "orderBy": {"name": "ASC"}}
@@ -128,7 +128,7 @@ class Animal
      * @Form\Required(false)
      * @Form\Type("AceAdmin\Form\Element\ObjectLiveSearch")
      * @Form\Attributes({"data-ajax-url": "/admin/animals/suggest?sex=1"})
-     * @Form\Options({"label": "Sire", "empty_option": "Select a Animal",
+     * @Form\Options({"label": "Sire", "empty_option": AcePedigree\ANIMAL_SELECT,
      *     "find_method": {
      *         "name": "findBy",
      *         "params": {"criteria": {"sex": 1}, "orderBy": {"name": "ASC"}}
@@ -147,7 +147,7 @@ class Animal
      * @Form\Required(false)
      * @Form\Type("AceAdmin\Form\Element\ObjectLiveSearch")
      * @Form\Attributes({"data-ajax-url": "/admin/animals/suggest?sex=2"})
-     * @Form\Options({"label": "Dam", "empty_option": "Select a Animal",
+     * @Form\Options({"label": "Dam", "empty_option": AcePedigree\ANIMAL_SELECT,
      *     "find_method": {
      *         "name": "findBy",
      *         "params": {"criteria": {"sex": 2}, "orderBy": {"name": "ASC"}}

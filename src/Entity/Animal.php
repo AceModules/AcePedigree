@@ -860,7 +860,7 @@ class Animal
 
     /**
      * @return int
-     * @Grid\Header(label="Birth Year", sort={"birthYear", "name"})
+     * @Grid\Header(label="Born", sort={"birthYear", "name"})
      */
     public function getBirthYear()
     {

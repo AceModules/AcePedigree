@@ -16,8 +16,6 @@ class AdvancedSearch extends Form
         parent::__construct('advancedSearch');
 
         $this->setAttribute('method', 'GET');
-        // TODO use a route rather than a hardcoded url
-        $this->setAttribute('action', '/pedigree/animals');
 
         $this->filter = new InputFilter();
 

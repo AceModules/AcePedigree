@@ -2,7 +2,7 @@
 <?php $this->headTitle($title); ?>
 <h2 class="page-header"><?= $title ?></h2>
 
-<?= $this->form($form) ?>
+<?= $this->form($form->setAttribute('action', $this->url('ace-pedigree/animals'))) ?>
 
 <script>
     $(function() {

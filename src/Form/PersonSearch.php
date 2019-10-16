@@ -14,7 +14,6 @@ class PersonSearch extends Form
         parent::__construct('personSearch');
 
         $this->setAttribute('method', 'GET');
-        $this->setAttribute('action', '/pedigree/persons');
 
         $this->filter = new InputFilter();
 

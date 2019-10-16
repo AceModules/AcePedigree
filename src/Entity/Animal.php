@@ -10,11 +10,19 @@ use Gedmo\Mapping\Annotation as Gedmo;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Zend\Form\Annotation as Form;
 
+if (!defined('PEDIGREE_ANIMAL_SINGULAR')) {
+    define('PEDIGREE_ANIMAL_SINGULAR', 'Animal');
+}
+
+if (!defined('PEDIGREE_ANIMAL_PLURAL')) {
+    define('PEDIGREE_ANIMAL_PLURAL', 'Animals');
+}
+
 /**
  * @ORM\Entity(repositoryClass="AcePedigree\Entity\Repository\AnimalRepository")
  * @ORM\Table(name="pedigree_animal")
  * @Gedmo\Loggable(logEntryClass="LogEntry")
- * @Grid\Title(singular="Animal", plural="Animals")
+ * @Grid\Title(singular=PEDIGREE_ANIMAL_SINGULAR, plural=PEDIGREE_ANIMAL_PLURAL)
  */
 class Animal
 {

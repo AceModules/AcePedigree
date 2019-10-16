@@ -11,14 +11,6 @@ use Zend\Router\Http\Segment;
 use Zend\ServiceManager\Factory\InvokableFactory;
 
 return [
-    'ace_admin' => [
-        'entities' => [
-            'countries' => Entity\Country::class,
-            'animals'   => Entity\Animal::class,
-            'houses'    => Entity\House::class,
-            'persons'   => Entity\Person::class,
-        ],
-    ],
     'controllers' => [
         'factories' => [
             Controller\IndexController::class      => DoctrineAwareFactory::class,

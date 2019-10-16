@@ -48,8 +48,10 @@ final class Version20191016001803 extends AbstractMigration
         $this->addSql('CREATE INDEX IDX_39A1649F458056B5 ON pedigree_animal_owner (animalId)');
         $this->addSql('ALTER TABLE pedigree_animal_owner ADD PRIMARY KEY (animalId, ownerId)');
         $this->addSql('ALTER TABLE pedigree_animal_owner RENAME INDEX idx_a81ed81de05efd25 TO IDX_39A1649FE05EFD25');
+        $this->addSql('ALTER TABLE pedigree_animal_kinship CHANGE dog1id animal1Id INT NOT NULL, CHANGE dog2id animal2Id INT NOT NULL');
         $this->addSql('ALTER TABLE pedigree_animal_kinship RENAME INDEX idx_7bd744d4d1f91d63 TO IDX_B0B5D005D1F91D63');
         $this->addSql('ALTER TABLE pedigree_animal_kinship RENAME INDEX idx_7bd744d4d3bfa33a TO IDX_B0B5D005D3BFA33A');
+        $this->addSql('ALTER VIEW pedigree_animal_statistics AS SELECT x.id AS animalId, c.covariance - 1 AS inbreedingCoefficient, AVG(COALESCE(a.covariance,b.covariance,0)) AS averageCovariance FROM pedigree_animal x JOIN pedigree_animal y LEFT JOIN pedigree_animal_kinship a ON (a.animal1Id = x.id AND a.animal2Id = y.id) LEFT JOIN pedigree_animal_kinship b ON (b.animal1Id = y.id AND b.animal2Id = x.id) LEFT JOIN pedigree_animal_kinship c ON (c.animal1Id = x.id AND c.animal2Id = x.id) GROUP BY x.id');
         $this->addSql('ALTER TABLE pedigree_image DROP FOREIGN KEY FK_7AE92CA2EF294D6D');
         $this->addSql('DROP INDEX IDX_7AE92CA2EF294D6D ON pedigree_image');
         $this->addSql('ALTER TABLE pedigree_image CHANGE dogid animalId INT DEFAULT NULL');
@@ -80,6 +82,7 @@ final class Version20191016001803 extends AbstractMigration
         $this->addSql('CREATE INDEX IDX_CE5D1D49EF294D6D ON pedigree_dog_breeder (dogId)');
         $this->addSql('ALTER TABLE pedigree_dog_breeder ADD PRIMARY KEY (dogId, breederId)');
         $this->addSql('ALTER TABLE pedigree_dog_breeder RENAME INDEX idx_53f8998a705ed45 TO IDX_CE5D1D49A705ED45');
+        $this->addSql('ALTER TABLE pedigree_dog_kinship CHANGE animal1id dog1Id INT NOT NULL, CHANGE animal2id dog2Id INT NOT NULL');
         $this->addSql('ALTER TABLE pedigree_dog_kinship RENAME INDEX idx_b0b5d005d3bfa33a TO IDX_7BD744D4D3BFA33A');
         $this->addSql('ALTER TABLE pedigree_dog_kinship RENAME INDEX idx_b0b5d005d1f91d63 TO IDX_7BD744D4D1F91D63');
         $this->addSql('ALTER TABLE pedigree_dog_owner DROP FOREIGN KEY FK_39A1649F458056B5');
@@ -90,6 +93,7 @@ final class Version20191016001803 extends AbstractMigration
         $this->addSql('CREATE INDEX IDX_A81ED81DEF294D6D ON pedigree_dog_owner (dogId)');
         $this->addSql('ALTER TABLE pedigree_dog_owner ADD PRIMARY KEY (dogId, ownerId)');
         $this->addSql('ALTER TABLE pedigree_dog_owner RENAME INDEX idx_39a1649fe05efd25 TO IDX_A81ED81DE05EFD25');
+        $this->addSql('ALTER VIEW pedigree_dog_statistics AS SELECT x.id AS dogId, c.covariance - 1 AS inbreedingCoefficient, AVG(COALESCE(a.covariance,b.covariance,0)) AS averageCovariance FROM pedigree_dog x JOIN pedigree_dog y LEFT JOIN pedigree_dog_kinship a ON (a.dog1Id = x.id AND a.dog2Id = y.id) LEFT JOIN pedigree_dog_kinship b ON (b.dog1Id = y.id AND b.dog2Id = x.id) LEFT JOIN pedigree_dog_kinship c ON (c.dog1Id = x.id AND c.dog2Id = x.id) GROUP BY x.id');
         $this->addSql('ALTER TABLE pedigree_image DROP FOREIGN KEY FK_7AE92CA2458056B5');
         $this->addSql('DROP INDEX IDX_7AE92CA2458056B5 ON pedigree_image');
         $this->addSql('ALTER TABLE pedigree_image CHANGE animalid dogId INT DEFAULT NULL');

@@ -399,7 +399,7 @@ class Person
 
     /**
      * @return int
-     * @Grid\Header(label="Animals Bred", sort={"count(animalsBred.id)"}, reverse=true)
+     * @Grid\Header(label="# Bred", sort={"count(animalsBred.id)"}, reverse=true)
      */
     public function getAnimalsBredCount()
     {
@@ -416,7 +416,7 @@ class Person
 
     /**
      * @return int
-     * @Grid\Header(label="Animals Owned", sort={"count(animalsOwned.id)"}, reverse=true)
+     * @Grid\Header(label="# Owned", sort={"count(animalsOwned.id)"}, reverse=true)
      */
     public function getAnimalsOwnedCount()
     {

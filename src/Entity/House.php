@@ -124,7 +124,7 @@ class House
 
     /**
      * @return int
-     * @Grid\Header(label="Animals", sort={"count(animals.id)"}, reverse=true)
+     * @Grid\Header(label=AcePedigree\ANIMAL_PLURAL, sort={"count(animals.id)"}, reverse=true)
      */
     public function getAnimalsCount()
     {

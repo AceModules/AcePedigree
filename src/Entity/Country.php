@@ -102,7 +102,7 @@ class Country
 
     /**
      * @return int
-     * @Grid\Header(label="Animals Born", sort={"count(animalsBorn.id), count(animalsHome.id)"}, reverse=true)
+     * @Grid\Header(label="# Born", sort={"count(animalsBorn.id), count(animalsHome.id)"}, reverse=true)
      */
     public function getAnimalsBornCount()
     {
@@ -119,7 +119,7 @@ class Country
 
     /**
      * @return int
-     * @Grid\Header(label="Animals Standing", sort={"count(animalsHome.id), count(animalsBorn.id)"}, reverse=true)
+     * @Grid\Header(label="# Residing", sort={"count(animalsHome.id), count(animalsBorn.id)"}, reverse=true)
      */
     public function getAnimalsHomeCount()
     {

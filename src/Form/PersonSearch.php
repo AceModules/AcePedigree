@@ -32,7 +32,7 @@ class PersonSearch extends Form
         // Country
 
         $minBred = new Element\Number('minBred');
-        $minBred->setAttribute('placeholder', 'Min. Animals Bred');
+        $minBred->setAttribute('placeholder', sprintf('Min. %s Bred', \AcePedigree\ANIMAL_PLURAL));
         $this->add($minBred);
 
         $minBredFilter = new Input('minBred');
@@ -40,7 +40,7 @@ class PersonSearch extends Form
         $this->filter->add($minBredFilter);
 
         $maxBred = new Element\Number('maxBred');
-        $maxBred->setAttribute('placeholder', 'Max. Animals Bred');
+        $maxBred->setAttribute('placeholder', sprintf('Max. %s Bred', \AcePedigree\ANIMAL_PLURAL));
         $this->add($maxBred);
 
         $maxBredFilter = new Input('maxBred');
@@ -48,7 +48,7 @@ class PersonSearch extends Form
         $this->filter->add($maxBredFilter);
 
         $minOwned = new Element\Number('minOwned');
-        $minOwned->setAttribute('placeholder', 'Min. Animals Owned');
+        $minOwned->setAttribute('placeholder', sprintf('Min. %s Owned', \AcePedigree\ANIMAL_PLURAL));
         $this->add($minOwned);
 
         $minOwnedFilter = new Input('minOwned');
@@ -56,7 +56,7 @@ class PersonSearch extends Form
         $this->filter->add($minOwnedFilter);
 
         $maxOwned = new Element\Number('maxOwned');
-        $maxOwned->setAttribute('placeholder', 'Max. Animals Owned');
+        $maxOwned->setAttribute('placeholder', sprintf('Max. %s Owned', \AcePedigree\ANIMAL_PLURAL));
         $this->add($maxOwned);
 
         $maxOwnedFilter = new Input('maxOwned');

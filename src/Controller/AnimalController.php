@@ -49,7 +49,11 @@ class AnimalController extends AbstractActionController
         $form->setData($this->getRequest()->getQuery());
 
         if ($form->isValid()) {
-            $search = $form->getData();
+            $search = array_filter($form->getData());
+            unset($search['buttons']);
+        }
+
+        if ($search) {
             $queryBuilder = $this->entityManager->getRepository(Animal::class)
                 ->createSearchQueryBuilder($datagrid, $search, $sort);
         } else {
@@ -61,11 +65,13 @@ class AnimalController extends AbstractActionController
         $paginator->setCurrentPageNumber($page);
 
         return [
-            'columns'  => $datagrid->getHeaderColumns(),
-            'result'   => $paginator,
-            'page'     => $page,
-            'sort'     => $sort,
-            'search'   => $search,
+            'singularAnimal' => $datagrid->getSingularName(),
+            'pluralAnimals'  => $datagrid->getPluralName(),
+            'columns'        => $datagrid->getHeaderColumns(),
+            'result'         => $paginator,
+            'page'           => $page,
+            'sort'           => $sort,
+            'search'         => $search,
         ];
     }
 
@@ -74,8 +80,12 @@ class AnimalController extends AbstractActionController
      */
     public function searchAction()
     {
+        $datagrid = $this->datagridManager->get(Animal::class);
+
         return [
-            'form' => new AdvancedSearch(),
+            'singularAnimal' => $datagrid->getSingularName(),
+            'pluralAnimals'  => $datagrid->getPluralName(),
+            'form'           => new AdvancedSearch(),
         ];
     }
 

@@ -1,4 +1,4 @@
-<?php $title = ($search ? 'Search' : 'Browse') . ' Animals'; ?>
+<?php $title = ($search ? 'Search ' : 'Browse ') . $pluralAnimals; ?>
 <?php $this->headTitle($title); ?>
 <h2 class="page-header"><?= $title ?></h2>
 
@@ -18,7 +18,7 @@
         <tbody>
             <?php if (!count($result)) : ?>
                 <tr>
-                    <td colspan="<?= count($columns) ?>" class="text-center">There are no animals to display.</td>
+                    <td colspan="<?= count($columns) ?>" class="text-center">There are no <?= strtolower($pluralAnimals) ?> to display.</td>
                 </tr>
             <?php endif; ?>
             <?php foreach ($result as $entity) : ?>

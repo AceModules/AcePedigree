@@ -6,14 +6,14 @@
     <table class="table table-striped">
         <thead>
             <tr>
-                <th>Animal</th>
+                <th><?= $singularAnimal ?></th>
                 <th style="width: 15%">Updated</th>
             </tr>
         </thead>
         <tbody>
             <?php if (!count($animals)) : ?>
                 <tr>
-                    <td colspan="2" class="text-center">There are no animals to display.</td>
+                    <td colspan="2" class="text-center">There are no <?= strtolower($pluralAnimals) ?> to display.</td>
                 </tr>
             <?php endif; ?>
             <?php foreach ($animals as $entity) : ?>

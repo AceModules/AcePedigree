@@ -65,13 +65,11 @@ class AnimalController extends AbstractActionController
         $paginator->setCurrentPageNumber($page);
 
         return [
-            'singularAnimal' => $datagrid->getSingularName(),
-            'pluralAnimals'  => $datagrid->getPluralName(),
-            'columns'        => $datagrid->getHeaderColumns(),
-            'result'         => $paginator,
-            'page'           => $page,
-            'sort'           => $sort,
-            'search'         => $search,
+            'columns' => $datagrid->getHeaderColumns(),
+            'result'  => $paginator,
+            'page'    => $page,
+            'sort'    => $sort,
+            'search'  => $search,
         ];
     }
 
@@ -80,12 +78,8 @@ class AnimalController extends AbstractActionController
      */
     public function searchAction()
     {
-        $datagrid = $this->datagridManager->get(Animal::class);
-
         return [
-            'singularAnimal' => $datagrid->getSingularName(),
-            'pluralAnimals'  => $datagrid->getPluralName(),
-            'form'           => new AdvancedSearch(),
+            'form' => new AdvancedSearch(),
         ];
     }
 

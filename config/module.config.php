@@ -179,6 +179,7 @@ return [
     ],
     'view_helpers' => [
         'aliases' => [
+            'species'          => View\Helper\Species::class,
             'entityLink'       => View\Helper\EntityLink::class,
             'ofaLink'          => View\Helper\OfaLink::class,
             'testMatingButton' => View\Helper\TestMatingButton::class,
@@ -187,6 +188,7 @@ return [
             'pedigree'         => View\Helper\Pedigree::class,
         ],
         'factories' => [
+            View\Helper\Species::class          => DoctrineAwareFactory::class,
             View\Helper\EntityLink::class       => InvokableFactory::class,
             View\Helper\OfaLink::class          => InvokableFactory::class,
             View\Helper\TestMatingButton::class => InvokableFactory::class,

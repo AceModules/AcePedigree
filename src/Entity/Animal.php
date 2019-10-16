@@ -111,6 +111,10 @@ class Animal
      *     "find_method": {
      *         "name": "findBy",
      *         "params": {"criteria": {}, "orderBy": {"name": "ASC"}}
+     *     },
+     *     "ajax_route": {
+     *         "name": "ace-admin/entity",
+     *         "params": {"action": "suggest", "entity": AcePedigree\HOUSE_PLURAL}
      *     }
      * })
      * @Form\Filter({"name": "ToNull"})
@@ -130,6 +134,11 @@ class Animal
      *     "find_method": {
      *         "name": "findBy",
      *         "params": {"criteria": {"sex": 1}, "orderBy": {"name": "ASC"}}
+     *     },
+     *     "ajax_route": {
+     *         "name": "ace-admin/entity",
+     *         "params": {"action": "suggest", "entity": AcePedigree\ANIMAL_PLURAL},
+     *         "query": {"sex": AcePedigree\Entity\Animal::SEX_MALE}
      *     }
      * })
      * @Form\Filter({"name": "ToNull"})
@@ -148,6 +157,11 @@ class Animal
      *     "find_method": {
      *         "name": "findBy",
      *         "params": {"criteria": {"sex": 2}, "orderBy": {"name": "ASC"}}
+     *     },
+     *     "ajax_route": {
+     *         "name": "ace-admin/entity",
+     *         "params": {"action": "suggest", "entity": AcePedigree\ANIMAL_PLURAL},
+     *         "query": {"sex": AcePedigree\Entity\Animal::SEX_FEMALE}
      *     }
      * })
      * @Form\Filter({"name": "ToNull"})
@@ -199,6 +213,10 @@ class Animal
      *     "find_method": {
      *         "name": "findBy",
      *         "params": {"criteria": {}, "orderBy": {"name": "ASC"}}
+     *     },
+     *     "ajax_route": {
+     *         "name": "ace-admin/entity",
+     *         "params": {"action": "suggest", "entity": "persons"}
      *     }
      * })
      * @Form\Attributes({"multiple": true})
@@ -221,6 +239,10 @@ class Animal
      *     "find_method": {
      *         "name": "findBy",
      *         "params": {"criteria": {}, "orderBy": {"name": "ASC"}}
+     *     },
+     *     "ajax_route": {
+     *         "name": "ace-admin/entity",
+     *         "params": {"action": "suggest", "entity": "persons"}
      *     }
      * })
      * @Form\Attributes({"multiple": true})
@@ -348,6 +370,10 @@ class Animal
      *     "find_method": {
      *         "name": "findBy",
      *         "params": {"criteria": {}, "orderBy": {"name": "ASC"}}
+     *     },
+     *     "ajax_route": {
+     *         "name": "ace-admin/entity",
+     *         "params": {"action": "suggest", "entity": "countries"}
      *     }
      * })
      * @Form\Filter({"name": "ToNull"})
@@ -367,6 +393,10 @@ class Animal
      *     "find_method": {
      *         "name": "findBy",
      *         "params": {"criteria": {}, "orderBy": {"name": "ASC"}}
+     *     },
+     *     "ajax_route": {
+     *         "name": "ace-admin/entity",
+     *         "params": {"action": "suggest", "entity": "countries"}
      *     }
      * })
      * @Form\Filter({"name": "ToNull"})

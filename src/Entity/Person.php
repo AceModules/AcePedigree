@@ -143,6 +143,10 @@ class Person
      *     "find_method": {
      *         "name": "findBy",
      *         "params": {"criteria": {}, "orderBy": {"name": "ASC"}}
+     *     },
+     *     "ajax_route": {
+     *         "name": "ace-admin/entity",
+     *         "params": {"action": "suggest", "entity": "countries"}
      *     }
      * })
      * @Form\Filter({"name": "ToNull"})

@@ -99,7 +99,14 @@ class AdvancedSearch extends Form
         $maxWeightFilter->getValidatorChain()->attach(new Validator\Between(['min' => 1, 'max' => 300]));
         $this->filter->add($maxWeightFilter);
 
-        // Color
+        $color = new Element\Select('color');
+        $color->setValueOptions(\AcePedigree\ANIMAL_COLORS);
+        $color->setEmptyOption('Select a Color');
+        $this->add($color);
+
+        $colorFilter = new Input('color');
+        $colorFilter->setRequired(false);
+        $this->filter->add($colorFilter);
 
         $features = new Element\Text('features');
         $features->setAttribute('placeholder', 'Features');

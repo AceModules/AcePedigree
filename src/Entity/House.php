@@ -9,14 +9,6 @@ use Gedmo\Mapping\Annotation as Gedmo;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Zend\Form\Annotation as Form;
 
-if (!defined('PEDIGREE_HOUSE_SINGULAR')) {
-    define('PEDIGREE_HOUSE_SINGULAR', 'House');
-}
-
-if (!defined('PEDIGREE_HOUSE_PLURAL')) {
-    define('PEDIGREE_HOUSE_PLURAL', 'Houses');
-}
-
 /**
  * @ORM\Entity
  * @ORM\Table(name="pedigree_house")

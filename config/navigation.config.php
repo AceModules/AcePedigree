@@ -10,7 +10,7 @@ return [
                 'route'  => 'ace-pedigree/recent',
             ],
             [
-                'label'  => 'Animals',
+                'label'  => PEDIGREE_ANIMAL_PLURAL,
                 'route'  => 'ace-pedigree/animals',
                 'pages'  => [
                     [

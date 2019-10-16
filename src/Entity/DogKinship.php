@@ -6,7 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(readOnly=true)
- * @ORM\Table(name="pedigree_dog_kinship")
+ * @ORM\Table(name="pedigree_animal_kinship")
  */
 class DogKinship
 {

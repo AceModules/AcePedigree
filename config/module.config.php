@@ -239,7 +239,7 @@ return [
         ],
         'configuration' => [
             'orm_default' => [
-                'filter_schema_assets_expression' => '~^(?!pedigree_dog_statistics)~',
+                'filter_schema_assets_expression' => '~^(?!pedigree_animal_statistics)~',
             ],
         ],
     ],

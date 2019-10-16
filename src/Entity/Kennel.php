@@ -11,7 +11,7 @@ use Zend\Form\Annotation as Form;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="pedigree_kennel")
+ * @ORM\Table(name="pedigree_house")
  * @Gedmo\Loggable(logEntryClass="LogEntry")
  * @Form\Name("kennel")
  * @Form\Hydrator("Zend\Hydrator\ClassMethods")

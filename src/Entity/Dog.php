@@ -12,7 +12,7 @@ use Zend\Form\Annotation as Form;
 
 /**
  * @ORM\Entity(repositoryClass="AcePedigree\Entity\Repository\DogRepository")
- * @ORM\Table(name="pedigree_dog")
+ * @ORM\Table(name="pedigree_animal")
  * @Gedmo\Loggable(logEntryClass="LogEntry")
  * @Grid\Title(singular="Dog", plural="Dogs")
  */
@@ -103,7 +103,7 @@ class Dog
      * @var Kennel
      * 
      * @ORM\ManyToOne(targetEntity="Kennel", inversedBy="dogs")
-     * @ORM\JoinColumn(name="kennelId", referencedColumnName="id", nullable=true)
+     * @ORM\JoinColumn(name="houseId", referencedColumnName="id", nullable=true)
      * @Gedmo\Versioned
      * @Form\Required(false)
      * @Form\Type("AceAdmin\Form\Element\ObjectLiveSearch")
@@ -192,8 +192,8 @@ class Dog
      * @var ArrayCollection
      *
      * @ORM\ManyToMany(targetEntity="Person", inversedBy="dogsBred")
-     * @ORM\JoinTable(name="pedigree_dog_breeder",
-     *     joinColumns={@ORM\JoinColumn(name="dogId", referencedColumnName="id")},
+     * @ORM\JoinTable(name="pedigree_animal_breeder",
+     *     joinColumns={@ORM\JoinColumn(name="animalId", referencedColumnName="id")},
      *     inverseJoinColumns={@ORM\JoinColumn(name="breederId", referencedColumnName="id")}
      * )
      * @Form\Required(false)
@@ -215,8 +215,8 @@ class Dog
      * @var ArrayCollection
      *
      * @ORM\ManyToMany(targetEntity="Person", inversedBy="dogsOwned")
-     * @ORM\JoinTable(name="pedigree_dog_owner",
-     *     joinColumns={@ORM\JoinColumn(name="dogId", referencedColumnName="id")},
+     * @ORM\JoinTable(name="pedigree_animal_owner",
+     *     joinColumns={@ORM\JoinColumn(name="animalId", referencedColumnName="id")},
      *     inverseJoinColumns={@ORM\JoinColumn(name="ownerId", referencedColumnName="id")}
      * )
      * @Form\Required(false)

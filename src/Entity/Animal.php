@@ -107,7 +107,6 @@ class Animal
      * @Gedmo\Versioned
      * @Form\Required(false)
      * @Form\Type("AceAdmin\Form\Element\ObjectLiveSearch")
-     * @Form\Attributes({"data-ajax-url": "/admin/houses/suggest"})
      * @Form\Options({"label": AcePedigree\HOUSE_SINGULAR, "empty_option": AcePedigree\HOUSE_SELECT,
      *     "find_method": {
      *         "name": "findBy",
@@ -127,7 +126,6 @@ class Animal
      * @Gedmo\Versioned
      * @Form\Required(false)
      * @Form\Type("AceAdmin\Form\Element\ObjectLiveSearch")
-     * @Form\Attributes({"data-ajax-url": "/admin/animals/suggest?sex=1"})
      * @Form\Options({"label": "Sire", "empty_option": AcePedigree\ANIMAL_SELECT,
      *     "find_method": {
      *         "name": "findBy",
@@ -146,7 +144,6 @@ class Animal
      * @Gedmo\Versioned
      * @Form\Required(false)
      * @Form\Type("AceAdmin\Form\Element\ObjectLiveSearch")
-     * @Form\Attributes({"data-ajax-url": "/admin/animals/suggest?sex=2"})
      * @Form\Options({"label": "Dam", "empty_option": AcePedigree\ANIMAL_SELECT,
      *     "find_method": {
      *         "name": "findBy",
@@ -198,7 +195,6 @@ class Animal
      * )
      * @Form\Required(false)
      * @Form\Type("AceAdmin\Form\Element\ObjectLiveSearch")
-     * @Form\Attributes({"data-ajax-url": "/admin/persons/suggest"})
      * @Form\Options({"label": "Breeders", "empty_option": "Select Breeders",
      *     "find_method": {
      *         "name": "findBy",
@@ -221,7 +217,6 @@ class Animal
      * )
      * @Form\Required(false)
      * @Form\Type("AceAdmin\Form\Element\ObjectLiveSearch")
-     * @Form\Attributes({"data-ajax-url": "/admin/persons/suggest"})
      * @Form\Options({"label": "Owners", "empty_option": "Select Owners",
      *     "find_method": {
      *         "name": "findBy",
@@ -349,7 +344,6 @@ class Animal
      * @Gedmo\Versioned
      * @Form\Required(false)
      * @Form\Type("AceAdmin\Form\Element\ObjectLiveSearch")
-     * @Form\Attributes({"data-ajax-url": "/admin/countries/suggest"})
      * @Form\Options({"label": "Land of Birth", "empty_option": "Select a Country",
      *     "find_method": {
      *         "name": "findBy",
@@ -369,7 +363,6 @@ class Animal
      * @Gedmo\Versioned
      * @Form\Required(false)
      * @Form\Type("AceAdmin\Form\Element\ObjectLiveSearch")
-     * @Form\Attributes({"data-ajax-url": "/admin/countries/suggest"})
      * @Form\Options({"label": "Land of Standing", "empty_option": "Select a Country",
      *     "find_method": {
      *         "name": "findBy",

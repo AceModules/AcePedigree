@@ -21,21 +21,32 @@
         ->prependFile($this->basePath('js/bootstrap.min.js'))
         ->prependFile($this->basePath('js/jquery.min.js'))
     ?>
-
-    <script>
-        $(function() {
-            $('#zend-developer-toolbar').remove();
-        });
-    </script>
 </head>
 
 <body onload="window.print()">
     <div class="container">
-        <h2 class="page-header"><?= $entity ?></h2>
-        <?= $this->pedigree($entity, $maxGen) ?>
-        <?= $this->pedigree()->analysis() ?>
+        <table>
+            <thead>
+                <tr>
+                    <th>
+                        <h2 class="page-header"><?= $entity ?></h2>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <div class="no-break">
+                            <?= $this->pedigree($entity, $maxGen) ?>
+                        </div>
+                        <div class="no-break">
+                            <?= $this->pedigree()->analysis() ?>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
     </div>
-    <?= $this->inlineScript() ?>
 </body>
 
 </html>

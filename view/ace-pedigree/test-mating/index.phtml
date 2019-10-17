@@ -3,8 +3,12 @@
 <?php $this->pedigree($entity, $maxGen); ?>
 <h2 class="page-header"><?= $title ?></h2>
 
-<?= $this->pedigree() ?>
+<div class="no-break">
+    <?= $this->pedigree() ?>
+</div>
 
 <?php if ($entity->getSire() && $entity->getDam()) : ?>
-<?= $this->pedigree()->analysis() ?>
+    <div class="no-break">
+        <?= $this->pedigree()->analysis() ?>
+    </div>
 <?php endif; ?>

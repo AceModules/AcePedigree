@@ -1,4 +1,4 @@
-<td class="gen-<?= $gen ?>" rowspan="<?= 1 << ($maxGen - $gen) ?>">
+<td class="gen-<?= $gen . (!$gen ? ' no-print' : '')?>" rowspan="<?= 1 << ($maxGen - $gen) ?>">
     <?php if ($animal) : ?>
 
     <?php if ($animal->getTitles()) : ?>
@@ -7,8 +7,8 @@
 
     <b><?= $this->entityLink($animal) ?></b>
 
-    <?php if ($animal->getColor()) : ?>
-    <div class="small text-muted"><?= $animal->getColor() ?></div>
+    <?php if ($animal->getColor() || $animal->getBirthYear()) : ?>
+    <div class="small text-muted"><?= $animal->getColor() ?> <?= $animal->getBirthYear() ?></div>
     <?php endif; ?>
 
     <?php if ($animal->getBirthCountry() || $animal->getHomeCountry()) : ?>
@@ -18,10 +18,6 @@
         &xrarr; <?= $animal->getHomeCountry() ?>
         <?php endif; ?>
     </div>
-    <?php endif; ?>
-
-    <?php if ($animal->getBirthYear()) : ?>
-    <div class="small text-muted"><?= $animal->getBirthYear() ?></div>
     <?php endif; ?>
 
     <?php endif; ?>

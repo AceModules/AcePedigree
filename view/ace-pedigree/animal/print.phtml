@@ -1,6 +1,8 @@
 <?= $this->doctype() ?>
 
 <html lang="en">
+
+<head>
     <meta charset="utf-8">
     <?= $this->headTitle($entity)->setAutoEscape(false) ?>
 
@@ -9,7 +11,7 @@
         ->appendHttpEquiv('X-UA-Compatible', 'IE=edge')
     ?>
 
-    <?= $this->headLink()
+    <?= $this->headLink(['rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/img/favicon.ico'])
         ->prependStylesheet($this->basePath('css/print.css'), 'screen, print')
         ->prependStylesheet($this->basePath('css/pedigree.css'), 'screen, print')
         ->prependStylesheet($this->basePath('css/bootstrap.min.css'), 'screen, print')
@@ -20,12 +22,20 @@
         ->prependFile($this->basePath('js/jquery.min.js'))
     ?>
 
-    <body onload="window.print()">
-        <div class="container">
-            <h2 class="page-header"><?= $entity ?></h2>
-            <?= $this->pedigree($entity, $maxGen) ?>
-            <?= $this->pedigree()->analysis() ?>
-        </div>
-    </body>
+    <script>
+        $(function() {
+            $('#zend-developer-toolbar').remove();
+        });
+    </script>
+</head>
+
+<body onload="window.print()">
+    <div class="container">
+        <h2 class="page-header"><?= $entity ?></h2>
+        <?= $this->pedigree($entity, $maxGen) ?>
+        <?= $this->pedigree()->analysis() ?>
+    </div>
+    <?= $this->inlineScript() ?>
+</body>
 
 </html>

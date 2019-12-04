@@ -35,7 +35,7 @@ class TestMatingController extends AbstractActionController
         $maxGen = min(9, max(2, $maxGen));
 
         $sireId = (int) $this->params()->fromQuery('sire');
-        $sire = $repository->find($sireId);
+        $sire = $sireId ? $repository->find($sireId) : null;
 
         if ($sire && $sire->getSex() == Entity\Animal::SEX_MALE) {
             $entity->setSire($sire);
@@ -43,7 +43,7 @@ class TestMatingController extends AbstractActionController
         }
 
         $damId = (int) $this->params()->fromQuery('dam');
-        $dam = $repository->find($damId);
+        $dam = $damId ? $repository->find($damId) : null;
 
         if ($dam && $dam->getSex() == Entity\Animal::SEX_FEMALE) {
             $entity->setDam($dam);

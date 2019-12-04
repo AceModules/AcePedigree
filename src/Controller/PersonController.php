@@ -83,7 +83,22 @@ class PersonController extends AbstractActionController
      */
     public function suggestAction()
     {
-        return new JsonModel();
+        $datagrid = $this->datagridManager->get(Person::class);
+
+        $search = $this->params()->fromQuery('q', '');
+        $criteria = $this->params()->fromQuery();
+        unset($criteria['q']);
+
+        $queryBuilder = $datagrid->createSuggestQueryBuilder($search, 0, true, $criteria);
+        $result = $queryBuilder->getQuery()->getResult();
+        foreach ($result as $id => $entity) {
+            $result[$id] = [
+                'value' => $id,
+                'text'  => (string) $entity,
+            ];
+        }
+
+        return new JsonModel(array_values($result));
     }
 
     /**

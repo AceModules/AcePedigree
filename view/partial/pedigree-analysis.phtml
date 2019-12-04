@@ -1,3 +1,6 @@
+<?php $this->headLink()
+    ->prependStylesheet($this->basePath('css/ace-pedigree.print.css'), 'print')
+    ->prependStylesheet($this->basePath('css/ace-pedigree.css'), 'screen, print'); ?>
 <h3>Analysis</h3>
 <div class="container">
     Coefficient of Inbreeding (COI): <?= round(100 * $animal->getInbreedingCoefficient(), 2) ?>%<br />

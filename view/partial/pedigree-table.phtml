@@ -1,6 +1,6 @@
 <?php $this->headLink()
-    ->appendStylesheet($this->basePath('css/pedigree.css'), 'screen, print')
-    ->appendStylesheet($this->basePath('css/print.css'), 'print'); ?>
+    ->prependStylesheet($this->basePath('css/ace-pedigree.print.css'), 'print')
+    ->prependStylesheet($this->basePath('css/ace-pedigree.css'), 'screen, print'); ?>
 <h3>Pedigree</h3>
 <div class="container">
     <form class="form-inline">

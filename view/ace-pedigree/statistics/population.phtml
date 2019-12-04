@@ -1,9 +1,9 @@
 <?php $title = 'Population Relationship Graph'; ?>
-<?php $this->headLink()->appendStylesheet($this->basePath('css/kinship-graph.css'), 'screen, print'); ?>
+<?php $this->headLink()->prependStylesheet($this->basePath('css/ace-pedigree.css'), 'screen, print'); ?>
 <?php $this->headScript()
     ->appendFile('//unpkg.com/d3-dsv')
     ->appendFile('//unpkg.com/3d-force-graph')
-    ->appendFile($this->basePath('js/kinship-graph.js')); ?>
+    ->appendFile($this->basePath('js/ace-pedigree.js')); ?>
 <?php $this->headTitle($title); ?>
 <h2 class="page-header"><?= $title ?></h2>
 

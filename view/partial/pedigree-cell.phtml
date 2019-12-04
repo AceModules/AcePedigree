@@ -1,31 +1,37 @@
 <td class="gen-<?= $gen . (!$gen ? ' no-print' : '')?>" rowspan="<?= 1 << ($maxGen - $gen) ?>">
     <?php if ($animal) : ?>
 
-    <?php if ($animal->getTitles()) : ?>
-    <div class="small text-success text-capitalize"><?= $animal->getTitles() ?></div>
-    <?php endif; ?>
-
-    <b><?= $this->entityLink($animal) ?></b>
-
-    <?php if ($animal->getColor() || $animal->getBirthYear()) : ?>
-    <div class="small text-muted"><?= $animal->getColor() ?> <?= $animal->getBirthYear() ?></div>
-    <?php endif; ?>
-
-    <?php if ($animal->getBirthCountry() || $animal->getHomeCountry()) : ?>
-    <div class="small text-muted">
-        <?= $animal->getBirthCountry() ?>
-        <?php if ($animal->getHomeCountry() && $animal->getHomeCountry() != $animal->getBirthCountry()) : ?>
-        &xrarr; <?= $animal->getHomeCountry() ?>
+        <?php if ($animal->getTitles()) : ?>
+        <div class="small text-success text-capitalize"><?= $animal->getTitles() ?></div>
         <?php endif; ?>
-    </div>
-    <?php endif; ?>
+
+        <b><?= $this->entityLink($animal) ?></b>
+
+        <?php if ($animal->getColor() || $animal->getBirthYear()) : ?>
+        <div class="small text-muted"><?= $animal->getColor() ?> <?= $animal->getBirthYear() ?></div>
+        <?php endif; ?>
+
+        <?php if ($animal->getBirthCountry() || $animal->getHomeCountry()) : ?>
+        <div class="small text-muted">
+            <?= $animal->getBirthCountry() ?>
+            <?php if ($animal->getHomeCountry() && $animal->getHomeCountry() != $animal->getBirthCountry()) : ?>
+            &xrarr; <?= $animal->getHomeCountry() ?>
+            <?php endif; ?>
+        </div>
+        <?php endif; ?>
+
+    <?php elseif ($sex && $gen == 1) : ?>
+
+        <a class="missing-parent no-print btn btn-link" data-toggle="modal" data-target="#addAnimal" data-sex="<?= $sex ?>">
+            <b>Choose a <?= $sex == \AcePedigree\Entity\Animal::SEX_MALE ? 'Sire' : 'Dam' ?></b>
+        </a>
 
     <?php endif; ?>
 </td>
 
 <?php if ($gen < $maxGen) : ?>
-<?= $this->partial('partial/pedigree-cell', ['animal' => ($animal ? $animal->getSire() : null), 'gen' => $gen + 1, 'maxGen' => $maxGen, 'n' => $n + 1]); ?>
-<?= $this->partial('partial/pedigree-cell', ['animal' => ($animal ? $animal->getDam() : null), 'gen' => $gen + 1, 'maxGen' => $maxGen, 'n' => $n + (1 << ($maxGen - $gen))]); ?>
+<?= $this->partial('partial/pedigree-cell', ['animal' => ($animal ? $animal->getSire() : null), 'sex' => ($animal ? \AcePedigree\Entity\Animal::SEX_MALE : null), 'gen' => $gen + 1, 'maxGen' => $maxGen, 'n' => $n + 1]); ?>
+<?= $this->partial('partial/pedigree-cell', ['animal' => ($animal ? $animal->getDam() : null), 'sex' => ($animal ? \AcePedigree\Entity\Animal::SEX_FEMALE : null), 'gen' => $gen + 1, 'maxGen' => $maxGen, 'n' => $n + (1 << ($maxGen - $gen))]); ?>
 <?php elseif ($n < (2 << $maxGen) - 1): ?>
 </tr>
 <tr>

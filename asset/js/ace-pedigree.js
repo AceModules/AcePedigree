@@ -24,4 +24,18 @@ $(function() {
 
         $(window).on('resize', resizeGraph);
     };
+
+    $('#addAnimal').on('show.bs.modal', function(e) {
+        var sex = $(e.relatedTarget).attr('data-sex');
+        $('.selectpicker', this)
+            .html('<option value="">Search...</option>').selectpicker('refresh')
+            .attr('data-hidden-name', (sex == 1 ? 'sire' : 'dam'))
+            .attr('data-qsa', 'sex=' + sex);
+    });
+
+    $('#addAnimal form').prettyForm().on('submit', function(e) {
+        var name = $('.selectpicker', this).attr('data-hidden-name');
+        $('[name="' + name + '"]', this).val($('.selectpicker', this).val());
+        $('select, input[value=""], button').removeAttr('name');
+    });
 });

@@ -18,7 +18,8 @@
         <thead>
             <tr>
                 <th class="text-left">Total Contribution by Ancestor</th>
-                <th style="width: 15%">Sex</th>
+                <th style="width: 10%">Sex</th>
+                <th style="width: 10%">Color</th>
                 <th style="width: 10%">COI</th>
                 <th style="width: 10%">Blood</th>
                 <th style="width: 10%">Contrib</th>
@@ -39,6 +40,7 @@
                 <tr>
                     <td class="text-left"><?= $this->entityLink($ancestor->getEntity()) ?></td>
                     <td><?= $ancestor->getEntity()->getSexDisplay() ?></td>
+                    <td><?= $ancestor->getEntity()->getColor() ?></td>
                     <?= $ancestor->getInbreedingCoefficient() ? '<td>' : '<td class="text-secondary">' ?><?= round(100 * $ancestor->getInbreedingCoefficient(), 2) ?>%</td>
                     <?= 0 > 1 ? '<td>' : '<td class="text-secondary">' ?><?= round(100 * $animal->getConsanguinityWith($ancestor), 2) ?>%</td>
                     <?= $animal->getInbreedingContributionFrom($ancestor) ? '<td>' : '<td class="text-secondary">' ?><?= round(100 * $animal->getInbreedingContributionFrom($ancestor), 2) ?>%</td>

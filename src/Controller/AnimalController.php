@@ -124,7 +124,6 @@ class AnimalController extends AbstractActionController
         $maxGen = (int) $this->params()->fromQuery('maxGen', 3);
         $maxGen = min(9, max(2, $maxGen));
 
-        $offspring = $repository->findByParent($entity);
         $siblings = $repository->findBySibling($entity);
         $ancestors = $repository->findByDescendant($entity);
 
@@ -142,7 +141,6 @@ class AnimalController extends AbstractActionController
 
         return [
             'entity'           => $entity,
-            'offspring'        => $offspring,
             'fullSiblings'     => $fullSiblings,
             'sireHalfSiblings' => $sireHalfSiblings,
             'damHalfSiblings'  => $damHalfSiblings,

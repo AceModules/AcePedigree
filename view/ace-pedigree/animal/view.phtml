@@ -44,7 +44,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <th>House</th>
+                        <th><?= AcePedigree\HOUSE_SINGULAR ?></th>
                         <td><?= $entity->getHouse() ?></td>
                     </tr>
                     <tr>
@@ -96,11 +96,11 @@
                         <td><?= $entity->getTitles() ?></td>
                     </tr>
 
-                    <?php if (count($offspring)) : ?>
+                    <?php if ($entity->getOffspringCount()) : ?>
                     <tr>
                         <th>Offspring</th>
                         <td>
-                            <?php foreach ($offspring as $animal) : ?>
+                            <?php foreach ($entity->getOffspring() as $animal) : ?>
                             <?= $this->entityLink($animal) ?><br />
                             <?php endforeach; ?>
                         </td>

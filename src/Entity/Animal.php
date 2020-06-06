@@ -128,7 +128,7 @@ class Animal
     /**
      * @var Animal
      * 
-     * @ORM\ManyToOne(targetEntity="Animal")
+     * @ORM\ManyToOne(targetEntity="Animal", inversedBy="animalsSired")
      * @ORM\JoinColumn(name="sireId", referencedColumnName="id", nullable=true)
      * @Gedmo\Versioned
      * @Form\Required(false)
@@ -151,7 +151,7 @@ class Animal
     /**
      * @var Animal
      * 
-     * @ORM\ManyToOne(targetEntity="Animal")
+     * @ORM\ManyToOne(targetEntity="Animal", inversedBy="animalsBirthed")
      * @ORM\JoinColumn(name="damId", referencedColumnName="id", nullable=true)
      * @Gedmo\Versioned
      * @Form\Required(false)
@@ -508,6 +508,22 @@ class Animal
     protected $images;
 
     /**
+     * @var ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="Animal", mappedBy="sire")
+     * @Form\Exclude()
+     */
+    protected $animalsSired;
+
+    /**
+     * @var ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="Animal", mappedBy="dam")
+     * @Form\Exclude()
+     */
+    protected $animalsBirthed;
+
+    /**
      * @var \DateTime
      *
      * @ORM\Column(type="datetime")
@@ -533,6 +549,8 @@ class Animal
         $this->breeders = new ArrayCollection();
         $this->owners = new ArrayCollection();
         $this->images = new ArrayCollection();
+        $this->animalsSired = new ArrayCollection();
+        $this->animalsBirthed = new ArrayCollection();
     }
 
     /**
@@ -1102,5 +1120,28 @@ class Animal
     public function getImages()
     {
         return $this->images;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getOffspring()
+    {
+        switch ($this->sex) {
+            case self::SEX_MALE:
+                return $this->animalsSired;
+            case self::SEX_FEMALE:
+                return $this->animalsBirthed;
+            default:
+                return new ArrayCollection();
+        }
+    }
+
+    /**
+     * @return int
+     */
+    public function getOffspringCount()
+    {
+        return count($this->getOffspring());
     }
 }

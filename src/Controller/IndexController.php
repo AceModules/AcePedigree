@@ -4,7 +4,7 @@ namespace AcePedigree\Controller;
 
 use AcePedigree\Entity;
 use Doctrine\ORM\EntityManager;
-use Zend\Mvc\Controller\AbstractActionController;
+use Laminas\Mvc\Controller\AbstractActionController;
 
 class IndexController extends AbstractActionController
 {

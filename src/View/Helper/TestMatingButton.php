@@ -3,7 +3,7 @@
 namespace AcePedigree\View\Helper;
 
 use AcePedigree\Entity\Animal;
-use Zend\View\Helper\AbstractHelper;
+use Laminas\View\Helper\AbstractHelper;
 
 class TestMatingButton extends AbstractHelper
 {

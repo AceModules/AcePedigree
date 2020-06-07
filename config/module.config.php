@@ -6,9 +6,9 @@ use AceDbTools\Factory\DoctrineAwareFactory;
 use Doctrine\ORM\Mapping\Driver\AnnotationDriver;
 use Gedmo\Loggable\LoggableListener;
 use Gedmo\Timestampable\TimestampableListener;
-use Zend\Router\Http\Literal;
-use Zend\Router\Http\Segment;
-use Zend\ServiceManager\Factory\InvokableFactory;
+use Laminas\Router\Http\Literal;
+use Laminas\Router\Http\Segment;
+use Laminas\ServiceManager\Factory\InvokableFactory;
 
 return [
     'ace_admin' => [

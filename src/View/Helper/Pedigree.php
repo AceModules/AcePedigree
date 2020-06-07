@@ -4,7 +4,7 @@ namespace AcePedigree\View\Helper;
 
 use AcePedigree\Entity\DTO\AnimalDTO;
 use AcePedigree\Entity\Animal;
-use Zend\View\Helper\AbstractHelper;
+use Laminas\View\Helper\AbstractHelper;
 
 class Pedigree extends AbstractHelper
 {

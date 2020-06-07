@@ -7,14 +7,14 @@ use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
-use Zend\Form\Annotation as Form;
+use Laminas\Form\Annotation as Form;
 
 /**
  * @ORM\Entity
  * @ORM\Table(name="pedigree_house")
  * @Gedmo\Loggable(logEntryClass="LogEntry")
  * @Form\Name("house")
- * @Form\Hydrator("Zend\Hydrator\ClassMethods")
+ * @Form\Hydrator("Laminas\Hydrator\ClassMethods")
  * @Grid\Title(singular=AcePedigree\HOUSE_SINGULAR, plural=AcePedigree\HOUSE_PLURAL)
  */
 class House
@@ -37,7 +37,7 @@ class House
      * @ORM\Column(type="string", length=80)
      * @Gedmo\Versioned
      * @Form\Required(true)
-     * @Form\Type("Zend\Form\Element\Text")
+     * @Form\Type("Laminas\Form\Element\Text")
      * @Form\Options({"label": "Name"})
      * @Form\Filter({"name": "StringTrim"})
      * @Form\Filter({"name": "StripTags"})

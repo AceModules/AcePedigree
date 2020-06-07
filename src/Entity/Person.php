@@ -7,14 +7,14 @@ use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
-use Zend\Form\Annotation as Form;
+use Laminas\Form\Annotation as Form;
 
 /**
  * @ORM\Entity(repositoryClass="AcePedigree\Entity\Repository\PersonRepository")
  * @ORM\Table(name="pedigree_person")
  * @Gedmo\Loggable(logEntryClass="LogEntry")
  * @Form\Name("person")
- * @Form\Hydrator("Zend\Hydrator\ClassMethods")
+ * @Form\Hydrator("Laminas\Hydrator\ClassMethods")
  * @Grid\Title(singular="Person", plural="Persons")
  */
 class Person
@@ -37,7 +37,7 @@ class Person
      * @ORM\Column(type="string", length=80)
      * @Gedmo\Versioned
      * @Form\Required(true)
-     * @Form\Type("Zend\Form\Element\Text")
+     * @Form\Type("Laminas\Form\Element\Text")
      * @Form\Options({"label": "Name"})
      * @Form\Filter({"name": "StringTrim"})
      * @Form\Filter({"name": "StripTags"})
@@ -53,7 +53,7 @@ class Person
      * @ORM\Column(type="string", nullable=true)
      * @Gedmo\Versioned
      * @Form\Required(false)
-     * @Form\Type("Zend\Form\Element\Email")
+     * @Form\Type("Laminas\Form\Element\Email")
      * @Form\Options({"label": "Email"})
      * @Form\Filter({"name": "ToNull"})
      */
@@ -65,7 +65,7 @@ class Person
      * @ORM\Column(type="string", nullable=true)
      * @Gedmo\Versioned
      * @Form\Required(false)
-     * @Form\Type("Zend\Form\Element\Url")
+     * @Form\Type("Laminas\Form\Element\Url")
      * @Form\Options({"label": "Website"})
      * @Form\Filter({"name": "ToNull"})
      */
@@ -77,7 +77,7 @@ class Person
      * @ORM\Column(type="string", length=50, nullable=true)
      * @Gedmo\Versioned
      * @Form\Required(false)
-     * @Form\Type("Zend\Form\Element\Text")
+     * @Form\Type("Laminas\Form\Element\Text")
      * @Form\Options({"label": "Street Address"})
      * @Form\Filter({"name": "StringTrim"})
      * @Form\Filter({"name": "StripTags"})
@@ -92,7 +92,7 @@ class Person
      * @ORM\Column(type="string", length=30, nullable=true)
      * @Gedmo\Versioned
      * @Form\Required(false)
-     * @Form\Type("Zend\Form\Element\Text")
+     * @Form\Type("Laminas\Form\Element\Text")
      * @Form\Options({"label": "City"})
      * @Form\Filter({"name": "StringTrim"})
      * @Form\Filter({"name": "StripTags"})
@@ -107,7 +107,7 @@ class Person
      * @ORM\Column(type="string", length=30, nullable=true)
      * @Gedmo\Versioned
      * @Form\Required(false)
-     * @Form\Type("Zend\Form\Element\Text")
+     * @Form\Type("Laminas\Form\Element\Text")
      * @Form\Options({"label": "State/Region"})
      * @Form\Filter({"name": "StringTrim"})
      * @Form\Filter({"name": "StripTags"})
@@ -122,7 +122,7 @@ class Person
      * @ORM\Column(type="string", length=15, nullable=true)
      * @Gedmo\Versioned
      * @Form\Required(false)
-     * @Form\Type("Zend\Form\Element\Text")
+     * @Form\Type("Laminas\Form\Element\Text")
      * @Form\Options({"label": "Postal Code"})
      * @Form\Filter({"name": "StringTrim"})
      * @Form\Filter({"name": "StripTags"})

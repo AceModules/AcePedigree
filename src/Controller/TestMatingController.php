@@ -5,7 +5,7 @@ namespace AcePedigree\Controller;
 use AcePedigree\Entity;
 use AcePedigree\Form\AnimalSuggest;
 use Doctrine\ORM\EntityManager;
-use Zend\Mvc\Controller\AbstractActionController;
+use Laminas\Mvc\Controller\AbstractActionController;
 
 class TestMatingController extends AbstractActionController
 {

@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
-use Zend\Form\Annotation as Form;
+use Laminas\Form\Annotation as Form;
 
 /**
  * @ORM\Entity(repositoryClass="AcePedigree\Entity\Repository\AnimalRepository")
@@ -59,7 +59,7 @@ class Animal
      * @ORM\Column(type="string", length=50)
      * @Gedmo\Versioned
      * @Form\Required(true)
-     * @Form\Type("Zend\Form\Element\Text")
+     * @Form\Type("Laminas\Form\Element\Text")
      * @Form\Options({"label": "Registered Name"})
      * @Form\Filter({"name": "StringTrim"})
      * @Form\Filter({"name": "StripTags"})
@@ -75,7 +75,7 @@ class Animal
      * @ORM\Column(type="string", length=15, nullable=true)
      * @Gedmo\Versioned
      * @Form\Required(false)
-     * @Form\Type("Zend\Form\Element\Text")
+     * @Form\Type("Laminas\Form\Element\Text")
      * @Form\Options({"label": "Call Name"})
      * @Form\Filter({"name": "StringTrim"})
      * @Form\Filter({"name": "StripTags"})
@@ -91,7 +91,7 @@ class Animal
      * @ORM\Column(type="string", length=80, nullable=true)
      * @Gedmo\Versioned
      * @Form\Required(false)
-     * @Form\Type("Zend\Form\Element\Text")
+     * @Form\Type("Laminas\Form\Element\Text")
      * @Form\Options({"label": "Registration"})
      * @Form\Filter({"name": "StringTrim"})
      * @Form\Filter({"name": "StripTags"})
@@ -193,7 +193,7 @@ class Animal
      * @ORM\Column(type="integer")
      * @Gedmo\Versioned
      * @Form\Required(true)
-     * @Form\Type("Zend\Form\Element\Radio")
+     * @Form\Type("Laminas\Form\Element\Radio")
      * @Form\Options({"label": "Sex"})
      * @Form\Attributes({"options": {
      *      "1": "Male",
@@ -260,7 +260,7 @@ class Animal
      * @ORM\Column(type="integer", nullable=true)
      * @Gedmo\Versioned
      * @Form\Required(false)
-     * @Form\Type("Zend\Form\Element\Number")
+     * @Form\Type("Laminas\Form\Element\Number")
      * @Form\Options({"label": "Birth Year"})
      * @Form\Filter({"name": "ToNull"})
      * @Form\Validator({"name": "Between", "options": {"min": "1900", "max": "2100"}})
@@ -274,7 +274,7 @@ class Animal
      * @ORM\Column(type="integer", nullable=true)
      * @Gedmo\Versioned
      * @Form\Required(false)
-     * @Form\Type("Zend\Form\Element\Select")
+     * @Form\Type("Laminas\Form\Element\Select")
      * @Form\Options({"label": "Birth Month"})
      * @Form\Attributes({"options": {
      *      "": "",
@@ -301,7 +301,7 @@ class Animal
      * @ORM\Column(type="integer", nullable=true)
      * @Gedmo\Versioned
      * @Form\Required(false)
-     * @Form\Type("Zend\Form\Element\Number")
+     * @Form\Type("Laminas\Form\Element\Number")
      * @Form\Options({"label": "Birth Day"})
      * @Form\Filter({"name": "ToNull"})
      * @Form\Validator({"name": "Between", "options": {"min": "1", "max": "31"}})
@@ -314,7 +314,7 @@ class Animal
      * @ORM\Column(type="integer", nullable=true)
      * @Gedmo\Versioned
      * @Form\Required(false)
-     * @Form\Type("Zend\Form\Element\Number")
+     * @Form\Type("Laminas\Form\Element\Number")
      * @Form\Options({"label": "Death Year"})
      * @Form\Filter({"name": "ToNull"})
      * @Form\Validator({"name": "Between", "options": {"min": "1900", "max": "2100"}})
@@ -327,7 +327,7 @@ class Animal
      * @ORM\Column(type="integer", nullable=true)
      * @Gedmo\Versioned
      * @Form\Required(false)
-     * @Form\Type("Zend\Form\Element\Select")
+     * @Form\Type("Laminas\Form\Element\Select")
      * @Form\Options({"label": "Death Month"})
      * @Form\Attributes({"options": {
      *      "": "",
@@ -354,7 +354,7 @@ class Animal
      * @ORM\Column(type="integer", nullable=true)
      * @Gedmo\Versioned
      * @Form\Required(false)
-     * @Form\Type("Zend\Form\Element\Number")
+     * @Form\Type("Laminas\Form\Element\Number")
      * @Form\Options({"label": "Death Day"})
      * @Form\Filter({"name": "ToNull"})
      * @Form\Validator({"name": "Between", "options": {"min": "1", "max": "31"}})
@@ -413,7 +413,7 @@ class Animal
      * @ORM\Column(type="float", nullable=true)
      * @Gedmo\Versioned
      * @Form\Required(false)
-     * @Form\Type("Zend\Form\Element\Number")
+     * @Form\Type("Laminas\Form\Element\Number")
      * @Form\Options({"label": "Height (Inches)"})
      * @Form\Filter({"name": "ToNull"})
      * @Form\Validator({"name": "Between", "options": {"min": "4", "max": "30"}})
@@ -426,7 +426,7 @@ class Animal
      * @ORM\Column(type="float", nullable=true)
      * @Gedmo\Versioned
      * @Form\Required(false)
-     * @Form\Type("Zend\Form\Element\Number")
+     * @Form\Type("Laminas\Form\Element\Number")
      * @Form\Options({"label": "Weight (Pounds)"})
      * @Form\Filter({"name": "ToNull"})
      * @Form\Validator({"name": "Between", "options": {"min": "4", "max": "200"}})
@@ -439,7 +439,7 @@ class Animal
      * @ORM\Column(type="string", length=20, nullable=true)
      * @Gedmo\Versioned
      * @Form\Required(false)
-     * @Form\Type("Zend\Form\Element\Select")
+     * @Form\Type("Laminas\Form\Element\Select")
      * @Form\Options({"label": "Color"})
      * @Form\Attributes({"options": AcePedigree\ANIMAL_COLORS})
      * @Form\Filter({"name": "ToNull"})
@@ -453,7 +453,7 @@ class Animal
      * @ORM\Column(type="integer", nullable=true)
      * @Gedmo\Versioned
      * @Form\Required(false)
-     * @Form\Type("Zend\Form\Element\Number")
+     * @Form\Type("Laminas\Form\Element\Number")
      * @Form\Options({"label": "OFA Number"})
      * @Form\Filter({"name": "ToNull"})
      * @Form\Validator({"name":"Regex", "options":{"pattern":"/^\d{7}$/"}})
@@ -466,7 +466,7 @@ class Animal
      * @ORM\Column(type="string", nullable=true)
      * @Gedmo\Versioned
      * @Form\Required(false)
-     * @Form\Type("Zend\Form\Element\Textarea")
+     * @Form\Type("Laminas\Form\Element\Textarea")
      * @Form\Options({"label": "Features"})
      * @Form\Filter({"name": "ToNull"})
      * @Grid\Search()
@@ -479,7 +479,7 @@ class Animal
      * @ORM\Column(type="string", nullable=true)
      * @Gedmo\Versioned
      * @Form\Required(false)
-     * @Form\Type("Zend\Form\Element\Textarea")
+     * @Form\Type("Laminas\Form\Element\Textarea")
      * @Form\Options({"label": "Titles"})
      * @Form\Filter({"name": "ToNull"})
      * @Grid\Search()
@@ -492,7 +492,7 @@ class Animal
      * @ORM\Column(type="text", nullable=true)
      * @Gedmo\Versioned
      * @Form\Required(false)
-     * @Form\Type("Zend\Form\Element\Textarea")
+     * @Form\Type("Laminas\Form\Element\Textarea")
      * @Form\Options({"label": "Notes"})
      * @Form\Filter({"name": "ToNull"})
      * @Grid\Search()

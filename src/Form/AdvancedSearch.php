@@ -3,11 +3,11 @@
 namespace AcePedigree\Form;
 
 use AcePedigree\Entity\Animal;
-use Zend\Form\Element;
-use Zend\Form\Form;
-use Zend\InputFilter\Input;
-use Zend\InputFilter\InputFilter;
-use Zend\Validator;
+use Laminas\Form\Element;
+use Laminas\Form\Form;
+use Laminas\InputFilter\Input;
+use Laminas\InputFilter\InputFilter;
+use Laminas\Validator;
 
 class AdvancedSearch extends Form
 {

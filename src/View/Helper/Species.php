@@ -6,7 +6,7 @@ use AcePedigree\Entity\Animal;
 use AceDatagrid\Datagrid;
 use AceDatagrid\DatagridManager;
 use Doctrine\ORM\EntityManager;
-use Zend\View\Helper\AbstractHelper;
+use Laminas\View\Helper\AbstractHelper;
 
 class Species extends AbstractHelper
 {

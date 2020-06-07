@@ -2,7 +2,7 @@
 
 namespace AcePedigree\Controller;
 
-use Zend\Mvc\Controller\AbstractActionController;
+use Laminas\Mvc\Controller\AbstractActionController;
 use Doctrine\ORM\EntityManager;
 
 class ImageController extends AbstractActionController

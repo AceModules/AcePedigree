@@ -2,7 +2,7 @@
 
 namespace AcePedigree\View\Helper;
 
-use Zend\View\Helper\AbstractHelper;
+use Laminas\View\Helper\AbstractHelper;
 
 class FuzzyDate extends AbstractHelper
 {

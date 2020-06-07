@@ -4,8 +4,8 @@ namespace AcePedigree\Controller;
 
 use AcePedigree\Entity;
 use Doctrine\ORM\EntityManager;
-use Zend\Mvc\Controller\AbstractActionController;
-use Zend\View\Model\JsonModel;
+use Laminas\Mvc\Controller\AbstractActionController;
+use Laminas\View\Model\JsonModel;
 
 class StatisticsController extends AbstractActionController
 {

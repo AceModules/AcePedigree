@@ -5,14 +5,14 @@ namespace AcePedigree\Entity;
 use AceDatagrid\Annotation as Grid;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
-use Zend\Form\Annotation as Form;
+use Laminas\Form\Annotation as Form;
 
 /**
  * @ORM\Entity
  * @ORM\Table(name="pedigree_country")
  * @Gedmo\Loggable(logEntryClass="LogEntry")
  * @Form\Name("country")
- * @Form\Hydrator("Zend\Hydrator\ClassMethods")
+ * @Form\Hydrator("Laminas\Hydrator\ClassMethods")
  * @Grid\Title(singular="Country", plural="Countries")
  */
 class Country
@@ -33,7 +33,7 @@ class Country
      * @ORM\Column(type="string", length=80)
      * @Gedmo\Versioned
      * @Form\Required(true)
-     * @Form\Type("Zend\Form\Element\Text")
+     * @Form\Type("Laminas\Form\Element\Text")
      * @Form\Options({"label": "Name"})
      * @Form\Filter({"name": "StringTrim"})
      * @Form\Filter({"name": "StripTags"})

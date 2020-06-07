@@ -3,7 +3,7 @@
 namespace AcePedigree\View\Helper;
 
 use AcePedigree\Entity;
-use Zend\View\Helper\AbstractHelper;
+use Laminas\View\Helper\AbstractHelper;
 
 class EntityLink extends AbstractHelper
 {

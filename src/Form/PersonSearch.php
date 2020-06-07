@@ -2,10 +2,10 @@
 
 namespace AcePedigree\Form;
 
-use Zend\Form\Element;
-use Zend\Form\Form;
-use Zend\InputFilter\Input;
-use Zend\InputFilter\InputFilter;
+use Laminas\Form\Element;
+use Laminas\Form\Form;
+use Laminas\InputFilter\Input;
+use Laminas\InputFilter\InputFilter;
 
 class PersonSearch extends Form
 {

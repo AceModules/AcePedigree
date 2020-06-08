@@ -12,7 +12,7 @@ use Laminas\Form\Annotation as Form;
  * @ORM\Table(name="pedigree_country")
  * @Gedmo\Loggable(logEntryClass="LogEntry")
  * @Form\Name("country")
- * @Form\Hydrator("Laminas\Hydrator\ClassMethods")
+ * @Form\Hydrator("Laminas\Hydrator\ClassMethodsHydrator")
  * @Grid\Title(singular="Country", plural="Countries")
  */
 class Country

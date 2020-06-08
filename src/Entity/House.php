@@ -14,7 +14,7 @@ use Laminas\Form\Annotation as Form;
  * @ORM\Table(name="pedigree_house")
  * @Gedmo\Loggable(logEntryClass="LogEntry")
  * @Form\Name("house")
- * @Form\Hydrator("Laminas\Hydrator\ClassMethods")
+ * @Form\Hydrator("Laminas\Hydrator\ClassMethodsHydrator")
  * @Grid\Title(singular=AcePedigree\HOUSE_SINGULAR, plural=AcePedigree\HOUSE_PLURAL)
  */
 class House

@@ -9,7 +9,7 @@ class Module
         return [
             'AssetManager',
             'DoctrineORMModule',
-            'TwbBundle',
+            'TwbsHelper',
             'AceDbTools',
             'AceDatagrid',
         ];

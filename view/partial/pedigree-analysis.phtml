@@ -32,7 +32,7 @@
         <tbody>
             <?php if (!count($animal->getUniqueAncestors())) : ?>
                 <tr>
-                    <td colspan="<?= 6 + $maxGen ?>" class="text-center">There are no ancestors to display.</td>
+                    <td colspan="<?= 7 + $maxGen ?>" class="text-center">There are no ancestors to display.</td>
                 </tr>
             <?php endif; ?>
             <?php foreach ($animal->getUniqueAncestors() as $ancestor) : ?>

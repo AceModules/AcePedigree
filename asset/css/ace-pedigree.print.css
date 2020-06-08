@@ -19,7 +19,9 @@ li:first-line {
     .page-header { margin-top: 0; }
 }
 
-table .no-break:first-of-type { margin-top: -20px; }
+table .no-break:first-of-type { margin-top: -10px; }
+
+h3 { margin-top: 0.25em; }
 
 #maxGen {
     border: none;
@@ -38,4 +40,4 @@ table .no-break:first-of-type { margin-top: -20px; }
 
 .text-secondary { color: #000 !important; }
 
-#zend-developer-toolbar { display: none; }
+#laminas-developer-toolbar { display: none; }

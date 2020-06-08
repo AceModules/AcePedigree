@@ -28,19 +28,19 @@ class AnimalSuggest extends Form
         $this->add($q);
 
         $buttons = new Form('buttons');
-        $buttons->setOption('twb-layout', 'inline');
+        $buttons->setOption('layout', \TwbsHelper\Form\View\Helper\Form::LAYOUT_INLINE);
         $buttons->setAttribute('class', 'form-group');
 
         $submit = new Element\Submit('submit');
         $submit->setAttribute('value', 'Save');
-        $submit->setAttribute('class', 'btn-primary pull-right');
+        $submit->setAttribute('class', 'btn-primary float-right');
         $buttons->add($submit);
 
         $cancel = new Element\Submit('cancel');
         $cancel->setAttribute('value', 'Cancel');
         $cancel->setAttribute('formnovalidate', true);
         $cancel->setAttribute('data-dismiss', 'modal');
-        $cancel->setAttribute('class', 'btn-warning pull-right');
+        $cancel->setAttribute('class', 'btn-warning float-right');
         $buttons->add($cancel);
 
         $this->add($buttons);

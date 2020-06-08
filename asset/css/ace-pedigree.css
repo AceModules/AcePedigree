@@ -1,11 +1,14 @@
 #maxGen {
     display: inline-block;
     width: auto;
+    padding: 0.5rem;
+    margin: 0 0.6rem;
 }
 
 .pedigree {
     width: 100%;
     border-collapse: separate;
+    margin-bottom: 1rem;
 }
 
 .pedigree td {

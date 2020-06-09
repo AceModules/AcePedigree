@@ -13,12 +13,14 @@
         <?= $this->pedigree()->analysis() ?>
     </div>
 <?php else : ?>
-    <div class="modal fade" id="addAnimal" tabindex="-1" role="dialog" aria-labelledby="addAnimalLabel" aria-hidden="true">
+    <div class="modal" id="addAnimal" tabindex="-1" role="dialog" aria-labelledby="addAnimalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="addAnimalLabel">Choose a <?= $this->species() ?></h4>
+                    <h5 class="modal-title" id="addAnimalLabel">Choose a <?= $this->species() ?></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
                 <div class="modal-body">
                     <?php $form->get('q')->setAttribute('data-ajax-url', $this->url('ace-pedigree/animals', ['action' => 'suggest'])) ?>

@@ -7,7 +7,6 @@ $(function() {
             .backgroundColor('rgba(0, 0, 0, 0)')
             .enableNodeDrag(false)
             .nodeResolution(16)
-            .nodeColor(node => $('body').css('--primary'))
             .nodeOpacity(1)
             .nodeVal(node => node.value * 10)
             .linkVisibility(false)
@@ -15,34 +14,17 @@ $(function() {
 
         Graph.d3Force('link').distance(link => link.distance * 100);
 
-        var Observer = new MutationObserver(function(mutations) {
+        var tooltipObserver = new MutationObserver(function(mutations) {
             mutations.forEach(function(mutation) {
                 if (mutation.addedNodes.length == 1 && mutation.addedNodes[0].nodeType == 3) {
                     $(mutation.target).html('<div class="tooltip-inner">' + $(mutation.target).text() + '</div>');
-                } else if (mutation.attributeName == 'href') {
-                    var oldColor = $('body').css('--primary');
-                    (function checkStyleUpdate(){
-                        var newColor = $('body').css('--primary');
-                        if (oldColor != newColor) {
-                            Graph.nodeColor(node => newColor);
-                        } else {
-                            setTimeout(checkStyleUpdate, 100);
-                        }
-                     })();
                 }
             });
         });
 
-        Observer.observe(
-            $('.scene-tooltip', this)
-                .removeClass('scene-tooltip')
-                .addClass('tooltip show')[0],
+        tooltipObserver.observe(
+            $('.scene-tooltip', this).removeClass('scene-tooltip').addClass('tooltip show')[0],
             { childList: true }
-        );
-
-        Observer.observe(
-            $('link[title="theme"]')[0],
-            { attributes: true, attributeFilter: ['href'] }
         );
 
         let resizeGraph;
@@ -53,6 +35,13 @@ $(function() {
         })();
 
         $(window).on('resize', resizeGraph);
+
+        let changeNodeColor;
+        (changeNodeColor = function() {
+            Graph.nodeColor(node => $('body').css('--primary'));
+        })();
+
+        $(window).on('changestyles', changeNodeColor);
     };
 
     $('#addAnimal').on('show.bs.modal', function(e) {

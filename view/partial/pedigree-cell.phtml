@@ -30,8 +30,8 @@
 </td>
 
 <?php if ($gen < $maxGen) : ?>
-<?= $this->partial('partial/pedigree-cell', ['animal' => ($animal ? $animal->getSire() : null), 'sex' => ($animal ? \AcePedigree\Entity\Animal::SEX_MALE : null), 'gen' => $gen + 1, 'maxGen' => $maxGen, 'n' => $n + 1]); ?>
-<?= $this->partial('partial/pedigree-cell', ['animal' => ($animal ? $animal->getDam() : null), 'sex' => ($animal ? \AcePedigree\Entity\Animal::SEX_FEMALE : null), 'gen' => $gen + 1, 'maxGen' => $maxGen, 'n' => $n + (1 << ($maxGen - $gen))]); ?>
+<?= $this->partial('partial/pedigree-cell', ['animal' => ($animal ? $animal->getSire() : null), 'sex' => ($animal && !$animal->getId() ? \AcePedigree\Entity\Animal::SEX_MALE : null), 'gen' => $gen + 1, 'maxGen' => $maxGen, 'n' => $n + 1]); ?>
+<?= $this->partial('partial/pedigree-cell', ['animal' => ($animal ? $animal->getDam() : null), 'sex' => ($animal && !$animal->getId() ? \AcePedigree\Entity\Animal::SEX_FEMALE : null), 'gen' => $gen + 1, 'maxGen' => $maxGen, 'n' => $n + (1 << ($maxGen - $gen))]); ?>
 <?php elseif ($n < (2 << $maxGen) - 1): ?>
 </tr>
 <tr>

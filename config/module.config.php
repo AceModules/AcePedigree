@@ -231,6 +231,13 @@ return [
                 ],
             ],
         ],
+        'migrations_configuration' => [
+            'orm_default' => [
+                'migrations_paths' => [
+                    __NAMESPACE__ . '\Migrations' => __DIR__ . '/../src/Migrations',
+                ],
+            ],
+        ],
         'configuration' => [
             'orm_default' => [
                 'filter_schema_assets_expression' => '~^(?!pedigree_animal_statistics)~',

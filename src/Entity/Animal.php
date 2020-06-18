@@ -31,10 +31,10 @@ class Animal
      *
      * @Form\Exclude()
      */
-    protected $sexLabels = array(
+    protected $sexLabels = [
         self::SEX_MALE => 'Male',
         self::SEX_FEMALE => 'Female',
-    );
+    ];
 
     /**
      * @var AnimalDTO

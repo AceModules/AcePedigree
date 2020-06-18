@@ -170,6 +170,17 @@ class AnimalDTO
     }
 
     /**
+     * @return float
+     */
+    public function getAverageCovariance()
+    {
+        return 0.5 * (
+            ($this->getSire() ? $this->getSire()->getEntity()->getAverageCovariance() : 0) +
+            ($this->getDam()  ? $this->getDam()->getEntity()->getAverageCovariance()  : 0)
+        );
+    }
+
+    /**
      * @param AnimalDTO $dto
      * @return float
      */

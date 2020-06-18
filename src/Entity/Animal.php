@@ -726,6 +726,10 @@ class Animal
      */
     public function getInbreedingCoefficient()
     {
+        if (!$this->id) {
+            return $this->getDTO()->getInbreedingCoefficient();
+        }
+
         return $this->inbreedingCoefficient;
     }
 
@@ -743,6 +747,10 @@ class Animal
      */
     public function getAverageCovariance()
     {
+        if (!$this->id) {
+            return $this->getDTO()->getAverageCovariance();
+        }
+
         return $this->averageCovariance;
     }
 

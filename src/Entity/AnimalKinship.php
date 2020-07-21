@@ -7,6 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity(readOnly=true)
  * @ORM\Table(name="pedigree_animal_kinship")
+ * @ORM\Cache(usage="NONSTRICT_READ_WRITE")
  */
 class AnimalKinship
 {
@@ -16,6 +17,7 @@ class AnimalKinship
      * @ORM\Id
      * @ORM\ManyToOne(targetEntity="Animal")
      * @ORM\JoinColumn(name="animal1Id", referencedColumnName="id", onDelete="CASCADE")
+     * @ORM\Cache(usage="NONSTRICT_READ_WRITE")
      */
     protected $animal1;
 
@@ -25,6 +27,7 @@ class AnimalKinship
      * @ORM\Id
      * @ORM\ManyToOne(targetEntity="Animal")
      * @ORM\JoinColumn(name="animal2Id", referencedColumnName="id", onDelete="CASCADE")
+     * @ORM\Cache(usage="NONSTRICT_READ_WRITE")
      */
     protected $animal2;
 

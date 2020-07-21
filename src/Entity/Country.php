@@ -10,6 +10,7 @@ use Laminas\Form\Annotation as Form;
 /**
  * @ORM\Entity
  * @ORM\Table(name="pedigree_country")
+ * @ORM\Cache(usage="NONSTRICT_READ_WRITE")
  * @Gedmo\Loggable(logEntryClass="LogEntry")
  * @Form\Name("country")
  * @Form\Hydrator("Laminas\Hydrator\ClassMethodsHydrator")
@@ -47,6 +48,7 @@ class Country
      * @var ArrayCollection
      *
      * @ORM\OneToMany(targetEntity="Animal", mappedBy="birthCountry")
+     * @ORM\Cache(usage="NONSTRICT_READ_WRITE")
      * @Form\Exclude()
      */
     protected $animalsBorn;
@@ -55,6 +57,7 @@ class Country
      * @var ArrayCollection
      *
      * @ORM\OneToMany(targetEntity="Animal", mappedBy="homeCountry")
+     * @ORM\Cache(usage="NONSTRICT_READ_WRITE")
      * @Form\Exclude()
      */
     protected $animalsHome;

@@ -12,6 +12,7 @@ use Laminas\Form\Annotation as Form;
 /**
  * @ORM\Entity
  * @ORM\Table(name="pedigree_house")
+ * @ORM\Cache(usage="NONSTRICT_READ_WRITE")
  * @Gedmo\Loggable(logEntryClass="LogEntry")
  * @Form\Name("house")
  * @Form\Hydrator("Laminas\Hydrator\ClassMethodsHydrator")
@@ -51,6 +52,7 @@ class House
      * @var ArrayCollection
      *
      * @ORM\OneToMany(targetEntity="Animal", mappedBy="house")
+     * @ORM\Cache(usage="NONSTRICT_READ_WRITE")
      * @Form\Exclude()
      */
     protected $animals;

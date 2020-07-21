@@ -7,6 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity
  * @ORM\Table(name="pedigree_image")
+ * @ORM\Cache(usage="NONSTRICT_READ_WRITE")
  */
 class Image
 {
@@ -24,6 +25,7 @@ class Image
      *
      * @ORM\ManyToOne(targetEntity="Animal", inversedBy="images")
      * @ORM\JoinColumn(name="animalId", referencedColumnName="id")
+     * @ORM\Cache(usage="NONSTRICT_READ_WRITE")
      */
     protected $animal;
 

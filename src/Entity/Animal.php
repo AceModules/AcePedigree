@@ -13,6 +13,7 @@ use Laminas\Form\Annotation as Form;
 /**
  * @ORM\Entity(repositoryClass="AcePedigree\Entity\Repository\AnimalRepository")
  * @ORM\Table(name="pedigree_animal")
+ * @ORM\Cache(usage="NONSTRICT_READ_WRITE")
  * @Gedmo\Loggable(logEntryClass="LogEntry")
  * @Grid\Title(singular=AcePedigree\ANIMAL_SINGULAR, plural=AcePedigree\ANIMAL_PLURAL)
  */
@@ -107,6 +108,7 @@ class Animal
      * 
      * @ORM\ManyToOne(targetEntity="House", inversedBy="animals")
      * @ORM\JoinColumn(name="houseId", referencedColumnName="id", nullable=true)
+     * @ORM\Cache(usage="NONSTRICT_READ_WRITE")
      * @Gedmo\Versioned
      * @Form\Required(false)
      * @Form\Type("AceAdmin\Form\Element\ObjectLiveSearch")
@@ -130,6 +132,7 @@ class Animal
      * 
      * @ORM\ManyToOne(targetEntity="Animal", inversedBy="animalsSired")
      * @ORM\JoinColumn(name="sireId", referencedColumnName="id", nullable=true)
+     * @ORM\Cache(usage="NONSTRICT_READ_WRITE")
      * @Gedmo\Versioned
      * @Form\Required(false)
      * @Form\Type("AceAdmin\Form\Element\ObjectLiveSearch")
@@ -153,6 +156,7 @@ class Animal
      * 
      * @ORM\ManyToOne(targetEntity="Animal", inversedBy="animalsBirthed")
      * @ORM\JoinColumn(name="damId", referencedColumnName="id", nullable=true)
+     * @ORM\Cache(usage="NONSTRICT_READ_WRITE")
      * @Gedmo\Versioned
      * @Form\Required(false)
      * @Form\Type("AceAdmin\Form\Element\ObjectLiveSearch")
@@ -210,6 +214,7 @@ class Animal
      *     joinColumns={@ORM\JoinColumn(name="animalId", referencedColumnName="id")},
      *     inverseJoinColumns={@ORM\JoinColumn(name="breederId", referencedColumnName="id")}
      * )
+     * @ORM\Cache(usage="NONSTRICT_READ_WRITE")
      * @Form\Required(false)
      * @Form\Type("AceAdmin\Form\Element\ObjectLiveSearch")
      * @Form\Options({"label": "Breeders", "empty_option": "Select Breeders",
@@ -236,6 +241,7 @@ class Animal
      *     joinColumns={@ORM\JoinColumn(name="animalId", referencedColumnName="id")},
      *     inverseJoinColumns={@ORM\JoinColumn(name="ownerId", referencedColumnName="id")}
      * )
+     * @ORM\Cache(usage="NONSTRICT_READ_WRITE")
      * @Form\Required(false)
      * @Form\Type("AceAdmin\Form\Element\ObjectLiveSearch")
      * @Form\Options({"label": "Owners", "empty_option": "Select Owners",
@@ -366,6 +372,7 @@ class Animal
      *
      * @ORM\ManyToOne(targetEntity="Country")
      * @ORM\JoinColumn(name="birthCountryId", referencedColumnName="id", nullable=true)
+     * @ORM\Cache(usage="NONSTRICT_READ_WRITE")
      * @Gedmo\Versioned
      * @Form\Required(false)
      * @Form\Type("AceAdmin\Form\Element\ObjectLiveSearch")
@@ -389,6 +396,7 @@ class Animal
      *
      * @ORM\ManyToOne(targetEntity="Country")
      * @ORM\JoinColumn(name="homeCountryId", referencedColumnName="id", nullable=true)
+     * @ORM\Cache(usage="NONSTRICT_READ_WRITE")
      * @Gedmo\Versioned
      * @Form\Required(false)
      * @Form\Type("AceAdmin\Form\Element\ObjectLiveSearch")
@@ -503,6 +511,7 @@ class Animal
      * @var ArrayCollection
      *
      * @ORM\OneToMany(targetEntity="Image", mappedBy="animal")
+     * @ORM\Cache(usage="NONSTRICT_READ_WRITE")
      * @Form\Exclude()
      */
     protected $images;
@@ -511,6 +520,7 @@ class Animal
      * @var ArrayCollection
      *
      * @ORM\OneToMany(targetEntity="Animal", mappedBy="sire")
+     * @ORM\Cache(usage="NONSTRICT_READ_WRITE")
      * @Form\Exclude()
      */
     protected $animalsSired;
@@ -519,6 +529,7 @@ class Animal
      * @var ArrayCollection
      *
      * @ORM\OneToMany(targetEntity="Animal", mappedBy="dam")
+     * @ORM\Cache(usage="NONSTRICT_READ_WRITE")
      * @Form\Exclude()
      */
     protected $animalsBirthed;

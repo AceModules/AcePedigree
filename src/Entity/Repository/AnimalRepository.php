@@ -27,6 +27,7 @@ class AnimalRepository extends EntityRepository
             ->orderBy('d.name', 'ASC')
             ->setParameter('animal', $animal)
             ->getQuery()
+            ->enableResultCache()
             ->getResult();
     }
 
@@ -47,6 +48,7 @@ class AnimalRepository extends EntityRepository
             ->setParameter('sire', $animal->getSire())
             ->setParameter('dam', $animal->getDam())
             ->getQuery()
+            ->enableResultCache()
             ->getResult();
     }
 
@@ -67,6 +69,7 @@ class AnimalRepository extends EntityRepository
         return $this->getEntityManager()
             ->createNativeQuery($sql, $rsm)
             ->setParameter('animal', $animal)
+            ->enableResultCache()
             ->getResult();
     }
 
@@ -87,6 +90,7 @@ class AnimalRepository extends EntityRepository
         return $this->getEntityManager()
             ->createNativeQuery($sql, $rsm)
             ->setParameter('animal', $animal)
+            ->enableResultCache()
             ->getResult();
     }
 
@@ -108,6 +112,7 @@ class AnimalRepository extends EntityRepository
         return $this->getEntityManager()
             ->createNativeQuery($sql, $rsm)
             ->setParameter('animal', $animal)
+            ->disableResultCache() // NOTE Not cached
             ->getResult();
     }
 
@@ -193,7 +198,7 @@ class AnimalRepository extends EntityRepository
                 [':animal' => $animal->getId()]
             );
 
-        $relatives = $this->getEntityManager()->getRepository(Animal::class)->findByRelative($animal);
+        $relatives = $this->findByRelative($animal); // NOTE Not cached
         $placeholders = [];
         $values = [];
         $types = [];
@@ -232,6 +237,7 @@ class AnimalRepository extends EntityRepository
             ->select('d.id, d.name, d.averageCovariance AS value')
             ->from(Animal::class, 'd')
             ->getQuery()
+            ->enableResultCache()
             ->getArrayResult();
 
         $links = $this->getEntityManager()
@@ -240,6 +246,7 @@ class AnimalRepository extends EntityRepository
             ->from(AnimalKinship::class, 'k')
             ->where('k.animal1 != k.animal2')
             ->getQuery()
+            ->enableResultCache()
             ->getArrayResult();
 
         array_walk($links, function (&$link) {

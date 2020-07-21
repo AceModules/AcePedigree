@@ -12,6 +12,7 @@ use Laminas\Form\Annotation as Form;
 /**
  * @ORM\Entity(repositoryClass="AcePedigree\Entity\Repository\PersonRepository")
  * @ORM\Table(name="pedigree_person")
+ * @ORM\Cache(usage="NONSTRICT_READ_WRITE")
  * @Gedmo\Loggable(logEntryClass="LogEntry")
  * @Form\Name("person")
  * @Form\Hydrator("Laminas\Hydrator\ClassMethodsHydrator")
@@ -136,6 +137,7 @@ class Person
      *
      * @ORM\ManyToOne(targetEntity="Country")
      * @ORM\JoinColumn(name="countryId", referencedColumnName="id", nullable=true)
+     * @ORM\Cache(usage="NONSTRICT_READ_WRITE")
      * @Gedmo\Versioned
      * @Form\Required(false)
      * @Form\Type("AceAdmin\Form\Element\ObjectLiveSearch")
@@ -170,6 +172,7 @@ class Person
      * @var ArrayCollection
      *
      * @ORM\ManyToMany(targetEntity="Animal", mappedBy="breeders")
+     * @ORM\Cache(usage="NONSTRICT_READ_WRITE")
      * @Form\Exclude()
      */
     protected $animalsBred;
@@ -178,6 +181,7 @@ class Person
      * @var ArrayCollection
      *
      * @ORM\ManyToMany(targetEntity="Animal", mappedBy="owners")
+     * @ORM\Cache(usage="NONSTRICT_READ_WRITE")
      * @Form\Exclude()
      */
     protected $animalsOwned;

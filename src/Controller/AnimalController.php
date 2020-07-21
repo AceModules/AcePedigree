@@ -60,7 +60,7 @@ class AnimalController extends AbstractActionController
             $queryBuilder = $datagrid->createSearchQueryBuilder(null, $sort);
         }
 
-        $paginator = new Paginator(new DoctrineAdapter(new ORMPaginator($queryBuilder)));
+        $paginator = new Paginator(new DoctrineAdapter(new ORMPaginator($queryBuilder->getQuery()->enableResultCache())));
         $paginator->setDefaultItemCountPerPage(20);
         $paginator->setCurrentPageNumber($page);
 
@@ -88,6 +88,7 @@ class AnimalController extends AbstractActionController
      */
     public function suggestAction()
     {
+        // TODO Move queries to a repository
         $datagrid = $this->datagridManager->get(Animal::class);
 
         $search = $this->params()->fromQuery('q', '');
@@ -95,7 +96,7 @@ class AnimalController extends AbstractActionController
         unset($criteria['q']);
 
         $queryBuilder = $datagrid->createSuggestQueryBuilder($search, 0, true, $criteria);
-        $result = $queryBuilder->getQuery()->getResult();
+        $result = $queryBuilder->getQuery()->enableResultCache()->getResult();
         foreach ($result as $id => $entity) {
             $result[$id] = [
                 'value' => $id,

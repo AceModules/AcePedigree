@@ -169,6 +169,26 @@ class AdvancedSearch extends Form
         $maxMKFilter->getValidatorChain()->attach(new Validator\Between(['min' => 0, 'max' => 100]));
         $this->filter->add($maxMKFilter);
 
+        $minRPP = new Element\Number('minRPP');
+        $minRPP->setAttribute('placeholder', 'Min. PP %');
+        $minRPP->setAttribute('step', '0.1');
+        $this->add($minRPP);
+
+        $minRPPFilter = new Input('minRPP');
+        $minRPPFilter->setRequired(false);
+        $minRPPFilter->getValidatorChain()->attach(new Validator\Between(['min' => 0, 'max' => 100]));
+        $this->filter->add($minRPPFilter);
+
+        $maxRPP = new Element\Number('maxRPP');
+        $maxRPP->setAttribute('placeholder', 'Max. PP %');
+        $maxRPP->setAttribute('step', '0.1');
+        $this->add($maxRPP);
+
+        $maxRPPFilter = new Input('maxRPP');
+        $maxRPPFilter->setRequired(false);
+        $maxRPPFilter->getValidatorChain()->attach(new Validator\Between(['min' => 0, 'max' => 100]));
+        $this->filter->add($maxRPPFilter);
+
         $buttons = new Form('buttons');
         $buttons->setOption('layout', \TwbsHelper\Form\View\Helper\Form::LAYOUT_INLINE);
         $buttons->setAttribute('class', 'form-group');

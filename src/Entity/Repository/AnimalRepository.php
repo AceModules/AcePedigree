@@ -165,6 +165,14 @@ class AnimalRepository extends EntityRepository
                     $queryBuilder->andWhere($queryBuilder->expr()->lte('entity.averageCovariance', $searchParam / 100));
                     break;
 
+                case 'minRPP':
+                    $queryBuilder->andWhere($queryBuilder->expr()->gte('entity.relativePopularity', $searchParam / 100));
+                    break;
+
+                case 'maxRPP':
+                    $queryBuilder->andWhere($queryBuilder->expr()->lte('entity.relativePopularity', $searchParam / 100));
+                    break;
+
                 default:
                     $metadata = $this->getEntityManager()->getClassMetadata(Animal::class);
                     $reflection = $metadata->getReflectionClass();
@@ -209,6 +217,8 @@ class AnimalRepository extends EntityRepository
                 min($animal->getId(), $relative->getId()),
                 max($animal->getId(), $relative->getId()),
                 $animal->getCovarianceWith($relative->getDTO()),
+                ($animal->getId() != $relative->getId() && $animal->isDescendantOf($relative->getDTO()) ? $relative->getId() :
+                    ($animal->getId() != $relative->getId() && $relative->isDescendantOf($animal->getDTO()) ? $animal->getId() : null))
             ];
             $types[] = Connection::PARAM_STR_ARRAY;
         }
@@ -216,7 +226,7 @@ class AnimalRepository extends EntityRepository
         $this->getEntityManager()
             ->getConnection()
             ->executeQuery(
-                'INSERT INTO pedigree_animal_kinship (animal1Id, animal2Id, covariance) VALUES ' . implode(', ', $placeholders),
+                'INSERT INTO pedigree_animal_kinship (animal1Id, animal2Id, covariance, ancestorId) VALUES ' . implode(', ', $placeholders),
                 $values,
                 $types
             );
@@ -224,7 +234,7 @@ class AnimalRepository extends EntityRepository
         // This could potentially be slow in a very large db
         $this->getEntityManager()
             ->getConnection()
-            ->executeQuery('UPDATE pedigree_animal d JOIN pedigree_animal_statistics s ON s.animalId = d.id SET d.inbreedingCoefficient = s.inbreedingCoefficient, d.averageCovariance = s.averageCovariance');
+            ->executeQuery('UPDATE pedigree_animal d JOIN pedigree_animal_statistics s ON s.animalId = d.id SET d.inbreedingCoefficient = s.inbreedingCoefficient, d.averageCovariance = s.averageCovariance, d.relativePopularity = s.relativePopularity');
     }
 
     /**

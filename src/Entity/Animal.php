@@ -192,6 +192,14 @@ class Animal
     protected $averageCovariance;
 
     /**
+     * @var float
+     *
+     * @ORM\Column(type="float", nullable=true)
+     * @Form\Exclude()
+     */
+    protected $relativePopularity;
+
+    /**
      * @var int
      * 
      * @ORM\Column(type="integer")
@@ -746,7 +754,7 @@ class Animal
 
     /**
      * @return string
-     * @Grid\Header(label="COI", sort={"inbreedingCoefficient", "averageCovariance", "-name"}, reverse=true)
+     * @Grid\Header(label="COI", sort={"inbreedingCoefficient", "averageCovariance", "relativePopularity", "-name"}, reverse=true)
      */
     public function getInbreedingCoefficientDisplay()
     {
@@ -767,11 +775,28 @@ class Animal
 
     /**
      * @return string
-     * @Grid\Header(label="MK", sort={"averageCovariance", "inbreedingCoefficient", "-name"}, reverse=true)
+     * @Grid\Header(label="MK", sort={"averageCovariance", "relativePopularity", "inbreedingCoefficient", "-name"}, reverse=true)
      */
     public function getAverageCovarianceDisplay()
     {
         return round(100 * $this->averageCovariance, 2) . '%';
+    }
+
+    /**
+     * @return float
+     */
+    public function getRelativePopularity()
+    {
+        return $this->relativePopularity;
+    }
+
+    /**
+     * @return string
+     * @Grid\Header(label="RPP", sort={"relativePopularity", "averageCovariance", "inbreedingCoefficient", "-name"}, reverse=true)
+     */
+    public function getRelativePopularityDisplay()
+    {
+        return round(100 * $this->relativePopularity, 2) . '%';
     }
 
     /**

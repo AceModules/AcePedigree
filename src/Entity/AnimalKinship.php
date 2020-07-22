@@ -38,6 +38,15 @@ class AnimalKinship
      */
     protected $covariance;
 
+    /**
+     * @var Animal
+     *
+     * @ORM\ManyToOne(targetEntity="Animal")
+     * @ORM\JoinColumn(name="ancestorId", referencedColumnName="id", nullable=true)
+     * @ORM\Cache(usage="NONSTRICT_READ_WRITE")
+     */
+    protected $ancestor;
+
     private function __construct()
     { }
 
@@ -63,5 +72,13 @@ class AnimalKinship
     public function getCovariance()
     {
         return $this->covariance;
+    }
+
+    /**
+     * @return Animal
+     */
+    public function getAncestor()
+    {
+        return $this->ancestor;
     }
 }

@@ -483,19 +483,6 @@ class Animal
      * @Gedmo\Versioned
      * @Form\Required(false)
      * @Form\Type("Laminas\Form\Element\Textarea")
-     * @Form\Options({"label": "Features"})
-     * @Form\Filter({"name": "ToNull"})
-     * @Grid\Search()
-     */
-    protected $features;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(type="string", nullable=true)
-     * @Gedmo\Versioned
-     * @Form\Required(false)
-     * @Form\Type("Laminas\Form\Element\Textarea")
      * @Form\Options({"label": "Titles"})
      * @Form\Filter({"name": "ToNull"})
      * @Grid\Search()
@@ -1108,22 +1095,6 @@ class Animal
     public function setOfaNumber($ofaNumber)
     {
         $this->ofaNumber = $ofaNumber;
-    }
-
-    /**
-     * @return string
-     */
-    public function getFeatures()
-    {
-        return $this->features;
-    }
-
-    /**
-     * @param string $features
-     */
-    public function setFeatures($features)
-    {
-        $this->features = $features;
     }
 
     /**

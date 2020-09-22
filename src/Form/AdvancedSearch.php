@@ -108,10 +108,6 @@ class AdvancedSearch extends Form
         $colorFilter->setRequired(false);
         $this->filter->add($colorFilter);
 
-        $features = new Element\Text('features');
-        $features->setAttribute('placeholder', 'Features');
-        $this->add($features);
-
         $titles = new Element\Text('titles');
         $titles->setAttribute('placeholder', 'Titles');
         $this->add($titles);

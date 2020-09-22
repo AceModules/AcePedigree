@@ -13,19 +13,20 @@
 <div class="container">
     <h3>Details</h3>
     <div class="row row-no-gutters">
-        <div class="col-sm-4 no-print">
-            &lt;!-- Image --!&gt;
-        </div>
         <div class="col-sm-4">
             <table class="table table-condensed table-hover">
                 <tbody>
                     <tr>
-                        <th>Registered Name</th>
+                        <th>Name</th>
                         <td><?= $entity->getName() ?></td>
                     </tr>
                     <tr>
                         <th>Call Name</th>
                         <td><?= $entity->getCallName() ?></td>
+                    </tr>
+                    <tr>
+                        <th>Registration</th>
+                        <td><?= $entity->getRegistration() ?></td>
                     </tr>
                     <tr>
                         <th>Breeder(s)</th>
@@ -55,9 +56,19 @@
                         <th>Dam</th>
                         <td><?= $this->entityLink($entity->getDam()) ?></td>
                     </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-sm-4">
+            <table class="table table-condensed table-hover">
+                <tbody>
                     <tr>
                         <th>Sex</th>
                         <td><?= $entity->getSexDisplay() ?></td>
+                    </tr>
+                    <tr>
+                        <th>Color</th>
+                        <td><?= $entity->getColor() ?></td>
                     </tr>
                     <tr>
                         <th>Date of Birth</th>
@@ -83,13 +94,23 @@
                         <th>Weight</th>
                         <td><?= $entity->getWeight() ?></td>
                     </tr>
-                    <tr>
-                        <th>Color</th>
-                        <td><?= $entity->getColor() ?></td>
-                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-sm-4">
+            <table class="table table-condensed table-hover">
+                <tbody>
                     <tr>
                         <th>Titles</th>
                         <td><?= $entity->getTitles() ?></td>
+                    </tr>
+                    <tr>
+                        <th>OFA</th>
+                        <td><?= $this->ofaLink($entity->getOfaNumber()) ?></td>
+                    </tr>
+                    <tr>
+                        <th>Notes</th>
+                        <td><?= $entity->getNotes() ?></td>
                     </tr>
 
                     <?php if ($entity->getOffspringCount()) : ?>
@@ -102,25 +123,6 @@
                         </td>
                     </tr>
                     <?php endif; ?>
-
-                </tbody>
-            </table>
-        </div>
-        <div class="col-sm-4">
-            <table class="table table-condensed table-hover">
-                <tbody>
-                    <tr>
-                        <th>Registration</th>
-                        <td><?= $entity->getRegistration() ?></td>
-                    </tr>
-                    <tr>
-                        <th>OFA</th>
-                        <td><?= $this->ofaLink($entity->getOfaNumber()) ?></td>
-                    </tr>
-                    <tr>
-                        <th>Notes</th>
-                        <td><?= $entity->getNotes() ?></td>
-                    </tr>
 
                     <?php if (count($fullSiblings)) : ?>
                     <tr>

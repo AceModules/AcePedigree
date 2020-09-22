@@ -792,7 +792,7 @@ class Animal
 
     /**
      * @return string
-     * @Grid\Header(label="RPP", sort={"relativePopularity", "averageCovariance", "inbreedingCoefficient", "-name"}, reverse=true)
+     * @Grid\Header(label="RP", sort={"relativePopularity", "averageCovariance", "inbreedingCoefficient", "-name"}, reverse=true)
      */
     public function getRelativePopularityDisplay()
     {

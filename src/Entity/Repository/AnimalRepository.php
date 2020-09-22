@@ -165,11 +165,11 @@ class AnimalRepository extends EntityRepository
                     $queryBuilder->andWhere($queryBuilder->expr()->lte('entity.averageCovariance', $searchParam / 100));
                     break;
 
-                case 'minRPP':
+                case 'minRP':
                     $queryBuilder->andWhere($queryBuilder->expr()->gte('entity.relativePopularity', $searchParam / 100));
                     break;
 
-                case 'maxRPP':
+                case 'maxRP':
                     $queryBuilder->andWhere($queryBuilder->expr()->lte('entity.relativePopularity', $searchParam / 100));
                     break;
 

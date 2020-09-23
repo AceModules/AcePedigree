@@ -2,6 +2,15 @@
 <?php $this->headTitle($title); ?>
 <h2 class="page-header"><?= $title ?></h2>
 
+<?php if ($mate): ?>
+    <h5 class="admin-search">
+        Showing coefficient of relationship (RC) with
+        <a class="badge badge-primary" href="<?= str_replace('/index', '', $this->url('ace-pedigree/animals/view', ['id' => $mate->getId()])) ?>">
+            <?= $mate ?>
+        </a>
+    </h5>
+<?php endif; ?>
+
 <div class="table-responsive">
     <table class="table table-striped">
         <thead>
@@ -31,6 +40,9 @@
                             <td><?= $this->entityLink($value) ?></td>
                         <?php elseif (is_bool($value) && $value) : ?>
                             <td class="text-center"><span class="fas fa-check" aria-hidden="true"></span></td>
+                        <?php elseif ($column['label'] == 'RC'): ?>
+                            <?php $key = array_search($entity->getId(), array_column($rcData, 'animalId')); ?>
+                            <td><?= $key !== false ? round(100 * $rcData[$key]['covariance'], 2) : 0 ?>%</td>
                         <?php else : ?>
                             <td><?= $value ?></td>
                         <?php endif; ?>

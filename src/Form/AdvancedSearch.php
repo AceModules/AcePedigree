@@ -185,6 +185,15 @@ class AdvancedSearch extends Form
         $maxRPFilter->getValidatorChain()->attach(new Validator\Between(['min' => 0, 'max' => 100]));
         $this->filter->add($maxRPFilter);
 
+        $mate = new Element\Hidden('mate');
+        $this->add($mate);
+
+        $minRC = new Element\Hidden('minRC');
+        $this->add($minRC);
+
+        $maxRC = new Element\Hidden('maxRC');
+        $this->add($maxRC);
+
         $buttons = new Form('buttons');
         $buttons->setOption('layout', \TwbsHelper\Form\View\Helper\Form::LAYOUT_INLINE);
         $buttons->setAttribute('class', 'form-group');

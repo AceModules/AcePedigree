@@ -40,6 +40,7 @@ class AnimalController extends AbstractActionController
     public function indexAction()
     {
         $datagrid = $this->datagridManager->get(Animal::class);
+        $columns = $datagrid->getHeaderColumns();
 
         $page = (int) $this->params()->fromQuery('page', 1);
         $sort = $this->params()->fromQuery('sort');
@@ -51,6 +52,21 @@ class AnimalController extends AbstractActionController
         if ($form->isValid()) {
             $search = array_filter($form->getData());
             unset($search['buttons']);
+        }
+
+        $mate = null;
+        $rcData = [];
+
+        if (isset($search['mate'])) {
+            $mate = $this->entityManager->getRepository(Animal::class)->find($search['mate']);
+
+            if (!$mate) {
+                $this->getResponse()->setStatusCode(404);
+                return;
+            }
+
+            $rcData = $this->entityManager->getRepository(Animal::class)->getRelationshipCoefficientData($mate);
+            $columns[array_search('RC', array_column($columns, 'label'))]['hidden'] = false;
         }
 
         if ($search) {
@@ -65,8 +81,10 @@ class AnimalController extends AbstractActionController
         $paginator->setCurrentPageNumber($page);
 
         return [
-            'columns' => $datagrid->getHeaderColumns(),
+            'columns' => $columns,
             'result'  => $paginator,
+            'mate'    => $mate,
+            'rcData'  => $rcData,
             'page'    => $page,
             'sort'    => $sort,
             'search'  => $search,

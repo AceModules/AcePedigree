@@ -8,6 +8,7 @@ use AcePedigree\Entity\AnimalKinship;
 use Doctrine\DBAL\Connection;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\QueryBuilder;
+use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\ORM\Query\ResultSetMappingBuilder;
 
 class AnimalRepository extends EntityRepository
@@ -173,6 +174,34 @@ class AnimalRepository extends EntityRepository
                     $queryBuilder->andWhere($queryBuilder->expr()->lte('entity.relativePopularity', $searchParam / 100));
                     break;
 
+                case 'mate':
+                    $queryBuilder->leftJoin(AnimalKinship::class, 'entity_kinship', Join::WITH, $queryBuilder->expr()->orX(
+                        $queryBuilder->expr()->andX(
+                            $queryBuilder->expr()->eq('entity_kinship.animal1', $searchParam),
+                            $queryBuilder->expr()->eq('entity_kinship.animal2', 'entity')
+                        ),
+                        $queryBuilder->expr()->andX(
+                            $queryBuilder->expr()->eq('entity_kinship.animal1', 'entity'),
+                            $queryBuilder->expr()->eq('entity_kinship.animal2', $searchParam)
+                        )
+                    ));
+                    break;
+
+                case 'minRC':
+                    if (isset($searchParams['mate'])) {
+                        $queryBuilder->andWhere($queryBuilder->expr()->gte('entity_kinship.covariance', $searchParam / 100));
+                    }
+                    break;
+
+                case 'maxRC':
+                    if (isset($searchParams['mate'])) {
+                        $queryBuilder->andWhere($queryBuilder->expr()->orX(
+                            $queryBuilder->expr()->lte('entity_kinship.covariance', $searchParam / 100),
+                            $queryBuilder->expr()->isNull('entity_kinship.covariance')
+                        ));
+                    }
+                    break;
+
                 default:
                     $metadata = $this->getEntityManager()->getClassMetadata(Animal::class);
                     $reflection = $metadata->getReflectionClass();
@@ -235,6 +264,24 @@ class AnimalRepository extends EntityRepository
         $this->getEntityManager()
             ->getConnection()
             ->executeQuery('UPDATE pedigree_animal d JOIN pedigree_animal_statistics s ON s.animalId = d.id SET d.inbreedingCoefficient = s.inbreedingCoefficient, d.averageCovariance = s.averageCovariance, d.relativePopularity = s.relativePopularity');
+    }
+
+    /**
+     * @param Animal $animal
+     * @return array
+     */
+    public function getRelationshipCoefficientData(Animal $animal)
+    {
+        return $this->getEntityManager()
+            ->createQueryBuilder()
+            ->select('CASE WHEN k.animal1 = :animal THEN IDENTITY(k.animal2) ELSE IDENTITY(k.animal1) END AS animalId, k.covariance')
+            ->from(AnimalKinship::class, 'k')
+            ->where('k.animal1 = :animal')
+            ->orWhere('k.animal2 = :animal')
+            ->setParameter('animal', $animal)
+            ->getQuery()
+            ->enableResultCache()
+            ->getArrayResult();
     }
 
     /**

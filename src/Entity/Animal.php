@@ -728,6 +728,16 @@ class Animal
     }
 
     /**
+     * @return string
+     * @Grid\Header(label="RC", sort={"kinship.covariance", "averageCovariance", "relativePopularity", "-name"}, customJoin=true, hidden=true)
+     */
+    public function getRelationshipCoefficientDisplay()
+    {
+        // Method overridden by view, should not be called
+        return '0%';
+    }
+
+    /**
      * @return float
      */
     public function getInbreedingCoefficient()

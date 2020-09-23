@@ -7,6 +7,9 @@
     Relationionship Coefficient of Sire and Dam (RC): <?= round(100 * $animal->getCoefficientOfRelationship(), 2) ?>%<br />
     Ancestor Loss (AVK): <?= round(100 * $animal->getAncestorLoss(), 2) ?>%<br />
     Mean Kinship with Population (MK): <?= round(100 * $animal->getAverageCovariance(), 2) ?>%<br />
+    <?php if ($animal->getId()): ?>
+    Relative Popularity as Ancestor (RP): <?= round(100 * $animal->getRelativePopularity(), 2) ?>%<br />
+    <?php endif; ?>
 
     <small class="text-<?= $animal->getLastCompleteGen() < $maxGen ? 'danger' : 'success'; ?>">
         <i>Calculations based on <?= $animal->getLastCompleteGen() ?> complete generation(s) of <?= $maxGen ?> requested.</i>

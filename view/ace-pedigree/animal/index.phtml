@@ -7,6 +7,7 @@
         <thead>
             <tr>
                 <?php foreach ($columns as $column) : ?>
+                    <?php if ($column['hidden']): continue; endif; ?>
                     <?php if ($column['sortName']) : ?>
                         <th><?= $this->sortControl($sort, $column['sortName'], $column['label'], $column['sortReverse'], $search + ['page' => $page]) ?></th>
                     <?php else : ?>
@@ -24,8 +25,8 @@
             <?php foreach ($result as $entity) : ?>
                 <tr>
                     <?php foreach ($columns as $column) : ?>
-                        <?php $method = $column['method']; ?>
-                        <?php $value = $entity->$method(); ?>
+                        <?php if ($column['hidden']): continue; endif; ?>
+                        <?php $value = call_user_func([$entity, $column['method']]); ?>
                         <?php if (is_object($value)) : ?>
                             <td><?= $this->entityLink($value) ?></td>
                         <?php elseif (is_bool($value) && $value) : ?>

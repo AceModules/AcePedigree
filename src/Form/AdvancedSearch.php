@@ -166,7 +166,7 @@ class AdvancedSearch extends Form
         $this->filter->add($maxMKFilter);
 
         $minRP = new Element\Number('minRP');
-        $minRP->setAttribute('placeholder', 'Min. PP %');
+        $minRP->setAttribute('placeholder', 'Min. RP %');
         $minRP->setAttribute('step', '0.1');
         $this->add($minRP);
 
@@ -176,7 +176,7 @@ class AdvancedSearch extends Form
         $this->filter->add($minRPFilter);
 
         $maxRP = new Element\Number('maxRP');
-        $maxRP->setAttribute('placeholder', 'Max. PP %');
+        $maxRP->setAttribute('placeholder', 'Max. RP %');
         $maxRP->setAttribute('step', '0.1');
         $this->add($maxRP);
 

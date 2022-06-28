@@ -4,7 +4,7 @@ namespace AcePedigree\Entity\Subscriber;
 
 use AcePedigree\Entity\Animal;
 use Doctrine\Common\EventSubscriber;
-use Doctrine\Common\Persistence\Event\LifecycleEventArgs;
+use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Events;
 
 class AnimalSubscriber implements EventSubscriber

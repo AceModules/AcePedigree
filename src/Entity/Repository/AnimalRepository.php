@@ -232,7 +232,7 @@ class AnimalRepository extends EntityRepository
             ->getConnection()
             ->executeQuery(
                 'DELETE FROM pedigree_animal_kinship WHERE animal1Id = :animal OR animal2Id = :animal',
-                [':animal' => $animal->getId()]
+                ['animal' => $animal->getId()]
             );
 
         $relatives = $this->findByRelative($animal); // NOTE Not cached

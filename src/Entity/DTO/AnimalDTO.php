@@ -270,7 +270,7 @@ class AnimalDTO
         }
 
         $generationTotals = [];
-        $paths = call_user_func_array('array_merge', $this->ancestorPaths[$dto->getId()]);
+        $paths = call_user_func_array('array_merge', array_values($this->ancestorPaths[$dto->getId()]));
 
         array_walk($paths, function($path) use (&$generationTotals) {
             $generation = count($path);
@@ -307,7 +307,7 @@ class AnimalDTO
         $this->ancestorPaths[$parent->getId()][$line][] = [$parent->getId()];
 
         foreach ($parent->getAncestorPaths() as $ancestorId => $paths) {
-            $paths = call_user_func_array('array_merge', $paths);
+            $paths = call_user_func_array('array_merge', array_values($paths));
             array_walk($paths, function (&$path) use ($parent) {
                 array_unshift($path, $parent->getId());
             });

@@ -40,9 +40,9 @@ class Person
      * @Form\Required(true)
      * @Form\Type("Laminas\Form\Element\Text")
      * @Form\Options({"label": "Name"})
-     * @Form\Filter({"name": "StringTrim"})
-     * @Form\Filter({"name": "StripTags"})
-     * @Form\Validator({"name": "StringLength", "options": {"max": "80"}})
+     * @Form\Filter("StringTrim")
+     * @Form\Filter("StripTags")
+     * @Form\Validator("StringLength", options={"max":  80})
      * @Grid\Search()
      * @Grid\Suggest()
      */
@@ -56,7 +56,7 @@ class Person
      * @Form\Required(false)
      * @Form\Type("Laminas\Form\Element\Email")
      * @Form\Options({"label": "Email"})
-     * @Form\Filter({"name": "ToNull"})
+     * @Form\Filter("ToNull")
      */
     protected $email;
 
@@ -68,7 +68,7 @@ class Person
      * @Form\Required(false)
      * @Form\Type("Laminas\Form\Element\Url")
      * @Form\Options({"label": "Website"})
-     * @Form\Filter({"name": "ToNull"})
+     * @Form\Filter("ToNull")
      */
     protected $website;
 
@@ -80,10 +80,10 @@ class Person
      * @Form\Required(false)
      * @Form\Type("Laminas\Form\Element\Text")
      * @Form\Options({"label": "Street Address"})
-     * @Form\Filter({"name": "StringTrim"})
-     * @Form\Filter({"name": "StripTags"})
-     * @Form\Filter({"name": "ToNull"})
-     * @Form\Validator({"name": "StringLength", "options": {"max": "50"}})
+     * @Form\Filter("StringTrim")
+     * @Form\Filter("StripTags")
+     * @Form\Filter("ToNull")
+     * @Form\Validator("StringLength", options={"max":  50})
      */
     protected $street;
 
@@ -95,10 +95,10 @@ class Person
      * @Form\Required(false)
      * @Form\Type("Laminas\Form\Element\Text")
      * @Form\Options({"label": "City"})
-     * @Form\Filter({"name": "StringTrim"})
-     * @Form\Filter({"name": "StripTags"})
-     * @Form\Filter({"name": "ToNull"})
-     * @Form\Validator({"name": "StringLength", "options": {"max": "30"}})
+     * @Form\Filter("StringTrim")
+     * @Form\Filter("StripTags")
+     * @Form\Filter("ToNull")
+     * @Form\Validator("StringLength", options={"max":  30})
      */
     protected $city;
 
@@ -110,10 +110,10 @@ class Person
      * @Form\Required(false)
      * @Form\Type("Laminas\Form\Element\Text")
      * @Form\Options({"label": "State/Region"})
-     * @Form\Filter({"name": "StringTrim"})
-     * @Form\Filter({"name": "StripTags"})
-     * @Form\Filter({"name": "ToNull"})
-     * @Form\Validator({"name": "StringLength", "options": {"max": "30"}})
+     * @Form\Filter("StringTrim")
+     * @Form\Filter("StripTags")
+     * @Form\Filter("ToNull")
+     * @Form\Validator("StringLength", options={"max":  30})
      */
     protected $region;
 
@@ -125,10 +125,10 @@ class Person
      * @Form\Required(false)
      * @Form\Type("Laminas\Form\Element\Text")
      * @Form\Options({"label": "Postal Code"})
-     * @Form\Filter({"name": "StringTrim"})
-     * @Form\Filter({"name": "StripTags"})
-     * @Form\Filter({"name": "ToNull"})
-     * @Form\Validator({"name": "StringLength", "options": {"max": "15"}})
+     * @Form\Filter("StringTrim")
+     * @Form\Filter("StripTags")
+     * @Form\Filter("ToNull")
+     * @Form\Validator("StringLength", options={"max":  15})
      */
     protected $postalCode;
 
@@ -151,7 +151,7 @@ class Person
      *         "params": {"action": "suggest", "entity": "countries"}
      *     }
      * })
-     * @Form\Filter({"name": "ToNull"})
+     * @Form\Filter("ToNull")
      * @Grid\Search(columnName="country.name")
      */
     protected $country;
@@ -164,7 +164,7 @@ class Person
      * @Form\Required(false)
      * @Form\Type("AceAdmin\Form\Element\Phone")
      * @Form\Options({"label": "Phone"})
-     * @Form\Filter({"name": "ToNull"})
+     * @Form\Filter("ToNull")
      */
     protected $phone;
 

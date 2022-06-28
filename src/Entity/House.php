@@ -40,9 +40,9 @@ class House
      * @Form\Required(true)
      * @Form\Type("Laminas\Form\Element\Text")
      * @Form\Options({"label": "Name"})
-     * @Form\Filter({"name": "StringTrim"})
-     * @Form\Filter({"name": "StripTags"})
-     * @Form\Validator({"name": "StringLength", "options": {"max": "80"}})
+     * @Form\Filter("StringTrim")
+     * @Form\Filter("StripTags")
+     * @Form\Validator("StringLength", options={"max":  80})
      * @Grid\Search()
      * @Grid\Suggest()
      */

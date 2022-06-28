@@ -62,9 +62,9 @@ class Animal
      * @Form\Required(true)
      * @Form\Type("Laminas\Form\Element\Text")
      * @Form\Options({"label": "Registered Name"})
-     * @Form\Filter({"name": "StringTrim"})
-     * @Form\Filter({"name": "StripTags"})
-     * @Form\Validator({"name": "StringLength", "options": {"max": "50"}})
+     * @Form\Filter("StringTrim")
+     * @Form\Filter("StripTags")
+     * @Form\Validator("StringLength", options={"max":  50})
      * @Grid\Search()
      * @Grid\Suggest()
      */
@@ -78,10 +78,10 @@ class Animal
      * @Form\Required(false)
      * @Form\Type("Laminas\Form\Element\Text")
      * @Form\Options({"label": "Call Name"})
-     * @Form\Filter({"name": "StringTrim"})
-     * @Form\Filter({"name": "StripTags"})
-     * @Form\Filter({"name": "ToNull"})
-     * @Form\Validator({"name": "StringLength", "options": {"max": "15"}})
+     * @Form\Filter("StringTrim")
+     * @Form\Filter("StripTags")
+     * @Form\Filter("ToNull")
+     * @Form\Validator("StringLength", options={"max":  15})
      * @Grid\Search()
      */
     protected $callName;
@@ -94,10 +94,10 @@ class Animal
      * @Form\Required(false)
      * @Form\Type("Laminas\Form\Element\Text")
      * @Form\Options({"label": "Registration"})
-     * @Form\Filter({"name": "StringTrim"})
-     * @Form\Filter({"name": "StripTags"})
-     * @Form\Filter({"name": "ToNull"})
-     * @Form\Validator({"name": "StringLength", "options": {"max": "80"}})
+     * @Form\Filter("StringTrim")
+     * @Form\Filter("StripTags")
+     * @Form\Filter("ToNull")
+     * @Form\Validator("StringLength", options={"max":  80})
      * @Grid\Search()
      * @Grid\Suggest()
      */
@@ -122,7 +122,7 @@ class Animal
      *         "params": {"action": "suggest", "entity": AcePedigree\HOUSE_PLURAL}
      *     }
      * })
-     * @Form\Filter({"name": "ToNull"})
+     * @Form\Filter("ToNull")
      * @Grid\Search(columnName="house.name")
      */
     protected $house;
@@ -147,7 +147,7 @@ class Animal
      *         "query": {"sex": AcePedigree\Entity\Animal::SEX_MALE}
      *     }
      * })
-     * @Form\Filter({"name": "ToNull"})
+     * @Form\Filter("ToNull")
      */
     protected $sire;
 
@@ -171,7 +171,7 @@ class Animal
      *         "query": {"sex": AcePedigree\Entity\Animal::SEX_FEMALE}
      *     }
      * })
-     * @Form\Filter({"name": "ToNull"})
+     * @Form\Filter("ToNull")
      */
     protected $dam;
 
@@ -236,7 +236,7 @@ class Animal
      *     }
      * })
      * @Form\Attributes({"multiple": true})
-     * @Form\Filter({"name": "ToNull"})
+     * @Form\Filter("ToNull")
      * @Grid\Search(columnName="breeders.name")
      */
     protected $breeders;
@@ -263,7 +263,7 @@ class Animal
      *     }
      * })
      * @Form\Attributes({"multiple": true})
-     * @Form\Filter({"name": "ToNull"})
+     * @Form\Filter("ToNull")
      * @Grid\Search(columnName="owners.name")
      */
     protected $owners;
@@ -276,8 +276,8 @@ class Animal
      * @Form\Required(false)
      * @Form\Type("Laminas\Form\Element\Number")
      * @Form\Options({"label": "Birth Year"})
-     * @Form\Filter({"name": "ToNull"})
-     * @Form\Validator({"name": "Between", "options": {"min": "1900", "max": "2100"}})
+     * @Form\Filter("ToNull")
+     * @Form\Validator("Between", options={"min": 1900, "max": 2100})
      * @Grid\Search()
      */
     protected $birthYear;
@@ -305,7 +305,7 @@ class Animal
      *      "11": "November",
      *      "12": "December",
      * }})
-     * @Form\Filter({"name": "ToNull"})
+     * @Form\Filter("ToNull")
      */
     protected $birthMonth;
 
@@ -317,8 +317,8 @@ class Animal
      * @Form\Required(false)
      * @Form\Type("Laminas\Form\Element\Number")
      * @Form\Options({"label": "Birth Day"})
-     * @Form\Filter({"name": "ToNull"})
-     * @Form\Validator({"name": "Between", "options": {"min": "1", "max": "31"}})
+     * @Form\Filter("ToNull")
+     * @Form\Validator("Between", options={"min": 1, "max": 31})
      */
     protected $birthDay;
 
@@ -330,8 +330,8 @@ class Animal
      * @Form\Required(false)
      * @Form\Type("Laminas\Form\Element\Number")
      * @Form\Options({"label": "Death Year"})
-     * @Form\Filter({"name": "ToNull"})
-     * @Form\Validator({"name": "Between", "options": {"min": "1900", "max": "2100"}})
+     * @Form\Filter("ToNull")
+     * @Form\Validator("Between", options={"min": 1900, "max": 2100})
      */
     protected $deathYear;
 
@@ -358,7 +358,7 @@ class Animal
      *      "11": "November",
      *      "12": "December",
      * }})
-     * @Form\Filter({"name": "ToNull"})
+     * @Form\Filter("ToNull")
      */
     protected $deathMonth;
 
@@ -370,8 +370,8 @@ class Animal
      * @Form\Required(false)
      * @Form\Type("Laminas\Form\Element\Number")
      * @Form\Options({"label": "Death Day"})
-     * @Form\Filter({"name": "ToNull"})
-     * @Form\Validator({"name": "Between", "options": {"min": "1", "max": "31"}})
+     * @Form\Filter("ToNull")
+     * @Form\Validator("Between", options={"min": 1, "max": 31})
      */
     protected $deathDay;
 
@@ -394,7 +394,7 @@ class Animal
      *         "params": {"action": "suggest", "entity": "countries"}
      *     }
      * })
-     * @Form\Filter({"name": "ToNull"})
+     * @Form\Filter("ToNull")
      * @Grid\Search(columnName="birthCountry.name")
      */
     protected $birthCountry;
@@ -418,7 +418,7 @@ class Animal
      *         "params": {"action": "suggest", "entity": "countries"}
      *     }
      * })
-     * @Form\Filter({"name": "ToNull"})
+     * @Form\Filter("ToNull")
      * @Grid\Search(columnName="homeCountry.name")
      */
     protected $homeCountry;
@@ -431,8 +431,8 @@ class Animal
      * @Form\Required(false)
      * @Form\Type("Laminas\Form\Element\Number")
      * @Form\Options({"label": "Height (Inches)"})
-     * @Form\Filter({"name": "ToNull"})
-     * @Form\Validator({"name": "Between", "options": {"min": "4", "max": "30"}})
+     * @Form\Filter("ToNull")
+     * @Form\Validator("Between", options={"min": 4, "max": 30})
      */
     protected $height;
 
@@ -444,8 +444,8 @@ class Animal
      * @Form\Required(false)
      * @Form\Type("Laminas\Form\Element\Number")
      * @Form\Options({"label": "Weight (Pounds)"})
-     * @Form\Filter({"name": "ToNull"})
-     * @Form\Validator({"name": "Between", "options": {"min": "4", "max": "200"}})
+     * @Form\Filter("ToNull")
+     * @Form\Validator("Between", options={"min": 4, "max": 200})
      */
     protected $weight;
 
@@ -458,7 +458,7 @@ class Animal
      * @Form\Type("Laminas\Form\Element\Select")
      * @Form\Options({"label": "Color"})
      * @Form\Attributes({"options": AcePedigree\ANIMAL_COLORS})
-     * @Form\Filter({"name": "ToNull"})
+     * @Form\Filter("ToNull")
      * @Grid\Search()
      */
     protected $color;
@@ -471,8 +471,8 @@ class Animal
      * @Form\Required(false)
      * @Form\Type("Laminas\Form\Element\Number")
      * @Form\Options({"label": "OFA Number"})
-     * @Form\Filter({"name": "ToNull"})
-     * @Form\Validator({"name":"Regex", "options":{"pattern":"/^\d{7}$/"}})
+     * @Form\Filter("ToNull")
+     * @Form\Validator("Regex", options={"pattern": "/^\d{7}$/"})
      */
     protected $ofaNumber;
 
@@ -484,7 +484,7 @@ class Animal
      * @Form\Required(false)
      * @Form\Type("Laminas\Form\Element\Textarea")
      * @Form\Options({"label": "Titles"})
-     * @Form\Filter({"name": "ToNull"})
+     * @Form\Filter("ToNull")
      * @Grid\Search()
      */
     protected $titles;
@@ -497,7 +497,7 @@ class Animal
      * @Form\Required(false)
      * @Form\Type("Laminas\Form\Element\Textarea")
      * @Form\Options({"label": "Notes"})
-     * @Form\Filter({"name": "ToNull"})
+     * @Form\Filter("ToNull")
      * @Grid\Search()
      */
     protected $notes;
